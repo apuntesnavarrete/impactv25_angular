@@ -1,1 +1,25 @@
 /* You can add global styles to this file, and also import other style files */
+/* styles.css o styles.scss */
+
+/* Definición de variables globales */
+:root {
+    --color-fondo: #f5f5dc; /* Fondo crema */
+    --color-texto: #1E90FF; /* Azul bonito */
+    --color-hover: #4682B4; /* Azul oscuro al pasar el mouse */
+    --font-family: Arial, sans-serif; /* Familia de fuente */
+    --font-size: 16px; /* Tamaño de fuente */
+    --padding: 10px 20px; /* Padding del contenedor */
+    --border-radius: 8px; /* Radio de bordes */
+    --color-fondo-menu: #333; /* Fondo oscuro para el menú */
+    --color-texto-menu: #fff; /* Blanco para el texto del menú */
+    --color-hover-menu: #4682B4; /* Azul para hover en menú */
+    --color-active-menu: #1E90FF; /* Azul para enlace activo */
+    --font-size-menu: 18px; /* Tamaño de fuente del menú */
+    --shadow-card: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra para la card */
+    --font-size-title: 24px; /* Tamaño de fuente del título */
+  }
+
+  body{
+    background-color: var(--color-fondo);
+
+  }

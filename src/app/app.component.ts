@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { LoginLinkComponent } from './login-link/login-link.component';
-import { MenuGeneralComponent } from './menu-general/menu-general.component';
-import { MenuMainComponent } from './menu-main/menu-main.component';
+import { LoginLinkComponent } from './components/login-link/login-link.component';
+import { MenuGeneralComponent } from './components/menu-general/menu-general.component';
+
 
 @Component({
   selector: 'app-root',

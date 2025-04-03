@@ -1,0 +1,55 @@
+/* menu-general.component.css */
+
+/* Estilos del contenedor del menú */
+ul {
+    list-style-type: none; /* Quitar los puntos de la lista */
+    margin: 0;
+    padding: 0;
+    background-color: var(--color-fondo-menu); /* Fondo oscuro */
+    display: flex;
+    justify-content: center; /* Centrar los elementos */
+    align-items: center;
+  }
+  
+  li {
+    margin: 0 15px; /* Espaciado entre los elementos */
+  }
+  
+  a {
+    text-decoration: none; /* Quitar el subrayado */
+    color: var(--color-texto-menu); /* Blanco para el texto */
+    font-family: var(--font-family);
+    font-size: var(--font-size-menu);
+    padding: 10px 15px;
+    display: block;
+  }
+  
+  a:hover {
+    background-color: var(--color-hover-menu); /* Fondo azul al pasar el mouse */
+    color: #fff; /* Cambiar color del texto a blanco */
+    border-radius: var(--border-radius); /* Bordes redondeados al pasar el mouse */
+  }
+  
+  a.active {
+    color: var(--color-active-menu); /* Azul para el enlace activo */
+  }
+  
+  /* Estilos para la versión móvil */
+  @media (max-width: 768px) {
+    ul {
+      flex-direction: column; /* Los elementos del menú se apilan verticalmente */
+      text-align: center;
+    }
+  
+    li {
+      margin: 10px 0; /* Espaciado entre los elementos en móvil */
+    }
+  
+    a {
+      padding: 12px 20px;
+      font-size: 16px;
+    }
+  
+    /* Si quieres un botón de menú en móvil, puedes ocultar el menú aquí y mostrarlo con JavaScript o al hacer clic */
+  }
+  

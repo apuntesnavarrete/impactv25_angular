@@ -1,0 +1,61 @@
+/* menu-main.component.css */
+
+/* Contenedor principal de la card */
+div {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centra el contenido horizontalmente */
+    justify-content: center; /* Centra el contenido verticalmente */
+    width: 100%;
+    background-color: var(--color-fondo); /* Fondo blanco para la card */
+  }
+  
+  /* Estilo de la card */
+  .card {
+    background-color: var(--color-fondo-card);
+    padding: var(--padding);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-card); /* Sombra de la card */
+    width: 300px; /* Ancho de la card */
+    text-align: center; /* Centrar texto dentro de la card */
+    transition: background-color 0.3s ease;
+  }
+  
+  /* Efecto hover en la card */
+  .card:hover {
+    background-color: var(--color-fondo-card-hover); /* Fondo al pasar el ratón */
+  }
+  
+  /* Título de la card */
+  .card h1 {
+    width: 100%;
+    font-family: var(--font-family);
+    font-size: var(--font-size-title);
+    color: var(--color-texto-card);
+    /* margin-bottom: 20px; */
+    border-bottom: 1px solid var(--color-fondo-menu); /* Línea inferior */
+  }
+  
+  /* Estilos para el menú dentro de la card */
+  .card ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .card li {
+    margin: 10px 0; /* Espaciado entre los elementos del menú */
+  }
+  
+  .card a {
+    text-decoration: none; /* Eliminar subrayado */
+    color: var(--color-hover); /* Azul para los enlaces */
+    font-size: var(--font-size-menu);
+    display: block;
+    padding: 10px;
+  }
+  
+  .card a:hover {
+    color: var(--color-hover-menu); /* Azul oscuro al pasar el ratón */
+  }
+  
