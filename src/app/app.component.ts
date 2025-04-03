@@ -1,12 +1,16 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { RouterModule } from '@angular/router';
+import { LoginLinkComponent } from './login-link/login-link.component';
+import { MenuGeneralComponent } from './menu-general/menu-general.component';
+import { MenuMainComponent } from './menu-main/menu-main.component';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrls: ['./app.component.css'],
+  standalone: true,
+  imports: [RouterModule, LoginLinkComponent, MenuGeneralComponent], // Importamos todo
 })
-export class AppComponent {
-  title = 'impactv25_angular';
-}
+export class AppComponent {}
+
+
