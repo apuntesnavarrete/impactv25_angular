@@ -1,12 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class JugadoresApiService {
-  private baseUrl = 'http://192.168.0.10:8080/api/v1';
+  private baseUrl = environment.baseUrl;
 
 
   constructor(private http: HttpClient) {
