@@ -22,21 +22,25 @@ export class JugadoresComponent implements OnInit {
 
   ngOnInit(): void {
     this.jugadoresApiService.getPlayers().subscribe((data: any) => {
-      console.log(data); // For debugging, check the fetched data
       this.jugadores = data; // Store the players data in the jugadores property
     });
   }
 
+  ///// debe venir desde un servicio ////
+
   // Filter method for search functionality
   filteredPlayers() {
     if (!this.searchQuery) {
-      return this.jugadores;
+      return this.jugadores.slice().reverse(); // invierte si no hay búsqueda
     }
     const query = this.searchQuery.toLowerCase();
-    return this.jugadores.filter(jugador =>
-      jugador.name.toLowerCase().includes(query) || // Search by name
-      jugador.id.toString().includes(query) // Search by ID (converted to string for comparison)
-    );
+    return this.jugadores
+      .filter(jugador =>
+        jugador.name.toLowerCase().includes(query) ||
+        jugador.id.toString().includes(query)
+      )
+      .reverse(); // invierte los resultados filtrados
+    
   }
 }
 
