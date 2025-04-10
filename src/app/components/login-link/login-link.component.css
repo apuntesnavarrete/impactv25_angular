@@ -1,24 +1,30 @@
-/* login.component.css */
 .login-container {
-    background-color: var(--color-fondo); /* Fondo crema */
-    color: var(--color-texto); /* Azul bonito para el texto */
-    font-family: var(--font-family);
-    padding: var(--padding);
-    border-radius: var(--border-radius);
-    text-align: center;
-  }
-  
-  .login-link, .logout-link {
-    text-decoration: none;
-    color: var(--color-texto);
-    font-weight: bold;
-    margin: 0 10px;
-    font-size: var(--font-size);
-  }
-  
-  .login-link:hover, .logout-link:hover {
-    color: var(--color-hover);
-    text-decoration: underline;
-  }
-  
+  background-color: var(--color-fondo);     /* fondo crema */
+  color: var(--color-texto);                /* texto azul bonito */
+  font-family: var(--font-family);          /* fuente */
+  padding: var(--padding);                  /* espacio interior */
+  border-radius: var(--border-radius);      /* bordes redondeados */
+  text-align: right;                        /* alinea a la derecha */
+}
+
+.login-container li {
+  list-style: none;                         /* sin viñeta */
+  display: inline-block;                    /* horizontal */
+}
+
+.login-link,
+.logout-link {
+  text-decoration: none;
+  color: var(--color-texto);
+  font-weight: bold;
+  margin: 0 10px;
+  font-size: var(--font-size);
+}
+
+.login-link:hover,
+.logout-link:hover {
+  color: var(--color-hover);
+  text-decoration: underline;
+}
+
   

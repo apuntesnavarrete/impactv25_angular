@@ -1,9 +1,9 @@
 
 
 <div class="login-container">
-  <li *ngIf="!isLoggedIn()">
+  <li *ngIf="!isLoggedIn">
     <a routerLink="/login" class="login-link" routerLinkActive="active">Iniciar sesión</a>
   </li>
 
-  <a *ngIf="isLoggedIn()" href="#" (click)="logout()" class="logout-link">Cerrar Sesión</a>
+  <a *ngIf="isLoggedIn" href="#" (click)="logout()" class="logout-link">Cerrar Sesión</a>
 </div>

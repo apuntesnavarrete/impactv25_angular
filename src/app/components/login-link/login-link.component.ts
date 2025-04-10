@@ -1,26 +1,26 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
+import { AuthService } from '../../service/auth/auth.service';
 
 @Component({
   selector: 'app-login-link',
-  imports: [RouterModule,CommonModule],
+  imports: [RouterModule, CommonModule],
   templateUrl: './login-link.component.html',
   styleUrl: './login-link.component.css',
   standalone: true,
-
 })
 export class LoginLinkComponent {
+  private authService = inject(AuthService); // 👈 Inyecta el servicio
+
   constructor(private router: Router) {}
 
-  isLoggedIn(): boolean {
-    return !!localStorage.getItem('token');
+  get isLoggedIn(): boolean {
+    return this.authService.isLoggedIn(); // 👈 Usa el método del servicio
   }
 
   logout() {
-    localStorage.removeItem('token');
-    this.router.navigate(['/login']);
+    this.authService.logout();  // Llama al método logout desde el servicio
   }
+
 }
-
-

@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { JugadoresApiService } from '../../service/peticiones/jugadores-api.service';
 import { RouterModule } from '@angular/router'; // For handling the routerLink for Edit
 import { FormsModule } from '@angular/forms'; // Import FormsModule for ngModel
+import { AuthService } from '../../service/auth/auth.service';
 
 @Component({
   selector: 'app-jugadores',
@@ -16,14 +17,23 @@ import { FormsModule } from '@angular/forms'; // Import FormsModule for ngModel
 })
 export class JugadoresComponent implements OnInit {
   private jugadoresApiService = inject(JugadoresApiService);
+  private authService = inject(AuthService); // 👈 Inyección
+
+ 
   jugadores: any[] = [];  // Property to store players' data
   apiruta: string = 'your_api_base_url';  // Replace with actual API base URL
   searchQuery: string = '';  // Search query property
+
+  isLoggedIn = false;
+
 
   ngOnInit(): void {
     this.jugadoresApiService.getPlayers().subscribe((data: any) => {
       this.jugadores = data; // Store the players data in the jugadores property
     });
+
+    this.isLoggedIn = this.authService.isLoggedIn(); // 👈 Usar el servicio
+
   }
 
   ///// debe venir desde un servicio ////

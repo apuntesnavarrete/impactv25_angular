@@ -1,6 +1,10 @@
 <!-- Search Input Field -->
 <input type="text" [(ngModel)]="searchQuery" placeholder="Buscar por nombre..." />
 
+<a *ngIf="isLoggedIn" routerLink="NewJugador" routerLinkActive="active">Crear Jugador</a>
+
+<!-- La tabla jugadores deberia ir en un componente -->
+
 <table>
   <thead>
     <tr>
