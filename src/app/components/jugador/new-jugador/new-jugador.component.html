@@ -1,1 +1,26 @@
-<p>new-jugador works!</p>
+<div class="form-container">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <label for="name">Name:</label>
+      <input type="text" formControlName="name" />
+  
+      <label for="sex">Género:</label>
+      <select formControlName="sex" id="sex">
+        <option value="M">Hombre</option>
+        <option value="F">Mujer</option>
+      </select>
+  
+      <label for="Curp">Curp:</label>
+      <input type="text" formControlName="Curp" />
+  
+      <label for="Email">Email:</label>
+      <input type="text" formControlName="Email" />
+  
+      <label for="birthDate">Birth Date:</label>
+      <input type="date" formControlName="birthDate" />
+  
+      <label for="file">File:</label>
+      <input type="file" (change)="onFileChange($event)" />
+  
+      <button type="submit">Agregar Jugador</button>
+    </form>
+  </div>
