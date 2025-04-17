@@ -8,27 +8,33 @@
 <table>
   <thead>
     <tr>
+      <th>Editar</th>
+
       <th>ID</th>
       <th>Nombre</th>
-      <th>Sexo</th>
-      <th>Correo electrónico</th>
-      <th>Fecha de Nacimiento</th>
       <th>Foto</th>
+
+      <th>Sexo</th>
+      <th>Fecha de Nacimiento</th>
       <th>Curp</th>
-      <th>Editar</th>
+      <th>Correo electrónico</th>
+
     </tr>
   </thead>
   <tbody>
     <!-- Loop through jugadores array and display each player -->
     <tr *ngFor="let jugador of filteredPlayers()">
+      <td><a [routerLink]="['edit', jugador.id]">Edit</a></td>
+
       <td>{{ jugador.id }}</td>
       <td>{{ jugador.name }}</td>
+      <td><img class="PhotoTablas" [src]="apiruta + '/participants/' + jugador.Photo" alt="Foto del jugador" /></td>
+
       <td>{{ jugador.sex }}</td>
-      <td>{{ jugador.Email }}</td>
       <td>{{ jugador.birthDate }}</td>
-      <td><img class="PhotoTablas" [src]="apiruta + '/public/participants/' + jugador.Photo" alt="Foto del jugador" /></td>
       <td>{{ jugador.Curp }}</td>
-      <td><a [routerLink]="['/edit', jugador.id]">Edit</a></td>
+      <td>{{ jugador.Email }}</td>
+
     </tr>
   </tbody>
 </table>

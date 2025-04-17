@@ -4,6 +4,7 @@ import { JugadoresApiService } from '../../service/peticiones/jugadores-api.serv
 import { RouterModule } from '@angular/router'; // For handling the routerLink for Edit
 import { FormsModule } from '@angular/forms'; // Import FormsModule for ngModel
 import { AuthService } from '../../service/auth/auth.service';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-jugadores',
@@ -21,7 +22,8 @@ export class JugadoresComponent implements OnInit {
 
  
   jugadores: any[] = [];  // Property to store players' data
-  apiruta: string = 'your_api_base_url';  // Replace with actual API base URL
+    apiruta: string = environment.baseUrlPublic  // Replace with actual API base URL
+
   searchQuery: string = '';  // Search query property
 
   isLoggedIn = false;

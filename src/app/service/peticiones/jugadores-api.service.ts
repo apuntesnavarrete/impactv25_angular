@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
@@ -17,4 +17,32 @@ export class JugadoresApiService {
     return this.http.get<any>(`${this.baseUrl}/participants`);
   }
 
+  getPlayerById(id: string, token: string): Observable<any> {
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`
+    });
+  
+    return this.http.get(`${this.baseUrl}/participants/${id}`, { headers });
+  }
+
+  addPlayers(jugador: any, token: string): Observable<any> {
+  
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`
+    });
+
+    return this.http.post(`${this.baseUrl}/participants`, jugador, { headers });
+  }
+
+  updatePlayer(id: string, jugador: any, token: string): Observable<any> {
+  
+
+  
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`
+    });
+  
+      console.log('ID del jugador:', id); // Verifica el ID del jugador
+    return this.http.put(`${this.baseUrl}/participants/${id}`, jugador, { headers });
+  }
 }

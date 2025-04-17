@@ -23,3 +23,73 @@
     background-color: var(--color-fondo);
 
   }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: var(--font-family);
+    font-size: var(--font-size);
+    box-shadow: var(--shadow-card);
+    background-color: white;
+    border-radius: var(--border-radius);
+    overflow: hidden;
+  }
+  
+  th, td {
+    padding: var(--padding);
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    color: var(--color-fondo-menu);
+  }
+  
+  th {
+    background-color: var(--color-fondo-menu);
+    color: var(--color-texto-menu);
+    font-weight: bold;
+    font-size: var(--font-size-menu);
+  }
+  
+  /* Colores alternados por fila */
+  tbody tr:nth-child(even) {
+    background-color: #f9f9f9; /* color claro */
+  }
+  tbody tr:nth-child(odd) {
+    background-color: white;
+  }
+  
+  tbody tr:hover {
+    background-color: var(--color-hover);
+    color: white;
+  }
+  
+  /* Fotos cuadradas con esquinas suaves */
+  img.PhotoTablas {
+    width: 50px;
+    height: 50px;
+    border-radius: 8px; /* Bordes ligeramente redondeados */
+    object-fit: cover;
+    box-shadow: var(--shadow-card);
+  }
+  
+  a {
+    color: var(--color-texto);
+    text-decoration: none;
+    font-weight: bold;
+  }
+  
+  a:hover {
+    color: var(--color-hover);
+    text-decoration: underline;
+  }
+  
+  input[type="text"] {
+    padding: var(--padding);
+    margin-bottom: 1rem;
+    font-size: var(--font-size);
+    border: 1px solid #ccc;
+    border-radius: var(--border-radius);
+    width: 100%;
+    max-width: 300px;
+  }
+  
+  

@@ -1,0 +1,37 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <label>
+      Nombre:
+      <input type="text" formControlName="name">
+    </label>
+  
+    <label>
+      CURP:
+      <input type="text" formControlName="Curp">
+    </label>
+  
+    <label>
+      Email:
+      <input type="email" formControlName="Email">
+    </label>
+  
+    <label>
+      Fecha de nacimiento:
+      <input type="date" formControlName="birthDate">
+    </label>
+  
+    <label>
+      Sexo:
+      <select formControlName="sex">
+        <option value="M">Masculino</option>
+        <option value="F">Femenino</option>
+      </select>
+    </label>
+  
+    <label>
+      Foto:
+      <input type="file" (change)="onFileChange($event)">
+    </label>
+  
+    <button type="submit">{{ submitButtonText }}</button>
+  </form>
+  
