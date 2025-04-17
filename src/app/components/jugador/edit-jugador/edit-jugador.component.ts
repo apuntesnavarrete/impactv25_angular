@@ -18,6 +18,8 @@ import { JugadorFormComponentComponent } from "../jugador-form-component/jugador
 export class EditJugadorComponent implements OnInit {
   form!: FormGroup; // usamos ! para evitar error de inicialización
   id: string = '';
+  imagePreview: string | null = null;
+
   private fb = inject(FormBuilder);
   private route = inject(ActivatedRoute);
   private router = inject(Router);
@@ -33,6 +35,7 @@ export class EditJugadorComponent implements OnInit {
       file: [null]
     });
 
+    
     this.id = this.route.snapshot.paramMap.get('id')!;
     const token = localStorage.getItem('token');
 
@@ -50,6 +53,8 @@ export class EditJugadorComponent implements OnInit {
               birthDate: jugador.birthDate,
               sex: jugador.sex
             });
+            this.imagePreview = jugador.Photo; // 👈 aquí guardas la imagen
+            console.log('Imagen cargada:', this.imagePreview);
           }
         },
         error: err => console.error('Error al cargar jugador:', err)

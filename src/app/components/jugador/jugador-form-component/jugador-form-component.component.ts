@@ -2,6 +2,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-jugador-form-component',
@@ -16,6 +17,8 @@ export class JugadorFormComponentComponent {
   @Input() submitButtonText: string = 'Guardar';
   @Output() submitForm = new EventEmitter<void>();
   @Output() fileChange = new EventEmitter<any>();
+  @Input() imagePreview: string | null = null;
+    apiruta: string = environment.baseUrlPublic  // Replace with actual API base URL
 
   onFileChange(event: any) {
     this.fileChange.emit(event);
