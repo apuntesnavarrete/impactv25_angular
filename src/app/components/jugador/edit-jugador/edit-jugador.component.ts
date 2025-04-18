@@ -32,7 +32,9 @@ export class EditJugadorComponent implements OnInit {
       Email: ['', [Validators.required, Validators.email]],
       birthDate: ['', Validators.required],
       sex: ['M', Validators.required],
-      file: [null]
+      file: [null],
+      Photo: [''] // 👈 aquí agregas el campo para el nombre del archivo
+
     });
 
     
@@ -61,7 +63,7 @@ export class EditJugadorComponent implements OnInit {
       });
     }
   }
-
+/*
   onSubmit() {
     const token = localStorage.getItem('token');
     if (!token) {
@@ -88,8 +90,8 @@ export class EditJugadorComponent implements OnInit {
       Email: this.form.get('Email')!.value,
       birthDate: this.form.get('birthDate')!.value,
       sex: this.form.get('sex')!.value,
-      // Puedes incluir foto como string si ya existe
-      // Photo: '123.jpg'
+      Photo: this.form.get('Photo')!.value // 👈 ahora se envía el nombre del archivo
+
     };
     
    
@@ -98,11 +100,71 @@ export class EditJugadorComponent implements OnInit {
       error: err => console.error('Error al actualizar jugador:', err)
     });
   }
+*/
 
-  onFileChange(event: any) {
-    const file = event.target.files[0];
-    if (file) {
-      this.form.patchValue({ file });
-    }
+onSubmit() {
+  const token = localStorage.getItem('token');
+  if (!token) {
+    console.error('Token no encontrado.');
+    return;
   }
+
+  const formData = new FormData();
+
+  const file = this.form.get('file')!.value;
+  if (file) {
+   
+  // Agregar el archivo renombrado al FormData
+  formData.append('file', file);
+
+  // También puedes agregar el nuevo nombre en otro campo (como Photo) si es necesario
+    formData.append('Photo', file.name); // 👈 el nombre del archivo
+  }
+
+  // Agrega los otros datos
+  formData.append('name', this.form.get('name')!.value);
+  formData.append('Curp', this.form.get('Curp')!.value);
+  formData.append('Email', this.form.get('Email')!.value);
+  formData.append('birthDate', this.form.get('birthDate')!.value);
+  formData.append('sex', this.form.get('sex')!.value);
+
+  this.jugadoresApiService.updatePlayer(this.id, formData, token).subscribe({
+    next: () => this.router.navigate(['/jugadores']),
+    error: err => console.error('Error al actualizar jugador:', err)
+  });
+}
+
+onFileChange(event: any) {
+  const file = event.target.files[0];
+  
+  if (file && this.id) {
+
+
+    // Obtener extensión del archivo original
+    const extension = file.name.split('.').pop();
+
+    // Crear fecha y hora actual en formato YYYYMMDD_HHMMSS
+    const now = new Date();
+    const fechaHora =
+      now.getFullYear().toString() +
+      (now.getMonth() + 1).toString().padStart(2, '0') +
+      now.getDate().toString().padStart(2, '0') + '_' +
+      now.getHours().toString().padStart(2, '0') +
+      now.getMinutes().toString().padStart(2, '0') +
+      now.getSeconds().toString().padStart(2, '0');
+
+    // Nuevo nombre del archivo: id_fechaHora.extensión
+    const newFileName = `${this.id}_${fechaHora}.${extension}`;
+
+    // Crear nuevo archivo con el nuevo nombre
+    const renamedFile = new File([file], newFileName, {
+      type: file.type,
+      lastModified: file.lastModified
+    });
+
+
+    // Asignamos el nuevo archivo al formulario
+    this.form.patchValue({ file: renamedFile });
+  }
+}
 }

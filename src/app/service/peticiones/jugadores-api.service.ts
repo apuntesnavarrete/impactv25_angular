@@ -35,14 +35,15 @@ export class JugadoresApiService {
   }
 
   updatePlayer(id: string, jugador: any, token: string): Observable<any> {
-  
-
-  
-    const headers = new HttpHeaders({
+    let headers = new HttpHeaders({
       Authorization: `Bearer ${token}`
     });
   
-      console.log('ID del jugador:', id); // Verifica el ID del jugador
+    // Si es FormData, no agregar Content-Type
+    if (!(jugador instanceof FormData)) {
+      headers = headers.set('Content-Type', 'application/json');
+    }
+  
     return this.http.put(`${this.baseUrl}/participants/${id}`, jugador, { headers });
   }
 }
