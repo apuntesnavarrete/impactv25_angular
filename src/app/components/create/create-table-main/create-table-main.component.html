@@ -1,0 +1,24 @@
+<p>create-table-main works!</p>
+<!-- generic-table.component.html -->
+<input type="text" [(ngModel)]="searchQuery" placeholder="Buscar por nombre..." />
+
+<a *ngIf="isLoggedIn" [routerLink]="addLink">{{ addText }}</a>
+
+<table>
+  <thead>
+    <tr>
+      <th>Editar</th>
+      <th *ngFor="let col of columns">{{ col.header }}</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let item of filteredItems()">
+      <td><a [routerLink]="['edit', item.id]">Edit</a></td>
+      <td *ngFor="let col of columns">
+        <img *ngIf="col.type === 'image'" class="PhotoTablas"
+             [src]="imageBasePath + '/' + item[col.key]" />
+        <span *ngIf="col.type !== 'image'">{{ item[col.key] }}</span>
+      </td>
+    </tr>
+  </tbody>
+</table>

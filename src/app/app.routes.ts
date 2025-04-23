@@ -5,6 +5,7 @@ import { LoginPageComponent } from './pages/auth/login-page/login-page.component
 import { NewJugadorComponent } from './components/jugador/new-jugador/new-jugador.component';
 import { authGuard } from './auth.guard';
 import { EditJugadorComponent } from './components/jugador/edit-jugador/edit-jugador.component';
+import { EquiposComponent } from './components/equipos/equipos/equipos.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent }, // Nueva página "Jugadores"
@@ -20,6 +21,8 @@ export const routes: Routes = [
     component: EditJugadorComponent , 
     canActivate: [authGuard],
   },
+  { path: 'equipos', component: EquiposComponent }, // Nueva página "Jugadores"
+
 
   { path: 'login', component: LoginPageComponent }, // Nueva página "Jugadores"
   // Nueva página "Jugadores"
