@@ -1,0 +1,8 @@
+<p>edit-equipo works!</p>
+<app-equipo-form
+  [form]="form"
+  [submitButtonText]="submitButtonText"
+  [imagePreview]="imagePreview"
+  (submitForm)="onSubmit()"
+  (fileChange)="onFileChange($event)">
+</app-equipo-form>

@@ -23,11 +23,12 @@ export class EquiposApiService {
     return this.http.get(`${this.baseUrl}/teams/${id}`, { headers });
   }
 
-  addTeam(team: any, token: string): Observable<any> {
+  addTeam(team: FormData, token: string): Observable<any> {
     const headers = new HttpHeaders({
       Authorization: `Bearer ${token}`
+      // NO agregar Content-Type aquí si usas FormData
     });
-
+  
     return this.http.post(`${this.baseUrl}/teams`, team, { headers });
   }
 

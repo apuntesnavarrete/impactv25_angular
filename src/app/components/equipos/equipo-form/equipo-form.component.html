@@ -1,0 +1,22 @@
+<p>equipo-form works!</p>
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <label>
+      Nombre del equipo:
+      <input type="text" formControlName="name">
+    </label>
+  
+    <label>
+      Fecha de fundación:
+      <input type="date" formControlName="Date">
+    </label>
+  
+    <img class="PhotoTablas" *ngIf="imagePreview" [src]="apiruta + '/teams/' + imagePreview" alt="Logo del equipo">
+  
+    <label>
+      Logo:
+      <input type="file" (change)="onFileChange($event)">
+    </label>
+  
+    <button type="submit">{{ submitButtonText }}</button>
+  </form>
+  <p>prueba</p>
