@@ -39,9 +39,9 @@ export class EditEquipoComponent implements OnInit {
         this.form.patchValue({
           name: data[0].name,
           Date: data[0].Date,
-          logo: '' // no se carga el archivo, pero dejamos el campo listo
+          logo: data[0].logo // no se carga el archivo, pero dejamos el campo listo
         });
-        this.imagePreview = data.logo; // Aquí puedes ver cómo se carga la imagen o logo
+        this.imagePreview = data[0].logo; // Aquí puedes ver cómo se carga la imagen o logo
       },
       error: (err) => {
         console.error('Error al cargar el equipo:', err);

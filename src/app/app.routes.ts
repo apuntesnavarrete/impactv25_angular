@@ -8,6 +8,11 @@ import { EditJugadorComponent } from './components/jugador/edit-jugador/edit-jug
 import { EquiposComponent } from './components/equipos/equipos/equipos.component';
 import { NewEquipoComponent } from './components/equipos/new-equipo/new-equipo.component';
 import { EditEquipoComponent } from './components/equipos/edit-equipo/edit-equipo.component';
+import { TorneoComponent } from './components/torneos/torneo/torneo.component';
+import { NewTorneoComponent } from './components/torneos/new-torneo/new-torneo.component';
+import { EditTorneoComponent } from './components/torneos/edit-torneo/edit-torneo.component';
+import { LigaComponent } from './components/ligas/liga/liga.component';
+import { CategoriaComponent } from './components/categorias/categoria/categoria.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent }, // Nueva página "Jugadores"
@@ -34,6 +39,23 @@ export const routes: Routes = [
     component: EditEquipoComponent , 
     canActivate: [authGuard],
   },
+
+
+  { path: 'torneo', component: TorneoComponent }, // Nueva página "Jugadores"
+  {
+    path: 'torneo/NewTorneo',
+    component: NewTorneoComponent,
+    canActivate: [authGuard],
+  },
+  { 
+    path: 'torneo/edit/:id', 
+    component: EditTorneoComponent , 
+    canActivate: [authGuard],
+  },
+
+  { path: 'ligas', component: LigaComponent }, // Nueva página "Jugadores"
+
+  { path: 'categorias', component: CategoriaComponent }, // Nueva página "Jugadores"
 
   { path: 'login', component: LoginPageComponent }, // Nueva página "Jugadores"
   // Nueva página "Jugadores"

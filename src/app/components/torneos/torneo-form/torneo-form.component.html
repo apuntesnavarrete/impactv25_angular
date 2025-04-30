@@ -1,0 +1,14 @@
+<form class="formulario" [formGroup]="form" (ngSubmit)="onSubmit()">
+    <label class="label">
+      Descripción:
+      <input class="input" type="text" formControlName="description">
+    </label>
+  
+    <label class="label">
+      Fecha de fundación:
+      <input class="input" type="date" formControlName="date_fundation">
+    </label>
+  
+    <button class="boton-submit" type="submit">{{ submitButtonText }}</button>
+  </form>
+  

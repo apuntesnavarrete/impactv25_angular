@@ -21,8 +21,13 @@ export class CreateTableMainComponent {
   searchQuery: string = '';
 
   filteredItems() {
-    return this.items.filter(i =>
-      i.name?.toLowerCase().includes(this.searchQuery.toLowerCase())
+    // Filtra los elementos según la búsqueda
+    const filtered = this.items.filter(i =>
+      (i.idName?.toLowerCase().includes(this.searchQuery.toLowerCase())) ||
+      (i.name?.toLowerCase().includes(this.searchQuery.toLowerCase()))
     );
+
+    // Ordena los elementos filtrados por 'id' de manera descendente
+    return filtered.sort((a, b) => b.id - a.id);
   }
 }
