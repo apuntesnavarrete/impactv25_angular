@@ -41,16 +41,18 @@ export class CategoriaComponent implements OnInit {
   }
 
   filteredCategories() {
+    console.log('Filtro aplicado:', this.searchQuery);
     if (!this.searchQuery) {
+      console.log('Mostrando todas las categorías:', this.categorias);
       return this.categorias.slice().reverse();
     }
     const query = this.searchQuery.toLowerCase();
-    return this.categorias
-      .filter(cat =>
-        cat.categorias.toLowerCase().includes(query) ||
-        cat.id.toString().includes(query)
-      )
-      .reverse();
+    const filtradas = this.categorias.filter(cat =>
+      cat.categorias.toLowerCase().includes(query) ||
+      cat.id.toString().includes(query)
+    ).reverse();
+    console.log('Resultados filtrados:', filtradas);
+    return filtradas;
   }
 }
 

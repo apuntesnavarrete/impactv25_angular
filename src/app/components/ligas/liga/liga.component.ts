@@ -42,6 +42,7 @@ export class LigaComponent implements OnInit {
   }
 
   filteredLeagues() {
+
     if (!this.searchQuery) {
       return this.leagues.slice().reverse();
     }

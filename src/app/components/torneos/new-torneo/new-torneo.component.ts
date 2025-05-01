@@ -14,7 +14,6 @@ import { TournamentsApiService } from '../../../service/peticiones/torneos/torne
 export class NewTorneoComponent {
   form: FormGroup;
   submitButtonText = 'Crear torneo';
-  imagePreview: string | null = null;
 
   constructor(
     private fb: FormBuilder,
@@ -23,27 +22,23 @@ export class NewTorneoComponent {
   ) {
     this.form = this.fb.group({
       idName: ['', Validators.required],
+
       description: [''],
-      date_fundation: ['', Validators.required],
-      logo: ['']
+      date_fundation: ['', Validators.required]
     });
   }
 
   onSubmit() {
     if (this.form.valid) {
       const token = localStorage.getItem('token') || '';
+      const data = {
+        idName: this.form.value.idName,
 
-      const formData = new FormData();
-      formData.append('idName', this.form.value.idName);
-      formData.append('description', this.form.value.description);
-      formData.append('date_fundation', this.form.value.date_fundation);
-
-      const logoFile = this.form.value.logo;
-      if (logoFile) {
-        formData.append('file', logoFile);
-      }
-
-      this.torneosService.addTournament(formData, token).subscribe({
+        description: this.form.value.description,
+        date_fundation: this.form.value.date_fundation
+      };
+  
+      this.torneosService.addTournament(data, token).subscribe({
         next: () => {
           console.log('Torneo creado');
           this.router.navigate(['/torneos']);
@@ -52,19 +47,6 @@ export class NewTorneoComponent {
           console.error('Error al crear el torneo:', err);
         }
       });
-    }
-  }
-
-  onFileChange(event: any) {
-    const file = event.target.files[0];
-    if (file) {
-      this.form.patchValue({ logo: file });
-
-      const reader = new FileReader();
-      reader.onload = () => {
-        this.imagePreview = file.name;
-      };
-      reader.readAsDataURL(file);
     }
   }
 }

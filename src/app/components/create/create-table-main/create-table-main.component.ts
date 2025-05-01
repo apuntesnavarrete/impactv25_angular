@@ -25,7 +25,9 @@ export class CreateTableMainComponent {
     const filtered = this.items.filter(i =>
       (i.idName?.toLowerCase().includes(this.searchQuery.toLowerCase())) ||
       (i.name?.toLowerCase().includes(this.searchQuery.toLowerCase()))
-    );
+      ||
+      i.categorias?.toLowerCase().includes(this.searchQuery.toLowerCase()))  // <-- filtra por nombre de categoría
+
 
     // Ordena los elementos filtrados por 'id' de manera descendente
     return filtered.sort((a, b) => b.id - a.id);

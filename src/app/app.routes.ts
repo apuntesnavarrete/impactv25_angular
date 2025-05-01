@@ -41,9 +41,9 @@ export const routes: Routes = [
   },
 
 
-  { path: 'torneo', component: TorneoComponent }, // Nueva página "Jugadores"
+  { path: 'torneos', component: TorneoComponent }, // Nueva página "Jugadores"
   {
-    path: 'torneo/NewTorneo',
+    path: 'torneos/NewTorneo',
     component: NewTorneoComponent,
     canActivate: [authGuard],
   },

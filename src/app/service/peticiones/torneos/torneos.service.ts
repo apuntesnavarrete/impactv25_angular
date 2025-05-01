@@ -23,11 +23,12 @@ export class TournamentsApiService {
     return this.http.get(`${this.baseUrl}/tournaments/${id}`, { headers });
   }
 
-  addTournament(tournament: FormData, token: string): Observable<any> {
+  addTournament(tournament: any, token: string): Observable<any> {
     const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
       Authorization: `Bearer ${token}`
     });
-
+  console.log(tournament)
     return this.http.post(`${this.baseUrl}/tournaments`, tournament, { headers });
   }
 
