@@ -15,6 +15,17 @@ export class NewTorneoComponent {
   form: FormGroup;
   submitButtonText = 'Crear torneo';
 
+  // Opciones para el select de liga y categoría
+  leagues = [
+    { id: 2, name: 'Liga ED' },
+    { id: 3, name: 'Liga Pro' }
+  ];
+
+  categories = [
+    { id: 2, name: 'Mixta' },
+    { id: 4, name: 'Libre' }
+  ];
+
   constructor(
     private fb: FormBuilder,
     private torneosService: TournamentsApiService,
@@ -22,9 +33,10 @@ export class NewTorneoComponent {
   ) {
     this.form = this.fb.group({
       idName: ['', Validators.required],
-
       description: [''],
-      date_fundation: ['', Validators.required]
+      date_fundation: ['', Validators.required],
+      leagueId: [null, Validators.required],  // nuevo campo
+      categoryId: [null, Validators.required]  // nuevo campo
     });
   }
 
@@ -33,11 +45,16 @@ export class NewTorneoComponent {
       const token = localStorage.getItem('token') || '';
       const data = {
         idName: this.form.value.idName,
-
         description: this.form.value.description,
-        date_fundation: this.form.value.date_fundation
+        date_fundation: this.form.value.date_fundation,
+        leagues: +this.form.value.leagueId,  // Convertimos a número con el operador "+"
+        categories: +this.form.value.categoryId  //
+        //revisar como guardar este dato en un ejemplo de la version anterior
       };
-  
+   
+
+      console.log(data)
+
       this.torneosService.addTournament(data, token).subscribe({
         next: () => {
           console.log('Torneo creado');
@@ -50,3 +67,4 @@ export class NewTorneoComponent {
     }
   }
 }
+

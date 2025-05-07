@@ -1,19 +1,35 @@
 <form class="formulario" [formGroup]="form" (ngSubmit)="onSubmit()">
   <label for="idName">ID Name</label>
-<input id="idName" type="text" formControlName="idName">
- 
-  
-  
+  <input id="idName" type="text" formControlName="idName">
+
   <label class="label">
-      Descripción:
-      <input class="input" type="text" formControlName="description">
-    </label>
-  
-    <label class="label">
-      Fecha de fundación:
-      <input class="input" type="text" formControlName="date_fundation">
-    </label>
-  
-    <button class="boton-submit" type="submit">{{ submitButtonText }}</button>
-  </form>
+    Descripción:
+    <input class="input" type="text" formControlName="description">
+  </label>
+
+  <label class="label">
+    Fecha de fundación:
+    <input class="input" type="text" formControlName="date_fundation">
+  </label>
+
+  <!-- Select for League -->
+  <label class="label">
+    Liga:
+    <select class="input" formControlName="leagueId">
+      <option [value]="2">Liga ED</option>
+      <option [value]="3">Liga Pro</option>
+    </select>
+  </label>
+
+  <!-- Select for Category -->
+  <label class="label">
+    Categoría:
+    <select class="input" formControlName="categoryId">
+      <option [value]="2">Mixta</option>
+      <option [value]="4">Libre</option>
+    </select>
+  </label>
+
+  <button class="boton-submit" type="submit">{{ submitButtonText }}</button>
+</form>
   

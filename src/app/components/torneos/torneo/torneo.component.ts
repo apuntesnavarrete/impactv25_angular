@@ -28,17 +28,25 @@ export class TorneoComponent implements OnInit {
     { header: 'ID Nombre', key: 'idName' },
     { header: 'Descripción', key: 'description' },
     { header: 'Fecha de Fundación', key: 'date_fundation' },
+    { header: 'Alias Liga', key: 'aliasLiga' },        // 🔥 Nuevo campo
+    { header: 'Categoría', key: 'categoria' },         // 🔥 Nuevo campo
     { header: 'Creado', key: 'createdAt' },
     { header: 'Actualizado', key: 'updatedAt' }
   ];
 
   ngOnInit(): void {
     this.tournamentsApiService.getTournaments().subscribe((data: any) => {
-      console.log(data)
-      this.torneos = data; // Almacena los datos de los equipos
+      console.log(data);
+      
+      // Aplanar los campos Alias y categorias
+      this.torneos = data.map((item: any) => ({
+        ...item,
+        aliasLiga: item.leagues?.Alias || '',
+        categoria: item.categories?.categorias || ''
+      }));
     });
-
-    this.isLoggedIn = this.authService.isLoggedIn(); // Verifica si el usuario está logueado
+  
+    this.isLoggedIn = this.authService.isLoggedIn();
   }
 
 

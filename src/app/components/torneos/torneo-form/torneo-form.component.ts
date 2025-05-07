@@ -7,11 +7,12 @@ import { FormGroup, ReactiveFormsModule } from '@angular/forms';
   standalone: true,
   imports: [ReactiveFormsModule, CommonModule],
   templateUrl: './torneo-form.component.html',
-  styleUrl: './torneo-form.component.css'
+  styleUrls: ['./torneo-form.component.css']
 })
 export class TorneoFormComponent {
   @Input() form!: FormGroup;
-  @Input() submitButtonText: string = 'Guardar';
+  @Input() submitButtonText: string = 'Guardar';  // Asegúrate de que esta propiedad esté correctamente definida como @Input()
+  @Input() categories: { id: number; name: string }[] = [];
   @Output() submitForm = new EventEmitter<void>();
 
   onSubmit() {
