@@ -1,4 +1,4 @@
-<form class="formulario" [formGroup]="form" (ngSubmit)="onSubmit()">
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
   <label for="idName">ID Name</label>
   <input id="idName" type="text" formControlName="idName">
 
@@ -12,24 +12,25 @@
     <input class="input" type="text" formControlName="date_fundation">
   </label>
 
-  <!-- Select for League -->
   <label class="label">
     Liga:
     <select class="input" formControlName="leagueId">
-      <option [value]="2">Liga ED</option>
-      <option [value]="3">Liga Pro</option>
+      <option *ngFor="let league of leagues" [value]="league.id">{{ league.name }}</option>
     </select>
   </label>
-
-  <!-- Select for Category -->
+  
   <label class="label">
     Categoría:
     <select class="input" formControlName="categoryId">
-      <option [value]="2">Mixta</option>
-      <option [value]="4">Libre</option>
+      <!-- Mostrar un mensaje si categories está vacío -->
+      <option *ngIf="categories.length === 0" disabled>Sin categorías disponibles</option>
+  
+      <!-- Mostrar las categorías si están disponibles -->
+      <option *ngFor="let category of categories" [value]="category.id">{{ category.categorias }}</option>
     </select>
   </label>
 
   <button class="boton-submit" type="submit">{{ submitButtonText }}</button>
 </form>
+
   
