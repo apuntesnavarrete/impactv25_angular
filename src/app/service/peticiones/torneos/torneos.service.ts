@@ -43,4 +43,8 @@ export class TournamentsApiService {
 
     return this.http.put(`${this.baseUrl}/tournaments/${id}`, tournament, { headers });
   }
+
+  getUniqueCategoriesByLeague(alias: string) {
+  return this.http.get<string[]>(`${this.baseUrl}/tournaments/unique-categories/${alias}`);
+}
 }

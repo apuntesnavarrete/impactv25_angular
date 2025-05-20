@@ -13,9 +13,12 @@ import { NewTorneoComponent } from './components/torneos/new-torneo/new-torneo.c
 import { EditTorneoComponent } from './components/torneos/edit-torneo/edit-torneo.component';
 import { LigaComponent } from './components/ligas/liga/liga.component';
 import { CategoriaComponent } from './components/categorias/categoria/categoria.component';
+import { MenuLigaComponent } from './menu/menu-liga/menu-liga.component';
+import { MenuCategoriaComponent } from './menu/menu-categoria/menu-categoria.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent }, // Nueva página "Jugadores"
+  // Nueva página "Jugadores"
 
   { path: 'jugadores', component: JugadoresComponent },
   {
@@ -59,4 +62,9 @@ export const routes: Routes = [
 
   { path: 'login', component: LoginPageComponent }, // Nueva página "Jugadores"
   // Nueva página "Jugadores"
+
+
+  { path: ':liga', component: MenuLigaComponent },
+  { path: ':liga/:Categoria', component: MenuCategoriaComponent },
+
 ];

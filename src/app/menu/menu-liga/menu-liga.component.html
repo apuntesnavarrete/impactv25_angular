@@ -1,0 +1,6 @@
+<p>menu-liga works!</p>
+<ul>
+    <li *ngFor="let name of categoryNames">
+      <a [routerLink]="[name.toLowerCase()]">{{ name }}</a>
+    </li>
+  </ul>
