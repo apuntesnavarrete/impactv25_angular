@@ -1,9 +1,10 @@
+import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-menu-categoria',
-  imports: [RouterModule],
+  imports: [RouterModule, CommonModule],
   templateUrl: './menu-categoria.component.html',
   styleUrl: './menu-categoria.component.css'
 })
@@ -16,4 +17,46 @@ ngOnInit(): void {
   const categoria = this.route.snapshot.paramMap.get('Categoria');
   console.log('categoria:', categoria);
 }
+
+ menu = [
+    {
+      title: 'Primera vez',
+      suboptions: [
+        { label: 'Plantillas Pasadas', path: 'opcion1' },
+      ]
+    },
+    {
+      title: 'Históricos',
+      suboptions: [
+        { label: 'Goleo', path: 'GoleoHistorico' },
+        { label: 'General', path: 'GeneralHistorico' },
+      ]
+    },
+    {
+      title: 'Ver',
+      suboptions: [
+      { label: 'Goleo', path: 'Goleo' },
+        { label: 'General', path: 'General' },
+        { label: 'Partidos', path: 'VerPartidos' },
+        { label: 'Planteles', path: 'Planteles' },
+        { label: 'Equipos', path: 'Equipos' },
+        { label: 'Roll', path: 'Roll' }
+      ]
+    },
+    {
+      title: 'Agregar',
+      suboptions: [
+        { label: 'Partidos', path: 'AgregarPartidos' },
+        { label: 'Planteles', path: 'AgregarPlanteles' },
+        { label: 'Equipos', path: 'AgregarEquipos' },
+      ]
+    }
+  ];
+  selectedMenuIndex: number | null = null;
+
+  toggleSubmenu(index: number) {
+    this.selectedMenuIndex = this.selectedMenuIndex === index ? null : index;
+  }
+
+
 }

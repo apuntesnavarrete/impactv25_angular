@@ -1,1 +1,12 @@
-<p>menu-categoria works!</p>
+<div class="menu-categorias">
+  <div *ngFor="let item of menu; let i = index" class="menu-categorias-item">
+    <button (click)="toggleSubmenu(i)">
+      {{ item.title }}
+    </button>
+    <ul *ngIf="selectedMenuIndex === i">
+      <li *ngFor="let sub of item.suboptions">
+        <a [routerLink]="sub.path">{{ sub.label }}</a>
+      </li>
+    </ul>
+  </div>
+</div>
