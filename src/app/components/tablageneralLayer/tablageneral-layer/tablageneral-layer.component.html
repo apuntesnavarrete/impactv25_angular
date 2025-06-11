@@ -1,0 +1,55 @@
+<div class="content_resul_roll" [ngClass]="claseCSS" #cardDownload>
+ <div class="versus_top">
+    <p>{{ date }}</p>
+    <p>Liga {{ liga }}</p>
+  </div>
+
+  <p class="dayOfWeek">{{ typeTorneo }}</p>
+  <p>Categoria {{ torneo }}</p>
+
+<div class="conten-cards-team">
+  <div *ngFor="let equipo of clasificacion; index as i" class="content-card-team">
+    <p class="position">#{{ i + 1 }}</p>
+
+    <div class="card-team-left">
+      <p>id.- {{ equipo.equipoId }}</p>
+      <img class="team-left-img" [src]="'http://192.168.0.19:8080/public/teams/' + equipo.logo" [alt]="equipo.equipo" />
+      <p>{{ equipo.equipo }}</p>
+    </div>
+
+    <div class="card-team-center">
+      <div class="team-center_matches">
+        <p class="puntos">{{ equipo.puntos }}<span class="small">pts</span></p>
+        <div class="team-center-pj">
+          <div>
+            <p>PJ</p>
+            <p>{{ equipo.partidosJugados }}</p>
+          </div>
+          <div class="promedio">
+            <p>Promedio</p>
+            <p>{{ getPromedio(equipo.puntos, equipo.partidosJugados) }}</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="team-center_goles">
+        <div class="team-center_match"><p>GF</p><p>{{ equipo.goles }}</p></div>
+        <div class="team-center_match"><p>GC</p><p>{{ equipo.golesRecibidos }}</p></div>
+        <div class="team-center_match"><p>DFG</p><p>{{ getDFG(equipo) }}</p></div>
+        <div class="team-center_match"><p>PG</p><p>{{ equipo.partidosGanados }}</p></div>
+        <div class="team-center_match"><p>PP</p><p>{{ equipo.partidosPerdidos }}</p></div>
+        <div class="team-center_match"><p>PGD</p><p>{{ equipo.partidosGanadosDesempate }}</p></div>
+        <div class="team-center_match"><p>PPD</p><p>{{ equipo.partidosPerdidosDesempate }}</p></div>
+      </div>
+    </div>
+
+    <div class="card-team-rigth">
+      <div class="team-rigth-puntos"></div>
+    </div>
+  </div>
+</div>
+
+<div class="bottom-img">
+    <img [src]="'http://192.168.0.19:8080/public/leagues/' + liga + '.png'" alt="Logo liga" width="80" />
+  </div>
+</div>
