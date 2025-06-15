@@ -1,7 +1,14 @@
 <p>tablageneral works!</p>
-<app-tabla-general-layer
-  [clasificacion]="clasificacion"
-  [liga]="'ED'"
-  [typeTorneo]="'Torneo Corto'"
-  [torneo]="'2025 A'"
-></app-tabla-general-layer>
+<app-btn-descargar
+  targetId="app-tabla-general-lay"
+  nombreArchivo="tabla-general"
+></app-btn-descargar>
+
+<div id="app-tabla-general-lay">
+  <app-tabla-general-layer
+    [clasificacion]="clasificacion"
+    [liga]="'ED'"
+    [typeTorneo]="'Tabla General'"
+    [torneo]="'Mixta Sabatina'"
+  ></app-tabla-general-layer>
+</div>

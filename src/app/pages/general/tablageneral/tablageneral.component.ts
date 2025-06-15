@@ -2,11 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { TablaGeneralService } from '../../../service/peticiones/tablageneral/tabla-general.service';
 import { CommonModule } from '@angular/common';
 import { TablaGeneralLayerComponent } from '../../../components/tablageneralLayer/tablageneral-layer/tablageneral-layer.component';
+import { BtnDescargarComponent } from '../../../components/utils/btn-descargar/btn-descargar.component';
 
 @Component({
   selector: 'app-tablageneral',
   standalone: true,
-  imports: [CommonModule, TablaGeneralLayerComponent],
+  imports: [CommonModule, TablaGeneralLayerComponent, BtnDescargarComponent],
   templateUrl: './tablageneral.component.html',
   styleUrls: ['./tablageneral.component.css']
 })
