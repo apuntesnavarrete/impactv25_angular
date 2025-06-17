@@ -1,14 +1,13 @@
-<p>tablageneral works!</p>
 <app-btn-descargar
   targetId="app-tabla-general-lay"
-  nombreArchivo="tabla-general"
+  [nombreArchivo]="nombreArchivo"
 ></app-btn-descargar>
 
 <div id="app-tabla-general-lay">
   <app-tabla-general-layer
     [clasificacion]="clasificacion"
-    [liga]="'ED'"
+    [liga]="liga"
     [typeTorneo]="'Tabla General'"
-    [torneo]="'Mixta Sabatina'"
+    [torneo]="categoria"
   ></app-tabla-general-layer>
 </div>

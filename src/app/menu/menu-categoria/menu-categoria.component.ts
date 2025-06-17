@@ -36,7 +36,7 @@ ngOnInit(): void {
       title: 'Ver',
       suboptions: [
       { label: 'Goleo', path: 'Goleo' },
-        { label: 'General', path: 'General' },
+        { label: 'General', path: 'general' },
         { label: 'Partidos', path: 'VerPartidos' },
         { label: 'Planteles', path: 'Planteles' },
         { label: 'Equipos', path: 'Equipos' },
