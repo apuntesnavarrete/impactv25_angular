@@ -24,20 +24,10 @@ export class TournamentsApiService {
   }
 
   /** 🔍 Nueva función para obtener el ID del torneo según liga y categoría */
-  getTournamentId(liga: string, torneo: string): Observable<number | null> {
-    return this.getTournaments().pipe(
-      map((data: any[]) => {
-        const filtered = data.filter(item =>
-          item.leagues?.Alias === liga.toUpperCase() &&
-          item.categories?.categorias?.toUpperCase() === torneo.toUpperCase()
-        );
-
-        const sorted = filtered.sort((b, a) => a.idName.localeCompare(b.idName));
-
-        return sorted.length > 0 ? sorted[0].id : null;
-      })
-    );
-  }
+getTournamentsByLeagueAndCategory(liga: string, categoria: string): Observable<any[]> {
+  const url = `${this.baseUrl}/tournaments/${liga}/${categoria}`;
+  return this.http.get<any[]>(url);
+}
 
 
 

@@ -32,23 +32,25 @@ export class TablageneralComponent implements OnInit {
     this.categoria = this.route.snapshot.paramMap.get('Categoria') ?? undefined;
 
     if (this.liga && this.categoria) {
-      const fecha = new Date().toISOString().split('T')[0]; // Ej: 2025-06-17
+      const fecha = new Date().toISOString().split('T')[0];
       this.nombreArchivo = `tabla-general-${this.liga}-${this.categoria}-${fecha}`;
 
-      this.tournamentService.getTournamentId(this.liga, this.categoria).subscribe({
-        next: (id) => {
-          this.idTorneo = id;
+      this.tournamentService.getTournamentsByLeagueAndCategory(this.liga, this.categoria).subscribe({
+        next: (torneos) => {
+          if (torneos.length > 0) {
+            const torneoMasReciente = torneos.sort((a, b) => b.idName.localeCompare(a.idName))[0];
+            const id = torneoMasReciente.id; // 🔒 aquí sí es number
+            this.idTorneo = id;
 
-          if (id !== null) {
             this.tablaService.getTablaGeneralById(id).subscribe((data: any) => {
               this.clasificacion = data;
             });
           } else {
-            console.warn('Torneo no encontrado para liga/categoría:', this.liga, this.categoria);
+            console.warn('No se encontró torneo para:', this.liga, this.categoria);
           }
         },
         error: (err) => {
-          console.error('Error al obtener el ID del torneo:', err);
+          console.error('Error al obtener torneos:', err);
         }
       });
     } else {
@@ -56,5 +58,6 @@ export class TablageneralComponent implements OnInit {
     }
   }
 }
+
 
 
