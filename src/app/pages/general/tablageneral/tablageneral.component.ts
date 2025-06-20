@@ -5,11 +5,12 @@ import { TablaGeneralLayerComponent } from '../../../components/tablageneralLaye
 import { BtnDescargarComponent } from '../../../components/utils/btn-descargar/btn-descargar.component';
 import { ActivatedRoute } from '@angular/router';
 import { TournamentsApiService } from '../../../service/peticiones/torneos/torneos.service';
+import { MenuCategoriaComponent } from "../../../menu/menu-categoria/menu-categoria.component";
 
 @Component({
   selector: 'app-tablageneral',
   standalone: true,
-  imports: [CommonModule, TablaGeneralLayerComponent, BtnDescargarComponent],
+  imports: [CommonModule, TablaGeneralLayerComponent, BtnDescargarComponent, MenuCategoriaComponent],
   templateUrl: './tablageneral.component.html',
   styleUrls: ['./tablageneral.component.css']
 })

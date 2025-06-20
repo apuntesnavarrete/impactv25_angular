@@ -1,0 +1,149 @@
+.card_goleadores{
+    display: flex;
+    border: 1px dotted white;
+    width: 80%;
+    align-items: center;
+    border-radius: 13px;
+    padding: 10px;
+    margin: 15px 0px;
+    justify-content: space-around;
+
+}
+
+.card_goleadores_top{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-top: 30px;
+
+}
+.card_goleadores_name{
+    font-size: 10px;
+    font-size: 20px;
+
+}
+
+.card_goleadores div{
+    padding: 15px;
+}
+.card_goleadores_bottom{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+       border-top:  1px solid;
+
+}
+
+.card_equipos_bottom{
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+       border-top:  1px solid;
+}
+.jugador_img {
+    max-width: 200px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 13px;
+
+
+}
+.goleadores-card-goles{
+    font-size: 125px;
+}
+.card-goleador_equipos{
+    width: 50px;
+   margin:  0 15px;
+
+}
+.globalPj{
+    font-size: 0.5em;
+}
+
+.card-goles-content{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 35%;
+
+}
+
+  
+  .versus_top{
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+    margin-top: 40px;
+
+  }
+  .versus_top_rigth{
+    display: flex;
+    flex-direction: column;
+    /* align-content: flex-end; */
+    /* justify-content: flex-end; */
+    align-items: center;
+  }
+
+  .versus_top_rigth p{
+    margin: 15px;
+    padding: 0;
+    text-align: center;
+  }
+  .Cat {
+    text-align: center;
+    font-size: 1.5em;
+}
+.dayOfWeek{
+  font-size: 2em;
+    margin: 0;
+}
+
+
+.content_versus_data{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  border-top: 1px dotted #c5c6d6;
+  border-bottom: 1px dotted #c5c6d6;
+  border-left: none;
+  border-right: none;
+  width: 80%;
+
+}
+
+.content_resul_roll{
+    font-size: 2.5rem;
+    font-family: 'Fredoka', sans-serif;
+    font-weight: 800;
+   /*  color: #cfd1e2;*/
+    display: flex;
+    flex-direction: column;
+      width: 1100px;
+      align-items: center;
+
+      border-width: 10px;
+      border-style: double;
+      border-color: #747373;
+     /* border-radius: 3px; */
+      margin: 5px;
+}
+
+.versus_center{
+    text-align: center;
+   
+   }
+   
+   .versus_bottom{
+     display: flex;
+       width: 100%;
+       justify-content: space-around;
+   }
+
+   .ConvertRoll{
+    display: flex;
+    justify-content: center;
+    margin: 100px;
+    flex-direction: column;
+    align-items: center;
+
+   }

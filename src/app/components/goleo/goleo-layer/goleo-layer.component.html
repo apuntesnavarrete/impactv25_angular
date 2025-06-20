@@ -1,0 +1,33 @@
+<p>goleo-layer works!</p>
+<p>{{ order }}</p>
+
+<div [ngClass]="'content_resul_roll ' + liga" #cardgoleador>
+  <p class="dayOfWeek">{{ tipoTorneo }}</p>
+  <p>{{ torneo }}</p>
+
+  <div *ngFor="let goleador of top5Goleadores; let i = index" class="card_goleadores">
+    <img class="jugador_img" [src]="apiruta + '/participants/' + goleador.id + '.jpg'" alt="Foto del jugador" />
+    <div>
+      <div class="card_goleadores_top">
+        <p class="card_goleadores_name">ID.- {{ goleador.id }}</p>
+        <p>{{ obtenerPrimerYtercerNombre(goleador.nombre) }}</p>
+      </div>
+
+      <div *ngIf="infoType === 'torneo' && goleador.equipo" class="card_equipos_bottom">
+        <img class="card-goleador_equipos" [src]="apiruta + '/teams/' + goleador.equipoLogo" alt="logo equipo" />
+        <p>{{ goleador.equipo }}</p>
+      </div>
+
+      <div *ngIf="infoType === 'Global' && goleador.partidos" class="card_goleadores_bottom">
+        <p class="globalPj">Partidos Jugados: {{ goleador.partidos }}</p>
+        <p class="globalPj">Efectividad: {{ (goleador.goles / goleador.partidos) | number:'1.2-2' }}</p>
+      </div>
+    </div>
+
+    <div class="card-goles-content">
+      <p class="goleadores-card-goles">{{ goleador.goles }}</p>
+      <p>Goles</p>
+    </div>
+  </div>
+
+</div>

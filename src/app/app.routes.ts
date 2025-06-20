@@ -16,6 +16,7 @@ import { CategoriaComponent } from './components/categorias/categoria/categoria.
 import { MenuLigaComponent } from './menu/menu-liga/menu-liga.component';
 import { MenuCategoriaComponent } from './menu/menu-categoria/menu-categoria.component';
 import { TablageneralComponent } from './pages/general/tablageneral/tablageneral.component';
+import { GoleoComponent } from './pages/goleo/goleo/goleo.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent }, // Nueva página "Jugadores"
@@ -68,5 +69,6 @@ export const routes: Routes = [
   { path: ':liga', component: MenuLigaComponent },
   { path: ':liga/:Categoria', component: MenuCategoriaComponent },
   { path: ':liga/:Categoria/general', component: TablageneralComponent },
+  { path: ':liga/:Categoria/goleo', component: GoleoComponent },
 
 ];

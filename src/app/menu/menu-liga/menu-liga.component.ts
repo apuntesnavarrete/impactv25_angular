@@ -23,6 +23,7 @@ export class MenuLigaComponent implements OnInit {
   
   if (liga) {
     this.tournamentsApiService.getUniqueCategoriesByLeague(liga).subscribe((data: string[]) => {
+      console.log(data)
       this.categoryNames = data;
     });
   }
