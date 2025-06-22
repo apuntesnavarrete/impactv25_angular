@@ -2,12 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { GoleoLayerComponent } from '../../../components/goleo/goleo-layer/goleo-layer.component';
 import { TournamentsApiService } from '../../../service/peticiones/torneos/torneos.service';
-import { GoleadoresService } from '../../../service/peticiones/goleo/goleadores.service'; // 👈 importado aquí
+import { GoleadoresService } from '../../../service/peticiones/goleo/goleadores.service';
+import { BtnDescargarComponent } from '../../../components/utils/btn-descargar/btn-descargar.component';
 
 @Component({
   selector: 'app-goleo',
   standalone: true,
-  imports: [GoleoLayerComponent],
+  imports: [GoleoLayerComponent, BtnDescargarComponent],
   templateUrl: './goleo.component.html',
   styleUrls: ['./goleo.component.css']
 })
@@ -19,6 +20,7 @@ export class GoleoComponent implements OnInit {
   tipoTorneo = 'Tabla de Goleo';
   infoType: 'Global' | 'torneo' = 'torneo';
   order = 'Goles';
+  nombreArchivo: string = 'tabla-general';
 
 goleadores: any[] = [];
 
@@ -33,6 +35,11 @@ goleadores: any[] = [];
     this.categoria = this.route.snapshot.paramMap.get('Categoria') ?? undefined;
 
     if (this.liga && this.categoria) {
+    this.torneo = this.categoria.charAt(0).toUpperCase() + this.categoria.slice(1);
+          const fecha = new Date().toISOString().split('T')[0];
+
+      this.nombreArchivo = `tabla-goleo-${this.liga}-${this.categoria}-${fecha}`;
+
       this.tournamentService.getTournamentsByLeagueAndCategory(this.liga, this.categoria).subscribe({
         next: (torneos) => {
           if (torneos.length > 0) {
@@ -40,7 +47,6 @@ goleadores: any[] = [];
             const id = torneoMasReciente.id;
 
             console.log('ID del torneo más reciente:', id);
-            this.torneo = torneoMasReciente.nombre || 'Torneo reciente';
 
             // 👇 Aquí llamamos al servicio de goleadores
             this.goleadoresService.getGoleadoresByTorneo(id).subscribe({

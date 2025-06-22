@@ -1,9 +1,17 @@
 <p>goleo works!</p>
-<app-goleo-layer
-  [liga]="liga"
-  [torneo]="torneo"
-  [goleadores]="goleadores"
-  [tipoTorneo]="tipoTorneo"
-  [infoType]="infoType"
-  [order]="order">
-</app-goleo-layer>
+
+<app-btn-descargar
+  [targetId]="'app-tabla-goleo-lay'"
+  [nombreArchivo]="nombreArchivo">
+</app-btn-descargar>
+
+<div id="app-tabla-goleo-lay">
+  <app-goleo-layer
+    [liga]="liga"
+    [torneo]="torneo"
+    [goleadores]="goleadores"
+    [tipoTorneo]="tipoTorneo"
+    [infoType]="infoType"
+    [order]="order">
+  </app-goleo-layer>
+</div>

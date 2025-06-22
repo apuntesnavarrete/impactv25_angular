@@ -1,8 +1,12 @@
-<p>goleo-layer works!</p>
-<p>{{ order }}</p>
 
-<div [ngClass]="'content_resul_roll ' + liga" #cardgoleador>
-  <p class="dayOfWeek">{{ tipoTorneo }}</p>
+<div [ngClass]="'content_resul_roll ' + 'ligaFondo' + liga" #cardgoleador>
+ 
+    <div class='versus_top'>
+    <p>{{date}}</p>
+    <p>Liga {{liga}}</p>
+  </div>
+ 
+    <p class="dayOfWeek">{{ tipoTorneo }}</p>
   <p>{{ torneo }}</p>
 
   <div *ngFor="let goleador of top5Goleadores; let i = index" class="card_goleadores">
@@ -28,6 +32,17 @@
       <p class="goleadores-card-goles">{{ goleador.goles }}</p>
       <p>Goles</p>
     </div>
+
+    
   </div>
 
+    <div class="bottom-img">
+<img
+  *ngIf="liga"
+  class="logo-img"
+  [src]="'http://192.168.0.19:8080/public/teams/liga' + liga + '.png'"
+  alt="Logo liga"
+  width="80"
+/>
+</div>
 </div>

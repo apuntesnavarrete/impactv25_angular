@@ -51,8 +51,13 @@
 </div>
 
 <div class="bottom-img">
-    <img class="logo-img" [src]="'http://192.168.0.19:8080/public/teams/ligaed.png'" alt="Logo liga" width="80" />
-  
+<img
+  *ngIf="liga"
+  class="logo-img"
+  [src]="'http://192.168.0.19:8080/public/teams/liga' + liga + '.png'"
+  alt="Logo liga"
+  width="80"
+/> 
 
 
   </div>

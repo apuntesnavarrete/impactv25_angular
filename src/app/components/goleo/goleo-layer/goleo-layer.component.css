@@ -1,3 +1,7 @@
+*{
+    margin: 0;
+    padding: 0;
+}
 .card_goleadores{
     display: flex;
     border: 1px dotted white;
@@ -76,6 +80,9 @@
     margin-top: 40px;
 
   }
+
+
+
   .versus_top_rigth{
     display: flex;
     flex-direction: column;
@@ -147,3 +154,35 @@
     align-items: center;
 
    }
+
+   
+.ligaFondoAguigol{
+    background: #FDFC47;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #24FE41, #FDFC47);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #24FE41, #FDFC47); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    color: #434450;
+
+}
+
+.ligaFondoProchampions{
+  background: #0F2027;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #2C5364, #203A43, #0F2027);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #2C5364, #203A43, #0F2027); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  
+  
+color: #c5c6d6;
+
+}
+
+.ligaFondoED{
+  background: #2C3E50;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #4CA1AF, #2C3E50);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #4CA1AF, #2C3E50); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  
+color: #c5c6d6;
+
+}
+
+.logo-img{
+    margin: 40px;
+}
