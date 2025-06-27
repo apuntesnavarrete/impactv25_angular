@@ -1,0 +1,39 @@
+<!-- Primer input: cualquier partido donde esté un equipo -->
+<input type="text" [(ngModel)]="equipoUno" placeholder="Buscar equipo 1 (ej. Juventus)" />
+
+<!-- Segundo input: enfrentamientos exactos entre dos equipos -->
+<input type="text" [(ngModel)]="equipoDos" placeholder="Buscar vs equipo 2 (opcional)" />
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Jornada</th>
+      <th>Id Partido</th>
+      <th>Pts Local</th>
+      <th>Equipo Local</th>
+      <th>Goles Local</th>
+      <th>Goles Visitante</th>
+      <th>Equipo Visitante</th>
+      <th>Puntos Visitante</th>
+      <th>Fecha</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let partido of partidosFiltrados()">
+      <td>{{ partido.matchday }}</td>
+      <td>{{ partido.id }}</td>
+      <td>{{ partido.pointsLocal }}</td>
+      <td>
+        {{ partido.teamHome.name }}
+      </td>
+      <td>{{ partido.localgoals }}</td>
+      <td>{{ partido.visitangoals }}</td>
+      <td>
+        {{ partido.teamAway.name }}
+      </td>
+      <td>{{ partido.pointsVisitan }}</td>
+      <td>{{ partido.date }}</td>
+    </tr>
+  </tbody>
+</table>
+
