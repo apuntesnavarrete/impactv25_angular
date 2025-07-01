@@ -1,0 +1,51 @@
+*{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+
+
+
+  .card_container{
+    width: 300px;
+    display: inline-block;
+    margin: 10px;
+    border: 1px solid;
+    border-radius: 5px;
+    
+}
+.card_interna{
+    display: flex;
+    align-items: center;
+
+}
+.card_perfil{
+    width: 140px;
+    height: 150px;
+    object-fit: cover;
+}
+.card_data{
+    margin: 5px;
+
+}
+
+.top ,.bottom{
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-around;
+}
+
+.content_rigth * {
+  margin: 10px 0; /* Puedes ajustar el valor según tus necesidades */
+}
+.content_left{
+  display: flex;
+
+}
+.bottom{
+}
+
+.Registros_card{
+  background-color: #f9f9f9;
+}

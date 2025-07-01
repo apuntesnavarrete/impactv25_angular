@@ -4,6 +4,32 @@
   {{ mostrarTabla ? 'Ocultar' : 'Mostrar' }} tabla de jugadores
 </button>
 
+<input
+  type="text"
+  [(ngModel)]="equipoSeleccionado"
+  placeholder="Filtrar por equipo..."
+  style="margin-bottom: 10px; display: block;"
+>
+
+<input
+  type="text"
+  [(ngModel)]="filtroJugador"
+  placeholder="Filtrar por nombre o ID..."
+  style="margin-bottom: 10px; display: block;"
+>
+
+<input
+  type="number"
+  [(ngModel)]="minAsistencias"
+  placeholder="Min asistencias"
+  style="margin-bottom: 10px; display: block;"
+  min="0"
+/>
+
+<button (click)="toggleMostrarAutorizado()">
+  {{ mostrarAutorizado ? 'Mostrar asistencias' : 'Mostrar autorizado a liguilla' }}
+</button>
+
 <table *ngIf="mostrarTabla">
   <thead>
     <tr>
@@ -18,7 +44,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let item of rostersConEstadisticas">
+<tr *ngFor="let item of rostersFiltrados">
       <td>{{ item.id }}</td>
       <td>{{ item.equipo }}</td>
       <td>{{ item.nombre }}</td>
@@ -30,3 +56,63 @@
     </tr>
   </tbody>
 </table>
+
+<app-btn-descargar
+  [targetId]="'Registros_cards'"
+  [nombreArchivo]="nombreArchivo">
+</app-btn-descargar>
+
+
+<div id="Registros_cards" class="Registros_card">
+  <div class="top">
+    <div class="content_rigth">
+      <p>Jornada _________________</p>
+      <p>Fecha _________________</p>
+    </div>
+    <div class="content_left">
+      <h3>Hoja de Registros</h3>
+      <p>{{ liga }} {{ categoria }}</p>
+    </div>
+  </div>
+
+<div *ngFor="let player of rostersFiltrados" class="card_container">
+    <div class="card_interna">
+      <img class="card_perfil" [src]="apiruta + '/participants/' + player.id + '.jpg'" alt="Foto del jugador" />
+
+      <div class="card_data">
+        <a [href]="'Delete/' + player.id">
+          <h5 class="card_plante-id">Id.-{{ player.id }}</h5>
+        </a>
+
+        <h4 class="card_nombre">{{ player.nombre }}</h4>
+
+        <h5 class="card_escudo">
+          <img class="PhotoTablas" [src]="apiruta + '/teams/' + player.equipoLogo" alt="Foto del equipo" />
+          <h5 class="card_plante-id">{{ player.equipo }}</h5>
+        </h5>
+
+        <p class="card_Torneo">Torneo {{ liga }} {{ categoria }}</p>
+
+        <a [href]="'Edit/' + player.id">
+          <p class="card_Dorsal">Dorsal .- {{ player.dorsal }}</p>
+          <p *ngIf="player.fechaNacimiento" class="card_Dorsal">
+            Año .- {{ player.fechaNacimiento | date: 'yyyy' }}
+          </p>
+        </a>
+
+     <p *ngIf="player.asistencias !== undefined" class="card_asistencia">
+  {{ mostrarAutorizado ? 'Autorizado a liguilla' : 'Asistencias: ' + player.asistencias }}
+</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="bottom">
+    <div class="content_rigth">
+      <p>Marcador Final _________________</p>
+    </div>
+    <div class="content_left">
+      <h3>Firma______________________</h3>
+    </div>
+  </div>
+</div>

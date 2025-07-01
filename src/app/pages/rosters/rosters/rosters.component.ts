@@ -5,15 +5,19 @@ import { TournamentsApiService } from '../../../service/peticiones/torneos/torne
 import { GoleadoresService } from '../../../service/peticiones/goleo/goleadores.service';
 import { CommonModule } from '@angular/common';
 import { environment } from '../../../../environments/environment';
+import { FormsModule } from '@angular/forms';
+import { BtnDescargarComponent } from "../../../components/utils/btn-descargar/btn-descargar.component";
 
 @Component({
   selector: 'app-rosters',
   templateUrl: './rosters.component.html',
   styleUrls: ['./rosters.component.css'],
   imports: [
-    CommonModule,
+    CommonModule, FormsModule
     // otros módulos que uses como FormsModule o RouterModule
-  ],
+    ,
+    BtnDescargarComponent
+],
 })
 export class RostersComponent implements OnInit {
   liga?: string;
@@ -22,6 +26,11 @@ export class RostersComponent implements OnInit {
 rostersConEstadisticas: any[] = []; // para mostrarlo en la vista
 apiruta = environment.baseUrlPublic;
 mostrarTabla: boolean = false;
+equipoSeleccionado: string = '';
+filtroJugador: string = ''; // 👈 nuevo filtro
+minAsistencias: number | null = null;
+mostrarAutorizado: boolean = false;
+  nombreArchivo: string = 'Registros';
 
   constructor(
     private route: ActivatedRoute,
@@ -40,6 +49,9 @@ mostrarTabla: boolean = false;
           if (torneos.length > 0) {
             const torneoMasReciente = torneos.sort((a, b) => b.idName.localeCompare(a.idName))[0];
             this.idTorneo = torneoMasReciente.id;
+                const fecha = new Date().toISOString().split('T')[0];
+
+            this.nombreArchivo = `Registros-${this.liga}-${this.categoria}-${fecha}`;
 
             if (this.idTorneo) {
               // Llamar rosters y goleadores al mismo tiempo
@@ -49,11 +61,12 @@ mostrarTabla: boolean = false;
                     next: (goleadores) => {
                       const rostersConEstadisticas = rosters.map((roster: any) => {
                         const nombreJugador = roster.participants.name;
+                        const idjugador = roster.participants.id;
 
                         const goleador = goleadores.find((g: any) => g.nombre === nombreJugador);
 
                         return {
-                          id: roster.id,
+                          id: idjugador,
                           nombre: nombreJugador,
                           dorsal: roster.dorsal,
                           equipo: roster.teams.name,
@@ -84,5 +97,31 @@ mostrarTabla: boolean = false;
       console.warn('Faltan parámetros de liga o categoría');
     }
   }
+
+
+
+
+get rostersFiltrados(): any[] {
+  return this.rostersConEstadisticas.filter((item) => {
+    const coincideEquipo = this.equipoSeleccionado
+      ? item.equipo.toLowerCase().includes(this.equipoSeleccionado.toLowerCase())
+      : true;
+
+    const coincideJugador = this.filtroJugador
+      ? item.nombre.toLowerCase().includes(this.filtroJugador.toLowerCase()) ||
+        item.id.toString().includes(this.filtroJugador)
+      : true;
+
+    const cumpleAsistencias = this.minAsistencias != null
+      ? item.asistencias >= this.minAsistencias
+      : true;
+
+    return coincideEquipo && coincideJugador && cumpleAsistencias;
+  });
+}
+toggleMostrarAutorizado() {
+  this.mostrarAutorizado = !this.mostrarAutorizado;
+}
+
 }
 
