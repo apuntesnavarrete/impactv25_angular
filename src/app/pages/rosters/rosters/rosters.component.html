@@ -1,0 +1,32 @@
+<p>rosters works!</p>
+
+<button (click)="mostrarTabla = !mostrarTabla" style="margin-bottom: 10px;">
+  {{ mostrarTabla ? 'Ocultar' : 'Mostrar' }} tabla de jugadores
+</button>
+
+<table *ngIf="mostrarTabla">
+  <thead>
+    <tr>
+      <th>ID_Jugador</th>
+      <th>Equipo</th>
+      <th>Jugador</th>
+      <th>Dorsal</th>
+      <th>Goles</th>
+      <th>Asistencias</th>
+            <th>Foto</th>
+
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let item of rostersConEstadisticas">
+      <td>{{ item.id }}</td>
+      <td>{{ item.equipo }}</td>
+      <td>{{ item.nombre }}</td>
+      <td>{{ item.dorsal }}</td>
+      <td>{{ item.goles }}</td>
+      <td>{{ item.asistencias }}</td>
+   
+          <img  style="width: 50px; height: 50px; border-radius: 50%; object-fit: cover;" class="jugador_img" [src]="apiruta + '/participants/' + item.id + '.jpg'" alt="Foto del jugador" />
+    </tr>
+  </tbody>
+</table>
