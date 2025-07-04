@@ -1,0 +1,70 @@
+<div class="equipos-container">
+  <h2>Select Teams (Click to include/exclude)</h2>
+  <div class="equipos-list">
+    <button 
+      *ngFor="let equipo of enfrentamientos" 
+      (click)="toggleEquipo(equipo.equipo)" 
+      [class.selected]="equiposSeleccionados.has(equipo.equipo)">
+      {{ equipo.equipo }}
+    </button>
+  </div>
+</div>
+
+<button (click)="generarSugerencia()" [disabled]="equiposSeleccionados.size < 2">
+  Generate Roll Suggestion
+</button>
+
+<div *ngIf="sugerenciaDelDia.length > 0" class="sugerencia-container">
+  <h2>Suggested Matches</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Team A</th>
+        <th>Team B</th>
+        <th>Times Played</th>
+        <th>Last Match Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of sugerenciaDelDia">
+        <td>{{ item.equipoA }}</td>
+        <td>{{ item.equipoB }}</td>
+        <td>{{ item.count }}</td>
+        <td>{{ item.lastDate ? (item.lastDate | date:'shortDate') : 'Never' }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div *ngIf="equipoEnDescanso" class="descanso-info">
+  <h3>Resting Team:</h3>
+  <p>{{ equipoEnDescanso }}</p>
+</div>
+
+
+<div *ngFor="let grupo of enfrentamientos" class="tabla-equipo" style="margin-bottom: 2rem;">
+  <table border="1" cellpadding="4" cellspacing="0" style="width: 100%; border-collapse: collapse;">
+    <thead>
+      <tr>
+        <th colspan="3" 
+            style="text-align: center; background-color: #a35252; color: white; font-size: 1.2rem; padding: 0.5rem;">
+          {{ grupo.equipo }}
+        </th>
+      </tr>
+      <tr>
+        <th>Rival</th>
+        <th>Veces enfrentados</th>
+        <th>Última fecha</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let rival of grupo.rivales">
+        <td>{{ rival.rival }}</td>
+        <td>{{ rival.count }}</td>
+        <td>{{ rival.lastDate ?? 'Nunca' }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+

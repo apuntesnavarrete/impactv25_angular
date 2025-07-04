@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { EquiposApiService } from './teams.service';
+import { RollService } from './roll.service';
 
-describe('TeamsService', () => {
-  let service: EquiposApiService;
+describe('RollService', () => {
+  let service: RollService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(EquiposApiService);
+    service = TestBed.inject(RollService);
   });
 
   it('should be created', () => {

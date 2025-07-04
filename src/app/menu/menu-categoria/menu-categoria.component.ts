@@ -38,8 +38,8 @@ ngOnInit(): void {
       { label: 'Goleo', path: 'goleo' },
         { label: 'General', path: 'general' },
         { label: 'Partidos', path: 'partidos' },
-        { label: 'Planteles', path: 'Planteles' },
-        { label: 'Equipos', path: 'Equipos' },
+        { label: 'Planteles', path: 'planteles' },
+        { label: 'Equipos', path: 'equipos' },
         { label: 'Roll', path: 'Roll' }
       ]
     },

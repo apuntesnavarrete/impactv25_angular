@@ -23,6 +23,13 @@ export class EquiposApiService {
     return this.http.get(`${this.baseUrl}/teams/${id}`, { headers });
   }
 
+   getTeamsByTournaments(id: string): Observable<any> {
+    const headers = new HttpHeaders({
+    });
+
+    return this.http.get(`${this.baseUrl}/teams-tournament/tournament/${id}`, { headers });
+  }
+
   addTeam(team: FormData, token: string): Observable<any> {
     const headers = new HttpHeaders({
       Authorization: `Bearer ${token}`
