@@ -21,6 +21,9 @@ sugerenciaDelDia: {
   count: number;
   lastDate: string | null;
 }[] = [];
+
+sugerenciasAnteriores: string[] = [];
+
 equipoEnDescanso: string | null = null;
 equiposSeleccionados: Set<string> = new Set();
 
@@ -94,13 +97,15 @@ for (let equipo of equipos) {
   }
 
 
-  
- generarSugerencia() {
-// Solo considerar equipos seleccionados
-  const equiposActivos = new Set(this.equiposSeleccionados);
-  if (equiposActivos.size < 2) return; // se necesitan al menos 2 para jugar
+ultimaSugerencia: any[] = [];
 
+
+
+generarSugerencia() {
   if (!this.enfrentamientos || this.enfrentamientos.length === 0) return;
+
+  const seleccionados = Array.from(this.equiposSeleccionados);
+  if (seleccionados.length < 2) return;
 
   const posiblesDuplas: {
     equipoA: string;
@@ -110,49 +115,75 @@ for (let equipo of equipos) {
     prioridad: number;
   }[] = [];
 
-  for (let grupo of this.enfrentamientos) {
-    if (!equiposActivos.has(grupo.equipo)) continue;
+  for (let i = 0; i < seleccionados.length; i++) {
+    for (let j = i + 1; j < seleccionados.length; j++) {
+      const equipoA = seleccionados[i];
+      const equipoB = seleccionados[j];
 
-    for (let rival of grupo.rivales) {
-      if (!equiposActivos.has(rival.rival)) continue;
+      const grupo = this.enfrentamientos.find((g) => g.equipo === equipoA);
+      const datos = grupo?.rivales.find((r) => r.rival === equipoB);
 
-      if (grupo.equipo < rival.rival) {
-        const lastTimestamp = rival.lastDate ? new Date(rival.lastDate).getTime() : 0;
-        posiblesDuplas.push({
-          equipoA: grupo.equipo,
-          equipoB: rival.rival,
-          count: rival.count,
-          lastDate: rival.lastDate,
-          prioridad: rival.count * 10000000000 + lastTimestamp,
+      const count = datos?.count ?? 0;
+      const lastDate = datos?.lastDate ?? null;
+      const lastTimestamp = lastDate ? new Date(lastDate).getTime() : 0;
+      const prioridad = count * 1e10 + lastTimestamp;
+
+      posiblesDuplas.push({ equipoA, equipoB, count, lastDate, prioridad });
+    }
+  }
+
+  if (posiblesDuplas.length === 0) return;
+
+  const maxIntentos = 10;
+  let intentos = 0;
+  let nuevaSugerencia: typeof this.sugerenciaDelDia = [];
+
+  while (intentos < maxIntentos) {
+    const usados = new Set<string>();
+    nuevaSugerencia = [];
+
+    const offset = Math.floor(Math.random() * posiblesDuplas.length);
+    const ordenadas = [...posiblesDuplas].sort((a, b) => a.prioridad - b.prioridad);
+
+    for (let i = 0; i < ordenadas.length; i++) {
+      const index = (i + offset) % ordenadas.length;
+      const dupla = ordenadas[index];
+
+      if (!usados.has(dupla.equipoA) && !usados.has(dupla.equipoB)) {
+        nuevaSugerencia.push({
+          equipoA: dupla.equipoA,
+          equipoB: dupla.equipoB,
+          count: dupla.count,
+          lastDate: dupla.lastDate,
         });
+        usados.add(dupla.equipoA);
+        usados.add(dupla.equipoB);
       }
     }
-  }
-posiblesDuplas.sort(() => Math.random() - 0.5);
-  posiblesDuplas.sort((a, b) => a.prioridad - b.prioridad);
 
-  const usados = new Set<string>();
-  const sugerenciaFinal: typeof this.sugerenciaDelDia = [];
+    const hash = JSON.stringify(nuevaSugerencia);
+    if (!this.sugerenciasAnteriores.includes(hash)) {
+      this.sugerenciaDelDia = nuevaSugerencia;
+      this.ultimaSugerencia = nuevaSugerencia;
+      this.sugerenciasAnteriores.push(hash);
 
-  for (const dupla of posiblesDuplas) {
-    if (!usados.has(dupla.equipoA) && !usados.has(dupla.equipoB)) {
-      sugerenciaFinal.push({
-        equipoA: dupla.equipoA,
-        equipoB: dupla.equipoB,
-        count: dupla.count,
-        lastDate: dupla.lastDate,
-      });
-      usados.add(dupla.equipoA);
-      usados.add(dupla.equipoB);
+      // descanso
+      const usadosEquipos = new Set(nuevaSugerencia.flatMap((d) => [d.equipoA, d.equipoB]));
+      const restantes = seleccionados.filter((eq) => !usadosEquipos.has(eq));
+      this.equipoEnDescanso = restantes.length === 1 ? restantes[0] : null;
+
+      return;
     }
+
+    intentos++;
   }
 
-  // Detectar si sobra un equipo
-  const equiposRestantes = Array.from(equiposActivos).filter((eq) => !usados.has(eq));
-  this.equipoEnDescanso = equiposRestantes.length === 1 ? equiposRestantes[0] : null;
-  this.sugerenciaDelDia = sugerenciaFinal;
-
+  console.warn("No se pudo generar una sugerencia diferente después de varios intentos.");
 }
+
+
+
+
 
 toggleEquipo(nombre: string): void {
   if (this.equiposSeleccionados.has(nombre)) {
@@ -161,4 +192,17 @@ toggleEquipo(nombre: string): void {
     this.equiposSeleccionados.add(nombre);
   }
 }
+
+weeksSinceLastMatch(lastDate: string | null): string {
+  if (!lastDate) return 'Never';
+
+  const last = new Date(lastDate);
+  const now = new Date();
+
+  const diffMs = now.getTime() - last.getTime(); // difference in milliseconds
+  const diffWeeks = Math.floor(diffMs / (1000 * 60 * 60 * 24 * 7));
+
+  return diffWeeks + ' week' + (diffWeeks !== 1 ? 's' : '');
+}
+
 }

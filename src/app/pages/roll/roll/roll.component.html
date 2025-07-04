@@ -4,41 +4,53 @@
     <button 
       *ngFor="let equipo of enfrentamientos" 
       (click)="toggleEquipo(equipo.equipo)" 
-      [class.selected]="equiposSeleccionados.has(equipo.equipo)">
+      [class.selected]="equiposSeleccionados.has(equipo.equipo)"
+      [class.excluded]="!equiposSeleccionados.has(equipo.equipo)">
       {{ equipo.equipo }}
     </button>
   </div>
 </div>
 
-<button (click)="generarSugerencia()" [disabled]="equiposSeleccionados.size < 2">
-  Generate Roll Suggestion
-</button>
+<div class="sugerencia-container">
+  <h2>Sugerencia del Día</h2>
 
-<div *ngIf="sugerenciaDelDia.length > 0" class="sugerencia-container">
-  <h2>Suggested Matches</h2>
-  <table>
+  <button (click)="generarSugerencia()" style="margin-bottom: 1rem;">Generar nueva sugerencia</button>
+
+<p *ngIf="equiposSeleccionados.size < 2" style="color: darkred;">
+  Selecciona al menos dos equipos para generar una sugerencia.
+</p>
+
+  <!-- AVISO SI NO HAY MÁS COMBINACIONES -->
+  <p *ngIf="sugerenciasAnteriores.length > 50" style="color: red; margin-top: 10px;">
+    Ya se han generado muchas combinaciones. Prueba quitar equipos o reiniciar el historial.
+  </p>
+
+  <!-- MOSTRAR SUGERENCIAS -->
+  <table *ngIf="sugerenciaDelDia.length > 0" class="sugerencia-tabla">
     <thead>
-      <tr>
-        <th>Team A</th>
-        <th>Team B</th>
-        <th>Times Played</th>
-        <th>Last Match Date</th>
+      <tr style="background-color: #a35252; color: white;">
+        <th>Equipo A</th>
+        <th>Equipo B</th>
+        <th>Veces enfrentados</th>
+        <th>Último partido</th>
+        <th>Semanas sin enfrentarse</th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let item of sugerenciaDelDia">
-        <td>{{ item.equipoA }}</td>
-        <td>{{ item.equipoB }}</td>
-        <td>{{ item.count }}</td>
-        <td>{{ item.lastDate ? (item.lastDate | date:'shortDate') : 'Never' }}</td>
+      <tr *ngFor="let duelo of sugerenciaDelDia">
+        <td>{{ duelo.equipoA }}</td>
+        <td>{{ duelo.equipoB }}</td>
+        <td>{{ duelo.count }}</td>
+        <td>{{ duelo.lastDate ? (duelo.lastDate | date:'d MMM y') : 'Nunca' }}</td>
+        <td>{{ weeksSinceLastMatch(duelo.lastDate) }}</td>
       </tr>
     </tbody>
   </table>
-</div>
 
-<div *ngIf="equipoEnDescanso" class="descanso-info">
-  <h3>Resting Team:</h3>
-  <p>{{ equipoEnDescanso }}</p>
+  <!-- EQUIPO EN DESCANSO -->
+  <p *ngIf="equipoEnDescanso" style="margin-top: 10px;">
+    <strong>{{ equipoEnDescanso }}</strong> descansará esta jornada.
+  </p>
 </div>
 
 

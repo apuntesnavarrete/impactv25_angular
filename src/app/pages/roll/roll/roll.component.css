@@ -36,3 +36,20 @@ button:disabled {
   border: 1px solid #ff8888;
   max-width: 200px;
 }
+
+.sugerencia-container {
+  margin-top: 30px;
+}
+
+.sugerencia-tabla {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+.sugerencia-tabla th,
+.sugerencia-tabla td {
+  border: 1px solid #ccc;
+  padding: 8px;
+  text-align: center;
+}

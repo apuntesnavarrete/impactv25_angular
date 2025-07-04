@@ -40,7 +40,7 @@ ngOnInit(): void {
         { label: 'Partidos', path: 'partidos' },
         { label: 'Planteles', path: 'planteles' },
         { label: 'Equipos', path: 'equipos' },
-        { label: 'Roll', path: 'Roll' }
+        { label: 'Roll', path: 'roll' }
       ]
     },
     {
