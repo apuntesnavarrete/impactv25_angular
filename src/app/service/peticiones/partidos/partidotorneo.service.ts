@@ -15,5 +15,14 @@ export class PartidotorneoService {
   getMatchesByTorneoId(idTorneo: number): Observable<any[]> {
     return this.http.get<any[]>(`${this.baseUrl}/matches/tournament/${idTorneo}`);
   }
+
+  createMatch(data: any): Observable<any> {
+  const token = localStorage.getItem('token');
+  const headers = {
+    Authorization: `Bearer ${token}`
+  };
+
+  return this.http.post(`${this.baseUrl}/matches`, data, { headers });
+}
 }
 

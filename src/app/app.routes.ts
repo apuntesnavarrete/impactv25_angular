@@ -21,6 +21,7 @@ import { PartidotorneoComponent } from './pages/partidos/partidoTorneo/partidoto
 import { RostersComponent } from './pages/rosters/rosters/rosters.component';
 import { EquiposTournamentsComponent } from './components/equipos/equipos-tournaments/equipos-tournaments/equipos-tournaments.component';
 import { RollComponent } from './pages/roll/roll/roll.component';
+import { AddpartidoComponent } from './pages/partidos/addPartido/addpartido/addpartido.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent }, // Nueva página "Jugadores"
@@ -74,7 +75,11 @@ export const routes: Routes = [
   { path: ':liga/:Categoria', component: MenuCategoriaComponent },
   { path: ':liga/:Categoria/general', component: TablageneralComponent },
   { path: ':liga/:Categoria/goleo', component: GoleoComponent },
-  { path: ':liga/:Categoria/partidos', component: PartidotorneoComponent },
+
+    { path: ':liga/:Categoria/partidos', component: PartidotorneoComponent },
+   { path: ':liga/:Categoria/addpartidos', component: AddpartidoComponent, canActivate: [authGuard] },
+
+ 
   { path: ':liga/:Categoria/planteles', component: RostersComponent },
   { path: ':liga/:Categoria/equipos', component: EquiposTournamentsComponent },
   { path: ':liga/:Categoria/roll', component: RollComponent },

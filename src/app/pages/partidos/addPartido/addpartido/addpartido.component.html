@@ -1,0 +1,58 @@
+<p>Agrega Nuevos Partidos</p>
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+    <label for="matchday">Jornada / Matchday</label>
+<input type="number" formControlName="matchday" min="1" />
+
+<label for="date">Fecha de partido</label>
+  <input type="date" formControlName="date" />
+
+ <label for="teamHome">Equipo Local</label>
+<select formControlName="teamHome">
+  <option *ngFor="let team of teams" [value]="team.id">{{ team.name }}</option>
+</select>
+
+  <label for="localgoals">Goles Local</label>
+  <input type="number" formControlName="localgoals" />
+
+  <label for="visitangoals">Goles Visitante</label>
+  <input type="number" formControlName="visitangoals" />
+
+
+<label for="teamAway">Equipo Visitante</label>
+<select formControlName="teamAway">
+  <option *ngFor="let team of teams" [value]="team.id">{{ team.name }}</option>
+</select>
+
+
+  
+
+
+
+
+<div *ngIf="form.value.localgoals === form.value.visitangoals">
+  <label for="ganadorDesempate">Ganador por desempate</label>
+  <select formControlName="ganadorDesempate">
+    <option [value]="null">-- Selecciona --</option>
+    <option value="local">Local</option>
+    <option value="visitante">Visitante</option>
+  </select>
+</div>
+
+  <button type="submit">Submit</button>
+</form>
+
+<div *ngIf="matchGuardado" class="resumen">
+  <h3>Partido registrado:</h3>
+  <p>Fecha: {{ matchGuardado.date }}</p>
+  <p>Jornada {{ matchGuardado.matchday }}</p>
+
+
+  <p>Local: {{ getTeamNameById(matchGuardado.teamHome) }}</p>
+    <p>Goles: {{ matchGuardado.localgoals }}</p>
+ <p>Puntos local: {{ matchGuardado.pointsLocal }}</p>
+
+  <p>Visitante: {{ getTeamNameById(matchGuardado.teamAway) }}</p>
+  <p>Goles: {{ matchGuardado.visitangoals }}</p>
+    <p>Puntos visitante: {{ matchGuardado.pointsVisitan }}</p>
+</div>
