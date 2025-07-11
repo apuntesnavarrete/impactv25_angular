@@ -17,9 +17,8 @@ export class JugadoresApiService {
     return this.http.get<any>(`${this.baseUrl}/participants`);
   }
 
-  getPlayerById(id: string, token: string): Observable<any> {
+  getPlayerById(id: string): Observable<any> {
     const headers = new HttpHeaders({
-      Authorization: `Bearer ${token}`
     });
   
     return this.http.get(`${this.baseUrl}/participants/${id}`, { headers });

@@ -47,17 +47,22 @@ export class JugadoresComponent implements OnInit {
   }
 
   // 🔍 Método para filtrar jugadores por nombre o ID
-  filteredPlayers() {
-    if (!this.searchQuery) {
-      return this.jugadores.slice().reverse();
-    }
-    const query = this.searchQuery.toLowerCase();
-    return this.jugadores
-      .filter(jugador =>
-        jugador.name.toLowerCase().includes(query) ||
-        jugador.id.toString().includes(query)
-      )
-      .reverse();
+filteredPlayers() {
+  if (!this.searchQuery) {
+    return this.jugadores.slice().reverse();
   }
+
+  const query = this.searchQuery.trim().toLowerCase();
+  const queryNumber = Number(this.searchQuery);
+
+  return this.jugadores
+    .filter(jugador => {
+      const nameMatch = jugador.name?.toLowerCase().includes(query) ?? false;
+      const idMatch = !isNaN(queryNumber) && jugador.id === queryNumber;
+
+      return nameMatch || idMatch;
+    })
+    .reverse();
+}
 }
 

@@ -22,4 +22,15 @@ export class RostersService {
     return this.http.get(`${this.baseUrl}/rosters/tournament/${id}`, { headers });
   }
 
+
+  addRoster(data: any): Observable<any> {
+  const token = localStorage.getItem('token');
+  const headers = {
+    Authorization: `Bearer ${token}`
+  };
+
+  return this.http.post(`${this.baseUrl}/rosters`, data, { headers });
+}
+
+
 }

@@ -18,18 +18,25 @@ export class CreateTableMainComponent {
   @Input() items: any[] = [];
   @Input() imageBasePath: string = '';
 
-  searchQuery: string = '';
 
-  filteredItems() {
-    // Filtra los elementos según la búsqueda
-    const filtered = this.items.filter(i =>
-      (i.idName?.toLowerCase().includes(this.searchQuery.toLowerCase())) ||
-      (i.name?.toLowerCase().includes(this.searchQuery.toLowerCase()))
-      ||
-      i.categorias?.toLowerCase().includes(this.searchQuery.toLowerCase()))  // <-- filtra por nombre de categoría
+ @Input() searchQuery: string = '';
 
+filteredItems() {
+  if (!this.searchQuery) return this.items.sort((a, b) => b.id - a.id);
 
-    // Ordena los elementos filtrados por 'id' de manera descendente
-    return filtered.sort((a, b) => b.id - a.id);
-  }
+  const query = this.searchQuery.trim().toLowerCase();
+
+  return this.items
+    .filter(i => {
+      const idStr = i.id.toString();           // aquí conviertes el id a texto
+      const matchById = idStr.includes(query); // aquí buscas si incluye la cadena
+      const matchByIdName = i.idName?.toLowerCase().includes(query) ?? false;
+      const matchByName = i.name?.toLowerCase().includes(query) ?? false;
+      const matchByCategoria = i.categorias?.toLowerCase().includes(query) ?? false;
+
+      return matchById || matchByIdName || matchByName || matchByCategoria;
+    })
+    .sort((a, b) => b.id - a.id);
+}
+
 }

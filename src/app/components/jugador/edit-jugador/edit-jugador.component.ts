@@ -42,7 +42,7 @@ export class EditJugadorComponent implements OnInit {
     const token = localStorage.getItem('token');
 
     if (token) {
-      this.jugadoresApiService.getPlayerById(this.id, token).subscribe({
+      this.jugadoresApiService.getPlayerById(this.id).subscribe({
         next: response => {
           const jugador = response[0]; // << tomar el primer objeto del array
           console.log('Jugador obtenido:', jugador);

@@ -43,6 +43,9 @@ mostrarAutorizado: boolean = false;
     this.liga = this.route.snapshot.paramMap.get('liga') ?? undefined;
     this.categoria = this.route.snapshot.paramMap.get('Categoria') ?? undefined;
 
+    
+
+
     if (this.liga && this.categoria) {
       this.tournamentService.getTournamentsByLeagueAndCategory(this.liga, this.categoria).subscribe({
         next: (torneos) => {
