@@ -1,14 +1,28 @@
-// Guard para proteger rutas que requieren autenticación
 import { CanActivateFn, Router } from '@angular/router';
 
 export const authGuard: CanActivateFn = (route, state) => {
   const token = localStorage.getItem('token');
-  if (token) {
+
+  if (token && !isTokenExpired(token)) {
     return true;
   } else {
-    // Redirige al login si no hay token
-    window.alert('Necesitas iniciar sesión');
+    localStorage.removeItem('token');
+
+    window.alert('Tu sesión ha expirado o no has iniciado sesión');
     return false;
   }
 };
+
+function isTokenExpired(token: string): boolean {
+  try {
+    const payloadBase64 = token.split('.')[1];
+    const payloadJson = atob(payloadBase64);
+    const payload = JSON.parse(payloadJson);
+
+    const now = Math.floor(Date.now() / 1000);
+    return payload.exp < now;
+  } catch (e) {
+    return true; // Si algo falla, lo tratamos como expirado
+  }
+}
 
