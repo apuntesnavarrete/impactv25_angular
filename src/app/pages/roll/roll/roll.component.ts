@@ -181,10 +181,6 @@ generarSugerencia() {
   console.warn("No se pudo generar una sugerencia diferente después de varios intentos.");
 }
 
-
-
-
-
 toggleEquipo(nombre: string): void {
   if (this.equiposSeleccionados.has(nombre)) {
     this.equiposSeleccionados.delete(nombre);

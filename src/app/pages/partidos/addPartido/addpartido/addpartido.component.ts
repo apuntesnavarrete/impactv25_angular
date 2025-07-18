@@ -9,7 +9,7 @@ import { PartidotorneoService } from '../../../../service/peticiones/partidos/pa
 @Component({
   selector: 'app-addpartido',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule,],
   templateUrl: './addpartido.component.html',
   styleUrls: ['./addpartido.component.css'] // ✅ corregido aquí
 })

@@ -1,5 +1,9 @@
-
-<div [ngClass]="'content_resul_roll ' + 'ligaFondo' + liga" #cardgoleador>
+<app-btn-descargar
+  [targetId]="'cardgoleador'"
+  [nombreArchivo]="'app-tabla-goleo-lay'">
+</app-btn-descargar>
+<div [ngClass]="'content_resul_roll ' + 'ligaFondo' + liga" #cardgoleador   id="cardgoleador"
+>
  
     <div class='versus_top'>
     <p>{{date}}</p>

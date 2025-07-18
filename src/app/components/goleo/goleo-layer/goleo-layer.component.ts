@@ -4,12 +4,13 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input, ViewChild, ElementRef } from '@angular/core';
 import { environment } from '../../../../environments/environment';
+import { BtnDescargarComponent } from '../../utils/btn-descargar/btn-descargar.component';
 
 @Component({
   selector: 'app-goleo-layer',
     standalone: true,
 
-  imports: [CommonModule],
+  imports: [CommonModule,BtnDescargarComponent],
   templateUrl: './goleo-layer.component.html',
   styleUrl: './goleo-layer.component.css'
 })

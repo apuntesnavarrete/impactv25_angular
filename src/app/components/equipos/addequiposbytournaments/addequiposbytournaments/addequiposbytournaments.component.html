@@ -1,0 +1,31 @@
+<p>addequiposbytournaments works!</p>
+<div *ngIf="torneoId">
+  <h3>Register for Tournament ID: {{ torneoId }}</h3>
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <label for="team">Team Name:</label>
+    <input id="team" formControlName="team" type="text" />
+
+    <label for="participants">Participants:</label>
+    <input id="participants" formControlName="participants" type="text" />
+
+    <button type="submit">Submit</button>
+  </form>
+</div>
+
+<div *ngIf="!torneoId">
+  <p>Loading tournament data...</p>
+</div>
+
+<div *ngIf="mensaje" [ngClass]="{ 'error': hayError, 'exito': !hayError }">
+  {{ mensaje }}
+</div>
+
+<!-- ✅ Mostrar detalles del equipo agregado -->
+<div *ngIf="equipoAgregado">
+  <h3>🏆 Equipo Registrado:</h3>
+  <p><strong>ID:</strong> {{ equipoAgregado.id }}</p>
+  <p><strong>Team ID:</strong> {{ equipoAgregado.teams?.id }}</p>
+  <p><strong>Participant ID:</strong> {{ equipoAgregado.participants?.id }}</p>
+  <p><strong>Tournament ID:</strong> {{ equipoAgregado.tournaments?.id }}</p>
+</div>
