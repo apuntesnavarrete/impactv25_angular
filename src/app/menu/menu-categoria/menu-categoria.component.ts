@@ -47,7 +47,7 @@ ngOnInit(): void {
       title: 'Agregar',
       suboptions: [
         { label: 'Partidos', path: 'addpartidos' },
-        { label: 'Planteles', path: 'AgregarPlanteles' },
+        { label: 'Planteles', path: 'addplanteles' },
         { label: 'Equipos', path: 'AgregarEquipos' },
       ]
     }
