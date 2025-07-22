@@ -79,7 +79,11 @@ mostrarAutorizado: boolean = false;
                           goles: goleador ? goleador.goles : 0,
                           asistencias: goleador ? goleador.asistencias : 0
                         };
-                      }).sort((a: { equipo: string; }, b: { equipo: any; }) => a.equipo.localeCompare(b.equipo));;
+                      }).sort((a: { equipo: string; id: number; }, b: { equipo: any; id: number; }) => {
+  const compareEquipos = a.equipo.localeCompare(b.equipo);
+  if (compareEquipos !== 0) return compareEquipos;
+  return a.id - b.id; // si los equipos son iguales, ordena por ID
+})
                      this.rostersConEstadisticas = rostersConEstadisticas;
 
                       console.log('Rosters con estadísticas:', rostersConEstadisticas);
