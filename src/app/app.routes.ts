@@ -24,6 +24,7 @@ import { RollComponent } from './pages/roll/roll/roll.component';
 import { AddpartidoComponent } from './pages/partidos/addPartido/addpartido/addpartido.component';
 import { AddrostersComponent } from './pages/rosters/addrosters/addrosters/addrosters.component';
 import { AddequiposbytournamentsComponent } from './components/equipos/addequiposbytournaments/addequiposbytournaments/addequiposbytournaments.component';
+import { PlayersStadisticsComponent } from './pages/playerStadistics/players-stadistics/players-stadistics.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent }, // Nueva página "Jugadores"
@@ -88,6 +89,8 @@ export const routes: Routes = [
 
   { path: ':liga/:Categoria/equipos', component: EquiposTournamentsComponent },
   { path: ':liga/:Categoria/addequipos', component: AddequiposbytournamentsComponent },
+
+    { path: ':liga/:Categoria/partidos/:idpartido', component: PlayersStadisticsComponent },
 
 
   { path: ':liga/:Categoria/roll', component: RollComponent },

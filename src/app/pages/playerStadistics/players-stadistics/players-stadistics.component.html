@@ -1,0 +1,112 @@
+<h2>Debug Info</h2>
+
+
+<h3 *ngIf="teamHome">🏠 Home: {{ teamHome.name }}</h3>
+<h3 *ngIf="teamAway">🚌 Away: {{ teamAway.name }}</h3>
+
+<div *ngIf="matchData">
+  <h2>Match Info</h2>
+  <p>Date: {{ matchData.date }}</p>
+  <p>Matchday: {{ matchData.matchday }}</p>
+  <p>Score: {{ matchData.localgoals }} - {{ matchData.visitangoals }}</p>
+
+  <h3>Team Home</h3>
+  <p>Name: {{ teamHome?.name }}</p>
+
+  <h3>Team Away</h3>
+  <p>Name: {{ teamAway?.name }}</p>
+</div>
+   
+   
+<!-- Team Home -->
+<h3>🏠 {{ teamHome?.name }}</h3>
+<form [ngClass]="{ 'formulario-exitoso': formularioHomeCompletado }" (ngSubmit)="submitHomeForm()">
+  <div
+    *ngFor="let jugador of rostersTeamHome; let i = index"
+    [ngClass]="{
+      'jugador-row': true,
+      'jugador-activo': jugador.asistio || jugador.goles > 0
+    }"
+  >
+    <label>
+      <input
+        type="checkbox"
+        [(ngModel)]="rostersTeamHome[i].asistio"
+        name="homeCheck{{ i }}"
+      />
+      <strong>ID:</strong> {{ jugador.participants.id }} –
+      <span>{{ jugador.participants.name }}</span>
+    </label>
+
+    <input
+      type="number"
+      min="0"
+      [(ngModel)]="rostersTeamHome[i].goles"
+      name="homeGoles{{ i }}"
+      placeholder="Goles"
+      class="goles-input"
+    />
+  </div>
+
+  <div class="resumen">
+    <p>Jugadores marcados: {{ countAsistentesHome }}</p>
+    <p>Total de goles: {{ totalGolesHome }}</p>
+  </div>
+
+  <button type="submit">Registrar asistencia Home</button>
+</form>
+
+<div *ngIf="golesRestantesHome > 0" class="alert info">
+  ⚠️ You need to add {{ golesRestantesHome }} more goal(s).
+</div>
+<div *ngIf="golesRestantesHome < 0" class="alert error">
+  ❌ You passed by {{ -golesRestantesHome }} goal(s)!
+</div>
+<hr />
+
+<!-- Team Away -->
+<h3>🚌 {{ teamAway?.name }}</h3>
+<form [ngClass]="{ 'formulario-exitoso': formularioAwayCompletado }" (ngSubmit)="submitAwayForm()">
+  <div
+    *ngFor="let jugador of rostersTeamAway; let i = index"
+    [ngClass]="{
+      'jugador-row': true,
+      'jugador-activo': jugador.asistio || jugador.goles > 0
+    }"
+  >
+    <label>
+      <input
+        type="checkbox"
+        [(ngModel)]="rostersTeamAway[i].asistio"
+        name="awayCheck{{ i }}"
+      />
+      <strong>ID:</strong> {{ jugador.participants.id }} –
+      <span>{{ jugador.participants.name }}</span>
+    </label>
+
+    <input
+      type="number"
+      min="0"
+      [(ngModel)]="rostersTeamAway[i].goles"
+      name="awayGoles{{ i }}"
+      placeholder="Goles"
+      class="goles-input"
+    />
+  </div>
+
+  <div class="resumen">
+    <p>Jugadores marcados: {{ countAsistentesAway }}</p>
+    <p>Total de goles: {{ totalGolesAway }}</p>
+  </div>
+
+  <button type="submit">Registrar asistencia Away</button>
+</form>
+
+
+  <!-- For Away -->
+<div *ngIf="golesRestantesAway > 0" class="alert info">
+  ⚠️ You need to add {{ golesRestantesAway }} more goal(s).
+</div>
+<div *ngIf="golesRestantesAway < 0" class="alert error">
+  ❌ You passed by {{ -golesRestantesAway }} goal(s)!
+</div>

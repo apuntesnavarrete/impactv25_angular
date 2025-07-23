@@ -23,6 +23,11 @@ export class RostersService {
   }
 
 
+  getRostersByTournamentAndTeam(idTorneo: number, idTeam: number): Observable<any> {
+  return this.http.get(`${this.baseUrl}/rosters/tournament/${idTorneo}/team/${idTeam}`);
+}
+
+
   addRoster(data: any): Observable<any> {
   const token = localStorage.getItem('token');
   const headers = {
