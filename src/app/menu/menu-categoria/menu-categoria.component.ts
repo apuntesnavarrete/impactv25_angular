@@ -22,6 +22,8 @@ ngOnInit(): void {
     {
       title: 'Primera vez',
       suboptions: [
+        { label: 'Reusar Equipos', path: 'primera/addequipos' },
+
         { label: 'Plantillas Pasadas', path: 'opcion1' },
       ]
     },
@@ -48,7 +50,7 @@ ngOnInit(): void {
       suboptions: [
         { label: 'Partidos', path: 'addpartidos' },
         { label: 'Planteles', path: 'addplanteles' },
-        { label: 'Equipos', path: 'AgregarEquipos' },
+        { label: 'Equipos', path: 'addequipos' },
       ]
     }
   ];

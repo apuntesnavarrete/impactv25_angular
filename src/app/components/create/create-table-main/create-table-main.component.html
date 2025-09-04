@@ -19,6 +19,9 @@
              [src]="imageBasePath + '/' + item[col.key]" />
         <span *ngIf="col.type !== 'image'">{{ item[col.key] }}</span>
       </td>
+      <td>
+  <button *ngIf="showActions" (click)="onDelete.emit(item.id_Registro)">Eliminar</button>
+      </td>
     </tr>
   </tbody>
 </table>

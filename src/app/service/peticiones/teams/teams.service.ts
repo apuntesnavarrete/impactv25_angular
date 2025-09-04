@@ -62,4 +62,14 @@ export class EquiposApiService {
 
     return this.http.put(`${this.baseUrl}/teams/${id}`, team, { headers });
   }
+
+  deleteTeamTournament(idRegistro: number): Observable<any> {
+  const token = localStorage.getItem('token');
+
+  const headers = new HttpHeaders({
+    Authorization: `Bearer ${token}`
+  });
+
+  return this.http.delete(`${this.baseUrl}/teams-tournament/${idRegistro}`, { headers });
+}
 }

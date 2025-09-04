@@ -22,6 +22,9 @@ export class GoleoLayerComponent {
   @Input() infoType!: 'Global' | 'torneo';
   @Input() order!: string;
 
+  @Input() statType: 'goles' | 'asistencias' = 'goles';
+
+
   @ViewChild('cardgoleador') cardgoleadorRef!: ElementRef;
 
   get top5Goleadores() {

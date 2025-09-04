@@ -1,9 +1,14 @@
 <p>equipos-tournaments works!</p>
 <app-create-table-main
   [addText]="'Crear Equipo'"
-  [addLink]="'NewEquipo'"
+  [addLink]="'addequipos'"
   [isLoggedIn]="isLoggedIn"
   [columns]="columns"
   [items]="equipos"
-  [imageBasePath]="apiruta + '/teams'">
+  [imageBasePath]="apiruta + '/teams'"
+  [showActions]="true"
+  (onDelete)="deleteTeam($event)">
+  
+  >
+  
 </app-create-table-main>

@@ -1,0 +1,21 @@
+.btn {
+  padding: 5px 10px;
+  margin-right: 10px; /* más espacio entre botones */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  color: white;
+}
+
+.agregar {
+  background-color: #28a745; /* verde */
+}
+
+.ver {
+  background-color: #007bff; /* azul */
+}
+
+.btn:hover {
+  opacity: 0.8;
+}

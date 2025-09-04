@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms'; // Necesario para [(ngModel)]
 import { TournamentsApiService } from '../../../../service/peticiones/torneos/torneos.service';
 import { PartidotorneoService } from '../../../../service/peticiones/partidos/partidotorneo.service';
@@ -8,7 +8,7 @@ import { PartidotorneoService } from '../../../../service/peticiones/partidos/pa
 @Component({
   selector: 'app-partidotorneo',
   standalone: true,
-  imports: [CommonModule, FormsModule], // Importar FormsModule
+  imports: [CommonModule, FormsModule,RouterModule], // Importar FormsModule
   templateUrl: './partidotorneo.component.html',
   styleUrls: ['./partidotorneo.component.css']
 })

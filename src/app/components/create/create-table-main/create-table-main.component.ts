@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
@@ -17,7 +17,8 @@ export class CreateTableMainComponent {
   @Input() columns: { header: string, key: string, type?: string }[] = [];
   @Input() items: any[] = [];
   @Input() imageBasePath: string = '';
-
+@Input() showActions = false;   // 👈 por defecto apagado
+@Output() onDelete = new EventEmitter<number>();
 
  @Input() searchQuery: string = '';
 

@@ -25,6 +25,10 @@ import { AddpartidoComponent } from './pages/partidos/addPartido/addpartido/addp
 import { AddrostersComponent } from './pages/rosters/addrosters/addrosters/addrosters.component';
 import { AddequiposbytournamentsComponent } from './components/equipos/addequiposbytournaments/addequiposbytournaments/addequiposbytournaments.component';
 import { PlayersStadisticsComponent } from './pages/playerStadistics/players-stadistics/players-stadistics.component';
+import { VerplayersStadisticsComponent } from './pages/playerStadistics/verplayerStadistics/verplayers-stadistics/verplayers-stadistics.component';
+import { GoleobymesComponent } from './pages/goleo/goleobymes/goleobymes/goleobymes.component';
+import { AsistenciabymesComponent } from './pages/asistencia/asistenciabymes/asistenciabymes/asistenciabymes.component';
+import { EquiposInicioComponent } from './components/equipos/equipos-inicio/equipos-inicio/equipos-inicio.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent }, // Nueva página "Jugadores"
@@ -72,10 +76,17 @@ export const routes: Routes = [
 
   { path: 'login', component: LoginPageComponent }, // Nueva página "Jugadores"
   // Nueva página "Jugadores"
+  { path: 'goleobymes', component: GoleobymesComponent },
+  { path: 'Asistenciabymes', component: AsistenciabymesComponent },
 
 
   { path: ':liga', component: MenuLigaComponent },
   { path: ':liga/:Categoria', component: MenuCategoriaComponent },
+
+  { path: ':liga/:Categoria/primera/addequipos', component: EquiposInicioComponent },
+  { path: ':liga/:Categoria/primera/planteles', component: EquiposInicioComponent },
+
+
   { path: ':liga/:Categoria/general', component: TablageneralComponent },
   { path: ':liga/:Categoria/goleo', component: GoleoComponent },
 
@@ -91,6 +102,7 @@ export const routes: Routes = [
   { path: ':liga/:Categoria/addequipos', component: AddequiposbytournamentsComponent },
 
     { path: ':liga/:Categoria/partidos/:idpartido', component: PlayersStadisticsComponent },
+    { path: ':liga/:Categoria/partidos/ver/:idpartido', component: VerplayersStadisticsComponent },
 
 
   { path: ':liga/:Categoria/roll', component: RollComponent },

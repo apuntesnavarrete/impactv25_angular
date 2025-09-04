@@ -32,10 +32,14 @@
       </div>
     </div>
 
-    <div class="card-goles-content">
-      <p class="goleadores-card-goles">{{ goleador.goles }}</p>
-      <p>Goles</p>
-    </div>
+   <div class="card-goles-content">
+  <p class="goleadores-card-goles">
+    {{ statType === 'goles' ? goleador.goles : goleador.asistencias }}
+  </p>
+  <p>
+    {{ statType === 'goles' ? 'Goles' : 'Asistencias' }}
+  </p>
+</div>
 
     
   </div>

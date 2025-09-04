@@ -16,9 +16,9 @@ export class PartidotorneoService {
     return this.http.get<any[]>(`${this.baseUrl}/matches/tournament/${idTorneo}`);
   }
 
-  getMatch(idMatch: number): Observable<any[]> {
-    return this.http.get<any[]>(`${this.baseUrl}/matches/${idMatch}`);
-  }
+ getMatch(idMatch: number): Observable<any> {
+  return this.http.get<any>(`${this.baseUrl}/matches/${idMatch}`);
+}
 
   createMatch(data: any): Observable<any> {
   const token = localStorage.getItem('token');

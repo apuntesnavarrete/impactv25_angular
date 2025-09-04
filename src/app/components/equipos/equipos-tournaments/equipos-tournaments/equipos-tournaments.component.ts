@@ -24,7 +24,9 @@ export class EquiposTournamentsComponent implements OnInit {
   
 
 columns = [
-  { header: 'ID', key: 'id' },
+  { header: 'ID_Teams', key: 'id_team' },
+    { header: 'ID_Registro', key: 'id_Registro' },
+
   { header: 'Nombre', key: 'name' },
   { header: 'Logo', key: 'logo', type: 'image' },
   { header: 'Fecha de Fundación', key: 'Date' },
@@ -55,14 +57,16 @@ columns = [
             this.teamsService.getTeamsByTournaments(id).subscribe({
               next: (equipos) => {
 this.equipos = equipos.map((e: any) => ({
-  id: e.teams.id,
+  id_team: e.teams.id,
+  id_Registro: e.id,
+
   name: e.teams.name,
   logo: e.teams.logo,
   Date: e.teams.Date,
   createdAt: e.teams.createdAt,
   updatedAt: e.teams.updatedAt
 }));
-                console.log('Equipos:', this.equipos);
+                console.log('Equipos:', equipos);
               },
               error: (err) => {
                 console.error('Error al obtener equipos:', err);
@@ -80,4 +84,18 @@ this.equipos = equipos.map((e: any) => ({
       console.warn('Parámetros de liga o categoría no encontrados en la URL');
     }
   }
+ deleteTeam(idRegistro: number) {
+  if (confirm('¿Seguro que deseas eliminar este equipo del torneo?')) {
+    this.teamsService.deleteTeamTournament(idRegistro).subscribe({
+      next: () => {
+        // Quitar de la tabla el que eliminamos
+        this.equipos = this.equipos.filter(e => e.id_Registro !== idRegistro);
+        console.log('Equipo eliminado con id_Registro:', idRegistro);
+      },
+      error: (err) => {
+        console.error('Error al eliminar equipo:', err);
+      }
+    });
+  }
+}
 }

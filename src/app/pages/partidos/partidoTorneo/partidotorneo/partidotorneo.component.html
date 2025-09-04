@@ -16,6 +16,7 @@
       <th>Equipo Visitante</th>
       <th>Puntos Visitante</th>
       <th>Fecha</th>
+      <th>Acciones</th> <!-- Nueva columna -->
     </tr>
   </thead>
   <tbody>
@@ -23,17 +24,18 @@
       <td>{{ partido.matchday }}</td>
       <td>{{ partido.id }}</td>
       <td>{{ partido.pointsLocal }}</td>
-      <td>
-        {{ partido.teamHome.name }}
-      </td>
+      <td>{{ partido.teamHome.name }}</td>
       <td>{{ partido.localgoals }}</td>
       <td>{{ partido.visitangoals }}</td>
-      <td>
-        {{ partido.teamAway.name }}
-      </td>
+      <td>{{ partido.teamAway.name }}</td>
       <td>{{ partido.pointsVisitan }}</td>
       <td>{{ partido.date }}</td>
+   <td>
+  <button [routerLink]="[partido.id]" class="btn agregar">Agregar</button>
+  <button [routerLink]="['ver', partido.id]" class="btn ver">Ver</button>
+</td>
     </tr>
   </tbody>
 </table>
+
 

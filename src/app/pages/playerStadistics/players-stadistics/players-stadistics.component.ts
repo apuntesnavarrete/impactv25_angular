@@ -83,25 +83,25 @@ formularioAwayCompletado = false;
           console.log('🚌 Team Away:', this.teamAway.id);
 
           // Cargar rosters
-          this.rostersService.getRostersByTournamentAndTeam(this.idtorneo!, this.teamHome.id).subscribe({
-            next: (data) => {
-              this.rostersTeamHome = data;
-              console.log('👕 Rosters Home:', this.rostersTeamHome);
-            },
-            error: (err) => {
-              console.error('❌ Error cargando rosters Home:', err);
-            }
-          });
+       this.rostersService.getRostersByTournamentAndTeam(this.idtorneo!, this.teamHome.id).subscribe({
+  next: (data) => {
+this.rostersTeamHome = data.sort((a: { participants: { id: number; }; }, b: { participants: { id: number; }; }) => a.participants.id - b.participants.id);
+    console.log('👕 Rosters Home (ordenados):', this.rostersTeamHome);
+  },
+  error: (err) => {
+    console.error('❌ Error cargando rosters Home:', err);
+  }
+});
 
-          this.rostersService.getRostersByTournamentAndTeam(this.idtorneo!, this.teamAway.id).subscribe({
-            next: (data) => {
-              this.rostersTeamAway = data;
-              console.log('👕 Rosters Away:', this.rostersTeamAway);
-            },
-            error: (err) => {
-              console.error('❌ Error cargando rosters Away:', err);
-            }
-          });
+       this.rostersService.getRostersByTournamentAndTeam(this.idtorneo!, this.teamAway.id).subscribe({
+  next: (data) => {
+this.rostersTeamAway = data.sort((a: { participants: { id: number; }; }, b: { participants: { id: number; }; }) => a.participants.id - b.participants.id);
+    console.log('👕 Rosters Away (ordenados):', this.rostersTeamAway);
+  },
+  error: (err) => {
+    console.error('❌ Error cargando rosters Away:', err);
+  }
+});
         } else {
           console.warn('⚠️ El array de datos está vacío o mal formado');
         }

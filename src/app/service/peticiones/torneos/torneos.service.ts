@@ -36,7 +36,6 @@ getTournamentsByLeagueAndCategory(liga: string, categoria: string): Observable<a
       'Content-Type': 'application/json',
       Authorization: `Bearer ${token}`
     });
-  console.log(tournament)
     return this.http.post(`${this.baseUrl}/tournaments`, tournament, { headers });
   }
 

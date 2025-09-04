@@ -1,0 +1,276 @@
+.content_resul{
+    font-size: 2.5rem;
+    font-family: 'Fredoka', sans-serif;
+    font-weight: 800;
+      width: 1100px;
+      height: 700px;
+      display: grid;
+      grid-template-columns: repeat(11, 100px);
+      grid-template-rows: repeat(7, 100px);
+      border-width: 10px;
+      border-style: double;
+      border-color: #434450;
+     /* border-radius: 3px; */
+      margin: 5px;
+  }
+
+.ligaFondoAguigol{
+    background: #FDFC47;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #24FE41, #FDFC47);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #24FE41, #FDFC47); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    color: #434450;
+
+}
+
+.ligaFondoProchampions{
+  background: #0F2027;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #2C5364, #203A43, #0F2027);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #2C5364, #203A43, #0F2027); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  
+  
+color: #c5c6d6;
+
+}
+
+.ligaFondoED{
+  background: #2C3E50;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #4CA1AF, #2C3E50);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #4CA1AF, #2C3E50); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  
+color: #c5c6d6;
+
+}
+
+.impac{
+  
+  background: #c31432;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #240b36, #c31432);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #240b36, #c31432); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  
+  
+color:#e4a5a0;
+
+}
+
+
+  .fecha {
+    grid-column: 9 / 12;
+    grid-row: 1 / 2;
+    /* align-self: end; */
+    /* justify-self: center; */
+    font-size: 32px;
+    margin-top: 64px;
+  
+    }
+  
+    .Cat {
+        grid-column: 4 / 9;
+    grid-row: 7 / 8;
+    margin-top: 50px;
+    /* margin-top: 10px; */
+    justify-self: center;
+    font-size: 30px;
+    }
+  
+    .Jor {
+        grid-column: 1 / 5;
+        grid-row: 1 / 3;
+      align-self: center;
+      justify-self: center;
+      font-size: 3rem;
+    }
+  
+    .equipo_1 {
+        grid-column: 1 / 7;
+        grid-row: 2 / 6;
+        align-self: end;
+        justify-self: center;
+        max-width: 301px;
+  
+    }
+  
+    .versus {
+      grid-column: 5 / 7;
+      grid-row: 3 / 5;
+      align-self: center;
+      justify-self: center;
+    }
+  
+    .Equipo_2 {
+      grid-column: 7 / 11;
+      grid-row: 2 / 6;
+      align-self: end;
+      justify-self: center;
+      max-width: 300px;
+    }
+  
+    .equipos {
+      /* width: 100%; */
+      width: 250px;
+
+      object-fit: scale-down;
+      }
+    .marcador{
+        grid-column: 5 / 8;
+        grid-row: 4 / 6;
+        justify-self: center;
+        font-size: 5rem;
+    }
+    .Logo{
+        grid-column: 2 / 3;
+        grid-row: 6 / 8;
+      align-self: center;
+      justify-self: center;
+    }
+    .logo-img{
+        width: 150px;
+    }
+    .liga{
+        grid-column: 3 / 10;
+        grid-row: 6/ 8;
+      align-self: center;
+      justify-self: center;
+      font-size: 4rem;
+  
+    }
+
+     .content_resul_players{
+    font-size: 2.5rem;
+    font-family: 'Fredoka', sans-serif;
+    font-weight: 800;
+    color: #cfd1e2;
+  
+      width: 1100px;
+      height: 1400px;
+     
+      display: grid;
+      grid-template-columns: repeat(11, 100px);
+      grid-template-rows: repeat(14, 100px);
+      border-width: 10px;
+      border-style: double;
+      border-color: #747373;
+     /* border-radius: 3px; */
+      margin: 5px;
+  }
+
+  .ligaFondoAguigol{
+    background: #FDFC47;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #24FE41, #FDFC47);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #24FE41, #FDFC47); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    color: #434450;
+
+}
+
+.ligaFondoProchampions{
+  background: #0F2027;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #2C5364, #203A43, #0F2027);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #2C5364, #203A43, #0F2027); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  
+  
+color: #c5c6d6;
+
+}
+
+.ligaFondoED{
+  background: #2C3E50;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #4CA1AF, #2C3E50);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #4CA1AF, #2C3E50); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  
+color: #c5c6d6;
+
+}
+
+  .fecha {
+    grid-column: 9 / 12;
+    grid-row: 1 / 2;
+    /* align-self: end; */
+    /* justify-self: center; */
+    font-size: 32px;
+    margin-top: 64px;
+  
+    }
+  
+ 
+  
+    .Jor {
+        grid-column: 1 / 5;
+        grid-row: 1 / 3;
+      align-self: center;
+      justify-self: center;
+      font-size: 3rem;
+    }
+  
+    .equipo_1 {
+        grid-column: 1 / 7;
+        grid-row: 3 / 7;
+        align-self: end;
+        justify-self: center;
+        max-width: 301px;
+  
+    }
+  
+    .versus {
+      grid-column: 5 / 7;
+      grid-row: 3 / 5;
+      align-self: center;
+      justify-self: center;
+    }
+  
+    .Equipo_2 {
+      grid-column: 7 / 11;
+      grid-row: 3 / 7;
+      align-self: end;
+      justify-self: center;
+      max-width: 300px;
+    }
+  
+    .equipos {
+      width: 100%;
+      object-fit: scale-down;
+      }
+    .marcador{
+        grid-column: 5 / 8;
+        grid-row: 4 / 6;
+        justify-self: center;
+        font-size: 5rem;
+    }
+    .Logo{
+        grid-column: 2 / 3;
+        grid-row:  7 / 8;
+
+        align-self: center;
+      justify-self: center;
+    }
+    .logo-img{
+        width: 150px;
+    }
+   
+  
+    .Equipo_local{
+      text-align: right;
+      grid-column: 1 / 6;
+        grid-row: 7 / 13;
+        align-self: center;
+      justify-self: center;
+      font-size: 1.5rem;
+    }
+
+    .Equipo_visita{
+      grid-column: 6 / 13;
+      grid-row: 7 / 13;
+        align-self: center;
+      justify-self: center;
+      font-size: 1.5rem;
+    }
+    .jugadores_css{
+height: 25px;
+            padding: 0;
+    margin: 0;
+    }
+    .titulo_2{
+      grid-column: 4 / 9;
+      grid-row: 7 / 9;
+      align-self: center;
+      justify-self: center;
+      font-size: 1.5rem;
+    }

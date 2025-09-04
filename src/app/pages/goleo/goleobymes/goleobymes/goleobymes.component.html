@@ -1,0 +1,20 @@
+<p>goleobymes works!</p>
+
+<form (submit)="obtenerGoleadoresDelMes(); $event.preventDefault()">
+  <label for="anio">Año:</label>
+  <input type="number" [(ngModel)]="anio" name="anio" required />
+
+  <label for="mes">Mes:</label>
+  <input type="number" [(ngModel)]="mes" name="mes" min="1" max="12" required />
+
+  <button type="submit">Buscar</button>
+</form>
+
+<app-goleo-layer
+  *ngIf="mostrarResultados"
+  [liga]="'Impacto'"
+  [torneo]="nombreTorneo"
+  [goleadores]="goleadores"
+  [tipoTorneo]="'Goleador del Mes'"
+  [order]="'goles'"
+></app-goleo-layer>

@@ -1,0 +1,42 @@
+<p>verplayers-stadistics works!</p>
+<div id="content_resul_players" [ngClass]="'content_resul_players ' + 'ligaFondo' + liga">
+  <p class="fecha">{{ partidoinfo?.date }}</p>
+  <p class="Cat"> {{ torneo }}</p> 
+
+  <p class="Jor">Jornada {{ partidoinfo?.matchday }}</p>
+
+  <div class="equipo_1">
+    <img class="equipos" [src]="apiruta + '/teams/' + partidoinfo?.teamHome?.logo" alt="Foto del equipo local" />
+  </div>
+
+  <div class="Equipo_2">
+    <img class="equipos" [src]="apiruta + '/teams/' + partidoinfo?.teamAway?.logo" alt="Foto del equipo visitante" />
+  </div>
+
+  <p class="marcador">{{ partidoinfo?.localgoals }} - {{ partidoinfo?.visitangoals }}</p>
+
+  <p class="Logo">
+    <img class="logo-img" [src]="apiruta + '/teams/liga' + liga + '.png'" alt="Logo Liga" />
+  </p>
+                <p class="liga">{{liga}}</p>
+
+  <p class="titulo_2">Toma de Asistencia y Goles</p>
+
+  <div class="Equipo_local">
+    <p *ngFor="let jugador of jugadoresEquipoHome" class="jugadores_css">
+      {{ jugador.participants.name }}&nbsp;
+      <span class="span">
+        {{ jugador.annotations > 0 ? jugador.annotations : '\u00A0' }}
+      </span>
+    </p>
+  </div>
+
+  <div class="Equipo_visita">
+    <p *ngFor="let jugador of jugadoresEquipoAway" class="jugadores_css">
+      <span class="span">
+        {{ jugador.annotations > 0 ? jugador.annotations : '\u00A0' }}
+      </span>
+      &nbsp;{{ jugador.participants.name }}
+    </p>
+  </div>
+</div>

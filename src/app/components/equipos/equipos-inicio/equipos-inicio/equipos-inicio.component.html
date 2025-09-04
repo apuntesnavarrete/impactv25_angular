@@ -1,0 +1,18 @@
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+   <div formArrayName="teams">
+  <div *ngFor="let team of teamsList; let i = index" 
+       [class.selected]="form.get('teams')?.value[i]">
+    <label>
+      <input type="checkbox" [formControlName]="i" />
+      {{ team.teams.name }}
+    </label>
+  </div>
+</div>
+    <button type="submit">Submit</button>
+  </form>
+
+
+  <div *ngIf="statusMessage" class="status-message">
+  {{ statusMessage }}
+</div>

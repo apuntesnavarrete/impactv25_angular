@@ -31,4 +31,9 @@ export class PlayersStadisticsService {
   getPlayerStatsByTournamentId(tournamentId: number): Observable<any[]> {
     return this.http.get<any[]>(`${this.baseUrl}/PlayerStatistics/tournament/${tournamentId}`);
   }
+
+  // ✅ Obtener estadísticas por ID de partido
+getPlayerStatsByMatchId(idPartido: number): Observable<any[]> {
+  return this.http.get<any[]>(`${this.baseUrl}/PlayerStatistics/partido/${idPartido}`);
+}
 }
