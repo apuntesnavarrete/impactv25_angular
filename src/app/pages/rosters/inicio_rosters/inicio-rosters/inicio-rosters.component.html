@@ -1,0 +1,27 @@
+<div class="container">
+  <h2>Registrar jugadores al último torneo</h2>
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div formArrayName="teams" class="teams-list">
+      <div
+        *ngFor="let team of teamsList; let i = index"
+        [class.selected]="form.get('teams')?.value[i]"
+        class="team-item"
+      >
+        <label>
+          <input type="checkbox" [formControlName]="i" />
+          {{ team.teams.name }}
+        </label>
+      </div>
+    </div>
+
+    <button type="submit" class="btn-submit">Registrar jugadores</button>
+  </form>
+
+  <div *ngIf="statusMessage" class="status-message">
+    {{ statusMessage }}
+  </div>
+</div>
+
+
+

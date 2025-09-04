@@ -29,6 +29,7 @@ import { VerplayersStadisticsComponent } from './pages/playerStadistics/verplaye
 import { GoleobymesComponent } from './pages/goleo/goleobymes/goleobymes/goleobymes.component';
 import { AsistenciabymesComponent } from './pages/asistencia/asistenciabymes/asistenciabymes/asistenciabymes.component';
 import { EquiposInicioComponent } from './components/equipos/equipos-inicio/equipos-inicio/equipos-inicio.component';
+import { InicioRostersComponent } from './pages/rosters/inicio_rosters/inicio-rosters/inicio-rosters.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent }, // Nueva página "Jugadores"
@@ -84,7 +85,7 @@ export const routes: Routes = [
   { path: ':liga/:Categoria', component: MenuCategoriaComponent },
 
   { path: ':liga/:Categoria/primera/addequipos', component: EquiposInicioComponent },
-  { path: ':liga/:Categoria/primera/planteles', component: EquiposInicioComponent },
+  { path: ':liga/:Categoria/primera/planteles', component: InicioRostersComponent },
 
 
   { path: ':liga/:Categoria/general', component: TablageneralComponent },
