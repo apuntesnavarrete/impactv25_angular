@@ -110,3 +110,23 @@
 <div *ngIf="golesRestantesAway < 0" class="alert error">
   ❌ You passed by {{ -golesRestantesAway }} goal(s)!
 </div>
+
+<hr />
+<h3>📤 Enviar JSON manual</h3>
+
+<textarea [(ngModel)]="manualJsonInput"
+  rows="8"
+  cols="80"
+  placeholder='Pega aquí tu JSON, por ejemplo:
+[
+  { "annotations": 1, "attendance": true, "participants": 123, "teams": 495 }
+]'
+></textarea>
+
+<br />
+
+<button (click)="sendManualJson()" class="btn btn-primary">
+  Enviar JSON Manual
+</button>
+
+<pre *ngIf="manualJsonError" style="color:red;">{{ manualJsonError }}</pre>

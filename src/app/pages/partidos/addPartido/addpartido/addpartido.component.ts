@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { TournamentsApiService } from '../../../../service/peticiones/torneos/torneos.service';
 import { EquiposApiService } from '../../../../service/peticiones/teams/teams.service';
@@ -9,7 +9,7 @@ import { PartidotorneoService } from '../../../../service/peticiones/partidos/pa
 @Component({
   selector: 'app-addpartido',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule,],
+  imports: [CommonModule, ReactiveFormsModule,FormsModule],
   templateUrl: './addpartido.component.html',
   styleUrls: ['./addpartido.component.css'] // ✅ corregido aquí
 })
@@ -117,5 +117,70 @@ getTeamNameById(id: number | string): string {
   const team = this.teams.find(t => t.id === Number(id));
   return team ? team.name : 'Equipo no encontrado';
 }
+
+/** 👉 Enviar un partido usando un JSON ya armado */
+submitFromJSON(json: any) {
+  // Asegurarse de que teamHome y teamAway sean números
+  const teamHome = Number(json.teamHome);
+  const teamAway = Number(json.teamAway);
+
+  // Calcular puntos según goles y desempate
+  const golesLocal = json.localgoals ?? 0;
+  const golesVisitante = json.visitangoals ?? 0;
+
+  let puntosLocal = 0;
+  let puntosVisitante = 0;
+
+  if (golesLocal > golesVisitante) {
+    puntosLocal = 3;
+  } else if (golesVisitante > golesLocal) {
+    puntosVisitante = 3;
+  } else {
+    // Empate
+    if (json.ganadorDesempate === 'local') {
+      puntosLocal = 2;
+      puntosVisitante = 1;
+    } else if (json.ganadorDesempate === 'visitante') {
+      puntosVisitante = 2;
+      puntosLocal = 1;
+    }
+  }
+
+  const finalData = {
+    ...json,
+    teamHome,
+    teamAway,
+    tournaments: this.idTorneo, // si quieres usar el torneo actual
+    pointsLocal: puntosLocal,
+    pointsVisitan: puntosVisitante,
+  };
+
+  console.log('📤 Enviando partido desde JSON:', finalData);
+
+  this.partidoService.createMatch(finalData).subscribe({
+    next: (res) => {
+      this.matchGuardado = res;
+      console.log('✅ Partido guardado desde JSON:', res);
+    },
+    error: (err) => console.error('❌ Error al guardar partido desde JSON:', err),
+  });
+}
+
+// Propiedad para enlazar el textarea
+jsonInput: string = '';
+
+// Método que llama a submitFromJSON
+onSubmitJSON() {
+  if (!this.jsonInput) return alert('Por favor ingresa un JSON válido');
+
+  try {
+    const parsedJSON = JSON.parse(this.jsonInput);
+    this.submitFromJSON(parsedJSON);
+  } catch (err) {
+    alert('JSON inválido: ' + err);
+    console.error('Error parseando JSON:', err);
+  }
+}
+
 }
 

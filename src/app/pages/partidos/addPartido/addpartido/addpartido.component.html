@@ -56,3 +56,22 @@
   <p>Goles: {{ matchGuardado.visitangoals }}</p>
     <p>Puntos visitante: {{ matchGuardado.pointsVisitan }}</p>
 </div>
+
+<hr />
+<p>Agregar partido desde JSON</p>
+
+<form #jsonForm="ngForm" (ngSubmit)="onSubmitJSON()">
+  <label for="jsonInput">Pega aquí el JSON del partido:</label>
+  <textarea
+    id="jsonInput"
+    [(ngModel)]="jsonInput"
+    name="jsonInput"
+    rows="10"
+    cols="50"
+    placeholder='{"teamHome":12,"teamAway":15,"date":"2025-10-15","matchday":1,"localgoals":3,"visitangoals":1,"ganadorDesempate":null}'
+    required
+  ></textarea>
+
+  <br /><br />
+  <button type="submit">Enviar partido desde JSON</button>
+</form>

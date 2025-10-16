@@ -27,7 +27,8 @@ export class PlayersStadisticsComponent implements OnInit {
   torneo = '';
 formularioHomeCompletado = false;
 formularioAwayCompletado = false;
-
+manualJsonInput: string = '';  // para guardar el texto del JSON
+manualJsonError: string = '';  // para mostrar errores
   constructor(
     private route: ActivatedRoute,
     private partidoService: PartidotorneoService,
@@ -193,7 +194,43 @@ get golesRestantesAway(): number {
   return matchGoals - totalForm;
 }
 
+sendManualJson() {
+  if (!this.matchData?.id) {
+    this.manualJsonError = '❌ No hay partido cargado.';
+    return;
+  }
 
+  try {
+    const parsed = JSON.parse(this.manualJsonInput);
+
+    if (!Array.isArray(parsed)) {
+      this.manualJsonError = 'El JSON debe ser un arreglo ([]) de objetos.';
+      return;
+    }
+
+    // 🔹 Inyectar el campo "matches" en cada objeto
+    const readyData = parsed.map(obj => ({
+      ...obj,
+      matches: this.matchData.id
+    }));
+
+    console.log('✅ Enviando datos transformados:', readyData);
+
+    this.playerStatsService.sendPlayerStats(readyData).subscribe({
+      next: () => {
+        alert(`✅ ${readyData.length} registros enviados correctamente.`);
+        this.manualJsonInput = '';
+        this.manualJsonError = '';
+      },
+      error: (err) => {
+        console.error('❌ Error enviando JSON manual:', err);
+        this.manualJsonError = 'Error al enviar al backend.';
+      }
+    });
+  } catch (error: any) {
+    this.manualJsonError = '❌ Error parseando el JSON: ' + error.message;
+  }
+}
 
 }
 
