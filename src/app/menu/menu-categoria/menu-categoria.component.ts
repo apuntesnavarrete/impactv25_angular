@@ -24,7 +24,7 @@ ngOnInit(): void {
       suboptions: [
         { label: 'Reusar Equipos', path: 'primera/addequipos' },
 
-        { label: 'Plantillas Pasadas', path: 'opcion1' },
+        { label: 'Plantillas Pasadas', path: 'primera/planteles' },
       ]
     },
     {

@@ -19,7 +19,9 @@ nombreTorneo: string = '';
 
   constructor(private goleadoresService: GoleadoresService) {}
 
-
+ngOnInit() {
+  this.obtenerTopGoleadoresAnio();
+}
 
 obtenerGoleadoresDelMes() {
   this.goleadoresService.getGoleadoresDelMes(this.anio, this.mes).subscribe(data => {
@@ -36,4 +38,18 @@ obtenerGoleadoresDelMes() {
   ];
   return meses[mes - 1] || '';
 }
+obtenerTopGoleadoresAnio() {
+  this.goleadoresService.getTop20GoleadoresAnio(2025)
+    .subscribe(data => {
+      console.log('Top 20 scorers of');
+      console.log(data);
+    });
+
+     this.goleadoresService.getTop20AsistenciasAnio(2025)
+    .subscribe(data => {
+      console.log('Top 20 scorers of asisten');
+      console.log(data);
+    });
+}
+
 }
