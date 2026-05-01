@@ -15,3 +15,11 @@
     [torneo]="categoria"
   ></app-tabla-general-layer>
 </div>
+
+<button (click)="toggleJson()">
+  {{ mostrarJson ? 'Ocultar JSON' : 'Mostrar JSON' }}
+</button>
+
+<div *ngIf="mostrarJson">
+  <pre>{{ clasificacion | json }}</pre>
+</div>

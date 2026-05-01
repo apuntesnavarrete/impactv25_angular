@@ -18,7 +18,7 @@ import { EquiposApiService } from '../../../service/peticiones/teams/teams.servi
 export class TablageneralComponent implements OnInit {
   clasificacion: any[] = [];
   idTorneo: number | null = null;
-
+  mostrarJson: boolean = false; // 👈 nueva variable
   liga?: string;
   categoria?: string;
   nombreArchivo: string = 'tabla-general';
@@ -29,6 +29,11 @@ export class TablageneralComponent implements OnInit {
     private route: ActivatedRoute,
     private equiposService: EquiposApiService
   ) {}
+
+ toggleJson(): void {
+    this.mostrarJson = !this.mostrarJson;
+  }
+
 
   ngOnInit(): void {
     this.liga = this.route.snapshot.paramMap.get('liga') ?? undefined;
