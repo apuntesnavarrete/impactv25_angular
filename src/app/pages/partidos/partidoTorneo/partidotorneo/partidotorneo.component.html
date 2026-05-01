@@ -33,6 +33,9 @@
    <td>
   <button [routerLink]="[partido.id]" class="btn agregar">Agregar</button>
   <button [routerLink]="['ver', partido.id]" class="btn ver">Ver</button>
+  <button (click)="generarJsonEquipos(partido)" class="btn json">
+  JSON
+</button>
 </td>
     </tr>
   </tbody>

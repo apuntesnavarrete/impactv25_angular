@@ -82,6 +82,62 @@ partidosFiltrados(): any[] {
     .sort((a, b) => b.matchday - a.matchday); // ordenar por jornada
 }
 
+generarJsonEquipos(partido: any): void {
+  const homeId = partido.teamHome.id;
+  const awayId = partido.teamAway.id;
+
+  // función para simplificar partidos
+  const resumirPartido = (p: any) => ({
+    jornada: p.matchday,
+    fecha: p.date,
+    local: p.teamHome.name,
+    visitante: p.teamAway.name,
+    golesLocal: p.localgoals,
+    golesVisitante: p.visitangoals,
+    resultado: `${p.localgoals}-${p.visitangoals}`
+  });
+
+  const partidosHome = this.partidos
+    .filter(p =>
+      p.teamHome.id === homeId || p.teamAway.id === homeId
+    )
+    .map(resumirPartido);
+
+  const partidosAway = this.partidos
+    .filter(p =>
+      p.teamHome.id === awayId || p.teamAway.id === awayId
+    )
+    .map(resumirPartido);
+
+  const resultado = {
+    partidoActual: {
+      jornada: partido.matchday,
+      fecha: partido.date,
+      local: partido.teamHome.name,
+      visitante: partido.teamAway.name,
+      resultado: `${partido.localgoals}-${partido.visitangoals}`
+    },
+
+    historialEquipoLocal: partidosHome,
+    historialEquipoVisitante: partidosAway
+  };
+
+  console.log(resultado);
+
+  const blob = new Blob(
+    [JSON.stringify(resultado, null, 2)],
+    { type: 'application/json' }
+  );
+
+  const url = window.URL.createObjectURL(blob);
+
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `${partido.teamHome.name}-vs-${partido.teamAway.name}.json`;
+  a.click();
+
+  window.URL.revokeObjectURL(url);
+}
 }
 
 
