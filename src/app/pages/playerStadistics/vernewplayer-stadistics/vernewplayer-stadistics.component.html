@@ -1,0 +1,110 @@
+<p>vernewplayer-stadistics works!</p>
+
+<button (click)="descargar()">
+  Descargar
+</button>
+<div id="card" class="card">
+
+
+<div class="logos-container">
+
+  <div class="equipo-logo">
+    <img
+      class="logo-equipo"
+      [src]="apiruta + '/teams/' + partidoinfo?.teamHome?.logo"
+      alt="Equipo local"
+    />
+  </div>
+
+  <div class="equipo-logo">
+    <img
+      class="logo-equipo"
+      [src]="apiruta + '/teams/' + partidoinfo?.teamAway?.logo"
+      alt="Equipo visitante"
+    />
+  </div>
+
+</div>
+
+  <img
+    src="http://192.168.0.19:8080/public/teams/fondoaguigolresult.jpg"
+    class="background"
+  >
+
+<div class="marcador">
+  {{ golesLocal }} - {{ golesVisitante }}
+</div>
+
+
+    <!-- ANOTADORES -->
+    <div class="anotadores-container">
+
+      <!-- EQUIPO LOCAL -->
+      <div class="equipo-local">
+
+        <div
+          class="fila-jugador"
+          *ngFor="let jugador of jugadoresEquipoHome"
+          [style.fontSize]="fontSizeJugadores"
+        >
+
+       <span
+  class="nombre"
+  [style.fontSize]="getFontSize(jugador.participants?.name)"
+>
+{{ jugador.participants?.name }}
+          </span>
+
+          <span class="goles">
+  {{ jugador.annotations > 0 ? jugador.annotations : '' }}         </span>
+
+        </div>
+
+      </div>
+
+      <!-- EQUIPO VISITANTE -->
+      <div class="equipo-away">
+
+        <div
+          class="fila-jugador"
+          *ngFor="let jugador of jugadoresEquipoAway"
+          [style.fontSize]="fontSizeJugadores"
+        >
+
+          <span class="goles">
+  {{ jugador.annotations > 0 ? jugador.annotations : '' }}         </span>
+        
+
+          <span
+  class="nombre"
+  [style.fontSize]="getFontSize(jugador.participants?.name)"
+>
+{{ jugador.participants?.name }}          </span>
+
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+<div class="info-extra">
+
+  <p>
+    Categoria {{ categoria }}
+  </p>
+
+  <p>
+    {{ jornadaTexto }}
+  </p>
+
+  <p>
+    {{ fechaTexto }}
+  </p>
+
+</div>
+</div>
+
+
+

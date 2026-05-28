@@ -30,6 +30,7 @@ import { GoleobymesComponent } from './pages/goleo/goleobymes/goleobymes/goleoby
 import { AsistenciabymesComponent } from './pages/asistencia/asistenciabymes/asistenciabymes/asistenciabymes.component';
 import { EquiposInicioComponent } from './components/equipos/equipos-inicio/equipos-inicio/equipos-inicio.component';
 import { InicioRostersComponent } from './pages/rosters/inicio_rosters/inicio-rosters/inicio-rosters.component';
+import { VernewplayerStadisticsComponent } from './pages/playerStadistics/vernewplayer-stadistics/vernewplayer-stadistics.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent }, // Nueva página "Jugadores"
@@ -104,6 +105,7 @@ export const routes: Routes = [
 
     { path: ':liga/:Categoria/partidos/:idpartido', component: PlayersStadisticsComponent },
     { path: ':liga/:Categoria/partidos/ver/:idpartido', component: VerplayersStadisticsComponent },
+    { path: ':liga/:Categoria/partidos/ver2/:idpartido', component: VernewplayerStadisticsComponent },
 
 
   { path: ':liga/:Categoria/roll', component: RollComponent },
