@@ -5,7 +5,9 @@
 }
 
 
-
+.card_Dorsal{
+  font-size: 1.5em;
+}
 
   .card_container{
     width: 300px;
