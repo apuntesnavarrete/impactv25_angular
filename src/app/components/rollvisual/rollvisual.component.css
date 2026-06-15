@@ -1,0 +1,97 @@
+.flyer-poster {
+  width: 1080px; 
+  height: 1920px;
+  position: relative; /* Esto es obligatorio para que la imagen se alinee aquí dentro */
+  overflow: hidden; 
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Estilos para tu etiqueta img */
+.background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Hace que la imagen llene el contenedor sin deformarse */
+  z-index: 1;        /* Se queda al fondo */
+}
+
+/* Ajustamos el contenedor del título para que flote por encima de la imagen */
+/* Ajustamos el contenedor del título */
+.campo-title-container {
+  position: absolute;
+  top: 275px; /* Ajusta los píxeles hacia arriba o abajo según tu fondo */
+  width: 100%;
+  text-align: center;
+  color: #ffffff;
+  
+  /* Tipografía clásica de cartel de fútbol (gruesa por defecto) */
+ font-family: "Trebuchet MS";
+  font-weight: bold;
+  
+  /* TRUCO PARA EL ANCHO: 
+     font-size: Controla el tamaño general.
+     transform: scaleX(1.3): Estira la letra hacia los lados un 30% más. */
+  font-size: 140px; 
+  transform: scaleX(1.3); 
+  transform-origin: center; /* Asegura que se estire parejo desde el centro */
+  
+  /* Junta un poco las letras para que se vea más sólido */
+  letter-spacing: -2px; 
+  
+  text-transform: uppercase;
+  z-index: 2;}
+
+/* Estilos para el Día de la Semana */
+.dia-title-container {
+  position: absolute;
+  top: 464px; /* Se coloca más abajo del título de CAMPO (que está en 150px) */
+  width: 100%;
+  text-align: center;
+  
+  /* Un amarillo/dorado encendido, limpio y profesional */
+  color: #ffd11a; 
+  
+  /* Tipografía gruesa e impactante */
+font-family: "Trebuchet MS", Helvetica, sans-serif;
+  font-weight: inherit;
+  font-size: 120px; /* Un poco más chico que el título principal para que contraste */
+  
+  /* También le aplicamos un ligero estiramiento para mantener el estilo ancho */
+  transform: scaleX(1.2);
+  transform-origin: center;
+  
+  letter-spacing: -1px;
+  text-transform: uppercase;
+  z-index: 2;
+  
+  /* Opcional: Una ligera sombra negra muy sutil para que resalte más sobre el fondo */
+  text-shadow: 3px 3px 0px rgba(0, 0, 0, 0.8);
+}
+
+.text-campo {
+  display: block;
+  font-size: 150px;
+  text-transform: uppercase;
+  line-height: 1;
+}
+
+.text-numero {
+  display: block;
+  font-size: 200px;
+  color: #ffffff;
+  margin-top: -20px;
+  line-height: 1;
+}
+
+
+
+.matches-list {
+  position: absolute;
+  top: 800px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}

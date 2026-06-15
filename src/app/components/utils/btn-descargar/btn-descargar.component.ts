@@ -3,25 +3,33 @@ import html2canvas from 'html2canvas';
 
 @Component({
   selector: 'app-btn-descargar',
-    standalone: true,   // ✅ solo si estás usando componentes standalone
-
+  standalone: true, // ✅ Manteniendo tu configuración standalone
   imports: [],
   templateUrl: './btn-descargar.component.html',
   styleUrl: './btn-descargar.component.css'
 })
 export class BtnDescargarComponent {
- @Input() targetId!: string; // El ID del div que quieres capturar
+  @Input() targetId!: string; // El ID del div que quieres capturar
   @Input() nombreArchivo: string = 'descarga';
-descargar() {
+
+  descargar() {
     const element = document.getElementById(this.targetId);
     if (!element) return;
 
-   html2canvas(element, { useCORS: true }).then(canvas => {
-     const link = document.createElement('a');
-     link.download = `${this.nombreArchivo}.png`;
-     link.href = canvas.toDataURL();
-     link.click();
-});
+    // --- CONFIGURACIÓN MEJORADA ---
+    // Agregamos 'scale: 3' para triplicar los píxeles y darte la máxima resolución
+    const opciones = {
+      useCORS: true, 
+      scale: 3, 
+      backgroundColor: null
+    };
+
+    html2canvas(element, opciones).then(canvas => {
+      const link = document.createElement('a');
+      link.download = `${this.nombreArchivo}.png`;
+      link.href = canvas.toDataURL('image/png');
+      link.click();
+    });
   }
 }
 

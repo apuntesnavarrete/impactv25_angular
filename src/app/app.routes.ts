@@ -31,6 +31,7 @@ import { AsistenciabymesComponent } from './pages/asistencia/asistenciabymes/asi
 import { EquiposInicioComponent } from './components/equipos/equipos-inicio/equipos-inicio/equipos-inicio.component';
 import { InicioRostersComponent } from './pages/rosters/inicio_rosters/inicio-rosters/inicio-rosters.component';
 import { VernewplayerStadisticsComponent } from './pages/playerStadistics/vernewplayer-stadistics/vernewplayer-stadistics.component';
+import { RollvisualComponent } from './components/rollvisual/rollvisual.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent }, // Nueva página "Jugadores"
@@ -83,6 +84,7 @@ export const routes: Routes = [
 
 
   { path: ':liga', component: MenuLigaComponent },
+    { path: 'AGUIGOL/roll', component: RollvisualComponent },
   { path: ':liga/:Categoria', component: MenuCategoriaComponent },
 
   { path: ':liga/:Categoria/primera/addequipos', component: EquiposInicioComponent },

@@ -1,0 +1,46 @@
+<div class="main-container">
+
+  <div class="control-panel">
+    <h3>Generar Imagen Aguigol</h3>
+    <div class="buttons-group">
+      <button (click)="cambiarCampo('1')" [class.active]="numeroCampo === '1'">Campo 1</button>
+      <button (click)="cambiarCampo('2')" [class.active]="numeroCampo === '2'">Campo 2</button>
+    </div>
+    </div>
+
+  <div id="posterAguigol" class="flyer-poster">
+    
+    <img 
+      src="http://192.168.0.19:8080/public/teams/rollaguigol.jpg" 
+      class="background"
+      alt="Fondo Aguigol"
+    >
+    
+    <div class="campo-title-container">
+      CAMPO {{ numeroCampo }}
+    </div>
+
+    <div class="dia-title-container">
+      {{ diaSemana }}
+    </div>
+
+    <div class="matches-list">
+      @for (juego of listaPartidos; track juego) {
+        <app-filaroll [partido]="juego"></app-filaroll>
+      }
+    </div>
+
+  </div> <app-btn-descargar 
+    targetId="posterAguigol" 
+    [nombreArchivo]="'Aguigol_Campo_' + numeroCampo + '_' + diaSemana">
+  </app-btn-descargar>
+
+</div> ```
+
+---
+
+### ¿Por qué ahora sí se va a mover?
+1. **HTML Cerrado:** Al cerrar el `main-container` al final de todo, los elementos no se empujan de forma extraña.
+2. **Prioridad limpia:** Como en este HTML ya no tienes ningún estilo metido a la fuerza con `style="..."`, el navegador está obligado a leer tu CSS donde pusiste `top: 800px;`.
+
+Si cuando recargues la página sientes que `800px` todavía es muy arriba o muy abajo, ya puedes ir a tu archivo CSS y mover el número de `top` libremente; ahora sí te hará caso de inmediato.

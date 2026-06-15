@@ -1,0 +1,100 @@
+.partido-fila-contenedor {
+  width: 1000px; 
+  height: 160px; 
+  position: relative;
+  margin-bottom: 12px; 
+  overflow: hidden;
+}
+
+.imagen-tirilla-fondo {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  z-index: 1;
+}
+
+/* Distribución perfecta en 3 bloques */
+.capa-texto-superpuesta {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  z-index: 2; 
+  color: white;
+  font-family: 'Arial Black', sans-serif;
+  justify-content: space-between;
+}
+
+/* Zonas de los equipos de los extremos */
+.zona-equipo {
+  width: 330px; /* Ancho fijo para dejar libre el escudo VS del centro */
+  display: flex;
+  align-items: center;
+  height: 100%;
+ 
+}
+
+.local {
+  justify-content: flex-end;
+  /* El hexágono blanco de tu imagen empuja el texto, ajusta este padding para centrar el nombre */
+  padding-left: 9px;
+}
+
+.visitante {
+  justify-content: flex-start;
+    padding-right: 9px;
+ 
+}
+
+.nombre-equipo {
+  font-size: 26px;
+  text-transform: uppercase;
+  width: 230px;
+  text-align: center;
+}
+
+.logo-equipo {
+width: 75px;
+  height: 75px;
+  object-fit: contain;
+  margin: 0 15px;
+}
+
+/* --- EL CENTRO (ZONA CRÍTICA DEL DESFASE) --- */
+.zona-central {
+  width: 190px; /* El ancho exacto que ocupa el escudo del VS */
+  position: relative;
+  height: 100%;
+}
+
+/* Pestaña Amarilla Izquierda (Hora y Categoría) */
+.pestana-izquierda {
+  position: absolute;
+  right: 170px; /* Se alinea justo donde empieza la mitad del VS */
+  top: 14px;
+  white-space: nowrap; /* Evita que el texto se rompa en dos líneas */
+}
+
+/* Pestaña Amarilla Derecha (Fecha) */
+.pestana-derecha {
+  position: absolute;
+  left: 280px; /* Se alinea en espejo hacia la derecha */
+  top: 14px;
+  white-space: nowrap;
+}
+
+.texto-cabecera {
+  font-size: 19px;
+  font-family: 'Impact', sans-serif;
+  color: #131313;
+  font-weight: bold;
+  text-transform: uppercase;
+  /* Centramos el texto respecto a su propia pestañita */
+  display: block;
+  transform: translateX(-50%); 
+}

@@ -1,0 +1,41 @@
+<div class="partido-fila-contenedor">
+
+  <img 
+    src="http://192.168.0.19:8080/public/teams/filarollAgui.png"
+    class="imagen-tirilla-fondo" 
+    alt="Fila de Partido VS"
+  >
+
+  <div class="capa-texto-superpuesta">
+    
+    <div class="zona-equipo local">
+      <img 
+        [src]="'http://192.168.0.19:8080/public/teams/' + partido?.localLogo" 
+        [alt]="partido?.local"  
+        class="logo-equipo"
+      >      
+      <span class="nombre-equipo">{{ partido?.local }}</span>
+    </div>
+
+    <div class="zona-central">
+      <div class="pestana-izquierda">
+        <span class="texto-cabecera">{{ partido?.horario }} {{ partido?.categoria }}</span>
+      </div>
+      
+      <div class="pestana-derecha">
+        <span class="texto-cabecera">{{ partido?.fecha || '9 DE JUNIO DEL 2026' }}</span>
+      </div>
+    </div>
+
+    <div class="zona-equipo visitante">
+      <span class="nombre-equipo">{{ partido?.visitante }}</span>
+      <img 
+        [src]="'http://192.168.0.19:8080/public/teams/' + partido?.visitanteLogo" 
+        [alt]="partido?.visitante"  
+        class="logo-equipo"
+      >
+    </div>
+
+  </div>
+
+</div>
