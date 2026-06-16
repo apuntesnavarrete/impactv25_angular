@@ -83,8 +83,8 @@ width: 75px;
 /* Pestaña Amarilla Derecha (Fecha) */
 .pestana-derecha {
   position: absolute;
-  left: 280px; /* Se alinea en espejo hacia la derecha */
-  top: 14px;
+  left: 290px; /* Se alinea en espejo hacia la derecha */
+  top: 15px;
   white-space: nowrap;
 }
 

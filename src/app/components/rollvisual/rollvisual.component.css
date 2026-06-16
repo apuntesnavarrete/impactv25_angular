@@ -95,3 +95,67 @@ font-family: "Trebuchet MS", Helvetica, sans-serif;
   flex-direction: column;
   align-items: center;
 }
+
+/* Limitamos el tamaño horizontal del panel de control */
+.control-panel {
+  max-width: 320px;
+  width: 100%;
+  padding: 15px;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Espaciado para los grupos de inputs */
+.input-group, .json-panel {
+  margin-top: 15px;
+}
+
+/* Etiquetas de texto del panel */
+.control-label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+/* Estilo del selector de día */
+.day-select {
+  width: 100%;
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+/* Estilo del cuadro de texto para el JSON */
+.json-textarea {
+  width: 100%;
+  font-family: monospace;
+  font-size: 12px;
+  margin-top: 5px;
+  padding: 5px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  resize: vertical; /* Permite estirar hacia abajo pero no hacia los lados */
+}
+
+/* Botón verde de actualizar */
+.btn-update {
+  margin-top: 8px;
+  width: 100%;
+  background-color: #28a745;
+  color: white;
+  padding: 8px;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: bold;
+  transition: background-color 0.2s;
+}
+
+.btn-update:hover {
+  background-color: #218838;
+}

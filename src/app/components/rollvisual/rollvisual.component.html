@@ -2,11 +2,38 @@
 
   <div class="control-panel">
     <h3>Generar Imagen Aguigol</h3>
+    
     <div class="buttons-group">
       <button (click)="cambiarCampo('1')" [class.active]="numeroCampo === '1'">Campo 1</button>
       <button (click)="cambiarCampo('2')" [class.active]="numeroCampo === '2'">Campo 2</button>
     </div>
+
+    <div class="input-group">
+      <label class="control-label">Día de la Semana:</label>
+      <select [(ngModel)]="diaSemana" class="day-select">
+        <option value="LUNES">Lunes</option>
+        <option value="MARTES">Martes</option>
+        <option value="MIÉRCOLES">Miércoles</option>
+        <option value="JUEVES">Jueves</option>
+        <option value="VIERNES">Viernes</option>
+        <option value="SÁBADO">Sábado</option>
+        <option value="DOMINGO">Domingo</option>
+      </select>
     </div>
+
+    <div class="json-panel">
+      <label class="control-label">Pegar Lista de Partidos (JSON):</label>
+      <textarea 
+        [(ngModel)]="jsonTexto" 
+        rows="10" 
+        class="json-textarea"
+        placeholder="Pega el JSON aquí...">
+      </textarea>
+      <button (click)="actualizarPartidos()" class="btn-update">
+        🔄 Actualizar Póster
+      </button>
+    </div>
+  </div>
 
   <div id="posterAguigol" class="flyer-poster">
     
@@ -30,17 +57,11 @@
       }
     </div>
 
-  </div> <app-btn-descargar 
+  </div> 
+  
+  <app-btn-descargar 
     targetId="posterAguigol" 
     [nombreArchivo]="'Aguigol_Campo_' + numeroCampo + '_' + diaSemana">
   </app-btn-descargar>
 
-</div> ```
-
----
-
-### ¿Por qué ahora sí se va a mover?
-1. **HTML Cerrado:** Al cerrar el `main-container` al final de todo, los elementos no se empujan de forma extraña.
-2. **Prioridad limpia:** Como en este HTML ya no tienes ningún estilo metido a la fuerza con `style="..."`, el navegador está obligado a leer tu CSS donde pusiste `top: 800px;`.
-
-Si cuando recargues la página sientes que `800px` todavía es muy arriba o muy abajo, ya puedes ir a tu archivo CSS y mover el número de `top` libremente; ahora sí te hará caso de inmediato.
+</div>
