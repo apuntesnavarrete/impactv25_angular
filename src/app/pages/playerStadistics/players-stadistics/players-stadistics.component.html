@@ -1,3 +1,40 @@
+<!-- 1. DISCREPANCIAS GENERALES DEL PARTIDO -->
+  <div *ngIf="discrepanciasGenerales.length > 0" style="margin-top: 20px; background: #fff1f2; border: 1px solid #fecdd3; padding: 15px; border-radius: 6px;">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+      <h4 style="margin: 0; color: #991b1b; display: flex; align-items: center; gap: 5px;">
+        ⚠ Notas Generales del Partido:
+      </h4>
+      <button (click)="copiarTodasLasDiscrepancias(discrepanciasGenerales, 'Notas Generales')" style="background: #991b1b; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; font-size: 12px; font-weight: bold;">
+        📋 Copiar Todas
+      </button>
+    </div>
+    <ul style="color: #991b1b; margin: 0; padding: 0; list-style: none; font-size: 14px; line-height: 1.6;">
+      <li *ngFor="let item of discrepanciasGenerales; let i = index" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; background: rgba(255,255,255,0.4); padding: 4px 8px; border-radius: 4px;">
+        <span>• {{ item }}</span>
+        <button (click)="eliminarDiscrepancia(discrepanciasGenerales, i)" style="background: none; color: #991b1b; border: none; font-size: 16px; font-weight: bold; cursor: pointer; padding: 0 5px; line-height: 1;">
+          ×
+        </button>
+      </li>
+    </ul>
+  </div>
+
+<div style="background: #f8fafc; border: 1px solid #cbd5e1; padding: 20px; border-radius: 8px; margin-bottom: 25px; font-family: sans-serif;">
+  <h3 style="margin-top: 0; color: #1e293b;">🤖 Asistente de Captura con IA (Flash)</h3>
+  <p style="color: #64748b; font-size: 14px; margin-bottom: 15px;">
+    Sube la foto de la papeleta manuscrita para rellenar de forma automática las asistencias y goles de los rosters actuales.
+  </p>
+
+  <div style="display: flex; gap: 15px; align-items: center; flex-wrap: wrap;">
+    <input type="file" (change)="onCedulaSelected($event)" accept="image/*" style="padding: 5px;">
+    
+    <button (click)="procesarCedulaConIA()" [disabled]="iaCargando || !imagenCedula" 
+            style="background: #2563eb; color: white; border: none; padding: 10px 15px; border-radius: 5px; cursor: pointer; font-weight: bold;">
+      {{ iaCargando ? 'Analizando Cédula y Cruzando Datos...' : '⚡ Pre-llenar con IA' }}
+    </button>
+  </div>
+
+
+
 <h2>Debug Info</h2>
 
 
@@ -16,7 +53,27 @@
   <h3>Team Away</h3>
   <p>Name: {{ teamAway?.name }}</p>
 </div>
-   
+
+
+<!-- 2. DISCREPANCIAS DEL EQUIPO LOCAL -->
+  <div *ngIf="discrepanciasLocal.length > 0" style="margin-top: 15px; background: #fffbeb; border: 1px solid #fde68a; padding: 15px; border-radius: 6px;">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+      <h4 style="margin: 0; color: #92400e; display: flex; align-items: center; gap: 5px;">
+        🏠 Errores en Cédula - {{ teamHome?.name || 'Local' }}:
+      </h4>
+      <button (click)="copiarTodasLasDiscrepancias(discrepanciasLocal, 'Discrepancias ' + (teamHome?.name || 'Local'))" style="background: #92400e; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; font-size: 12px; font-weight: bold;">
+        📋 Copiar Todas
+      </button>
+    </div>
+    <ul style="color: #92400e; margin: 0; padding: 0; list-style: none; font-size: 14px; line-height: 1.6;">
+      <li *ngFor="let item of discrepanciasLocal; let i = index" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; background: rgba(255,255,255,0.5); padding: 4px 8px; border-radius: 4px;">
+        <span>• {{ item }}</span>
+        <button (click)="eliminarDiscrepancia(discrepanciasLocal, i)" style="background: none; color: #92400e; border: none; font-size: 16px; font-weight: bold; cursor: pointer; padding: 0 5px; line-height: 1;">
+          ×
+        </button>
+      </li>
+    </ul>
+  </div>
    
 <!-- Team Home -->
 <h3>🏠 {{ teamHome?.name }}</h3>
@@ -63,6 +120,26 @@
   ❌ You passed by {{ -golesRestantesHome }} goal(s)!
 </div>
 <hr />
+
+<!-- 3. DISCREPANCIAS DEL EQUIPO VISITANTE -->
+  <div *ngIf="discrepanciasVisitante.length > 0" style="margin-top: 15px; background: #f0fdf4; border: 1px solid #bbf7d0; padding: 15px; border-radius: 6px;">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+      <h4 style="margin: 0; color: #166534; display: flex; align-items: center; gap: 5px;">
+        🚌 Errores en Cédula - {{ teamAway?.name || 'Visitante' }}:
+      </h4>
+      <button (click)="copiarTodasLasDiscrepancias(discrepanciasVisitante, 'Discrepancias ' + (teamAway?.name || 'Visitante'))" style="background: #166534; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; font-size: 12px; font-weight: bold;">
+        📋 Copiar Todas
+      </button>
+    </div>
+    <ul style="color: #166534; margin: 0; padding: 0; list-style: none; font-size: 14px; line-height: 1.6;">
+      <li *ngFor="let item of discrepanciasVisitante; let i = index" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; background: rgba(255,255,255,0.5); padding: 4px 8px; border-radius: 4px;">
+        <span>• {{ item }}</span>
+        <button (click)="eliminarDiscrepancia(discrepanciasVisitante, i)" style="background: none; color: #166534; border: none; font-size: 16px; font-weight: bold; cursor: pointer; padding: 0 5px; line-height: 1;">
+          ×
+        </button>
+      </li>
+    </ul>
+  </div>
 
 <!-- Team Away -->
 <h3>🚌 {{ teamAway?.name }}</h3>

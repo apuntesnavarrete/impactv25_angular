@@ -7,6 +7,7 @@ import { TournamentsApiService } from '../../../service/peticiones/torneos/torne
 import { FormsModule } from '@angular/forms';
 import { environment } from '../../../../environments/environment';
 import { PlayersStadisticsService } from '../../../service/peticiones/playersStadistics/players-stadistics.service';
+import { GeminiService } from '../../../service/gemini/gemini.service';
 
 @Component({
   selector: 'app-players-stadistics',
@@ -29,12 +30,24 @@ formularioHomeCompletado = false;
 formularioAwayCompletado = false;
 manualJsonInput: string = '';  // para guardar el texto del JSON
 manualJsonError: string = '';  // para mostrar errores
+
+// 2. Variables nuevas para el prototipo de IA
+  imagenCedula: File | null = null;
+  iaCargando = false;
+  discrepanciasIA: string[] = [];
+// Define estas variables en tu componente
+discrepanciasLocal: string[] = [];
+discrepanciasVisitante: string[] = [];
+discrepanciasGenerales: string[] = [];
+  
+
   constructor(
     private route: ActivatedRoute,
     private partidoService: PartidotorneoService,
     private rostersService: RostersService,
     private tournamentService: TournamentsApiService,
-    private playerStatsService: PlayersStadisticsService
+    private playerStatsService: PlayersStadisticsService,
+    private geminiService: GeminiService
   ) {}
 
   ngOnInit(): void {
@@ -67,6 +80,84 @@ manualJsonError: string = '';  // para mostrar errores
       console.warn('Parámetros de liga o categoría no encontrados en la URL');
     }
   }
+
+
+// 4. Nueva función para capturar el archivo de imagen
+  onCedulaSelected(event: any) {
+    this.imagenCedula = event.target.files[0];
+  }
+
+  // 5. Función principal que conecta la IA con tus listas de datos
+  async procesarCedulaConIA() {
+    if (!this.imagenCedula) {
+      alert('Por favor selecciona una imagen de la cédula primero.');
+      return;
+    }
+
+    this.iaCargando = true;
+    this.discrepanciasIA = [];
+    
+
+    // Empaquetamos la información que ya descargaste de tu backend para pasársela a Gemini
+    const datosDeControl = {
+      nombreLocal: this.teamHome?.name || 'Local',
+      nombreVisitante: this.teamAway?.name || 'Visitante',
+      rosterLocal: this.rostersTeamHome.map(j => ({ id: j.participants.id, nombre: j.participants.name, dorsal: j.participants.dorsal || j.dorsal })),
+      rosterVisitante: this.rostersTeamAway.map(j => ({ id: j.participants.id, nombre: j.participants.name, dorsal: j.participants.dorsal || j.dorsal }))
+    };
+
+   try {
+      const respuestaIA = await this.geminiService.procesarCedulaConImagen(this.imagenCedula, datosDeControl);
+      
+      // Guardamos las discrepancias para mostrarlas en la interfaz
+this.discrepanciasLocal = respuestaIA.discrepanciasLocal || [];
+this.discrepanciasVisitante = respuestaIA.discrepanciasVisitante || [];
+this.discrepanciasGenerales = respuestaIA.discrepanciasGenerales || [];
+
+      // 🔹 AUTO-RELLENADO INTELIGENTE Y DINÁMICO:
+      
+      // 1. Procesar Equipo Local
+      if (respuestaIA.jugadoresLocal && Array.isArray(respuestaIA.jugadoresLocal)) {
+        this.rostersTeamHome.forEach(jugador => {
+          const matchIA = respuestaIA.jugadoresLocal.find((j: any) => j.id === jugador.participants.id);
+          if (matchIA) {
+            jugador.asistio = matchIA.asistio;
+            jugador.goles = matchIA.goles || 0;
+          } else {
+            // Si la IA no lo mencionó, por defecto no asistió
+            jugador.asistio = false;
+            jugador.goles = 0;
+          }
+        });
+      }
+
+      // 2. Procesar Equipo Visitante
+      if (respuestaIA.jugadoresVisitante && Array.isArray(respuestaIA.jugadoresVisitante)) {
+        this.rostersTeamAway.forEach(jugador => {
+          const matchIA = respuestaIA.jugadoresVisitante.find((j: any) => j.id === jugador.participants.id);
+          if (matchIA) {
+            jugador.asistio = matchIA.asistio;
+            jugador.goles = matchIA.goles || 0;
+          } else {
+            jugador.asistio = false;
+            jugador.goles = 0;
+          }
+        });
+      }
+
+      alert('¡Cédula procesada con éxito! Se han pre-llenado las asistencias y los goles detectados.');
+
+    } catch (error) {
+      console.error("Error al procesar con IA en el componente:", error);
+      alert('Ocurrió un error al analizar la imagen con la IA.');
+    } finally {
+      this.iaCargando = false;
+    }
+  }
+
+
+
+
 
   loadMatch() {
     if (!this.idpartido || !this.idtorneo) return;
@@ -230,6 +321,23 @@ sendManualJson() {
   } catch (error: any) {
     this.manualJsonError = '❌ Error parseando el JSON: ' + error.message;
   }
+}
+
+copiarTodasLasDiscrepancias(lista: string[], titulo: string): void {
+  if (lista.length === 0) return;
+  
+  // Juntamos todos los elementos con un salto de línea
+  const textoCompleto = `${titulo}:\n` + lista.map(item => `• ${item}`).join('\n');
+  
+  navigator.clipboard.writeText(textoCompleto).then(() => {
+    alert(`¡Todas las discrepancias de "${titulo}" copiadas!`);
+  }).catch(err => {
+    console.error('Error al copiar: ', err);
+  });
+}
+
+eliminarDiscrepancia(lista: string[], index: number): void {
+  lista.splice(index, 1);
 }
 
 }
