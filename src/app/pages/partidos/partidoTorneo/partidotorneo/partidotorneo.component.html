@@ -1,3 +1,26 @@
+<div *ngIf="iaCargandoNarrativa || narrativaResultado" style="background: #f8fafc; border: 2px solid #3b82f6; padding: 20px; border-radius: 8px; margin-bottom: 25px; font-family: sans-serif;">
+  <h3 style="margin-top: 0; color: #1e293b; display: flex; align-items: center; gap: 8px;">
+    🤖 Crónica Deportiva con IA (Flash)
+  </h3>
+  <div *ngIf="iaCargandoNarrativa" style="color: #2563eb; font-weight: bold; padding: 10px 0;">
+    ⚡ Cruzando datos de Tabla General, Historial y Anotadores... Creando narrativa...
+  </div>
+  <div *ngIf="narrativaResultado">
+    <p style="color: #64748b; font-size: 14px; margin-bottom: 10px;">
+      Aquí tienes la crónica generada. Puedes editar el texto directamente si quieres ajustar algún detalle antes de publicarlo:
+    </p>
+    <textarea [(ngModel)]="narrativaResultado" rows="12" style="width: 100%; padding: 12px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 14px; line-height: 1.6; font-family: inherit; resize: vertical; box-sizing: border-box;"></textarea>
+    <div style="margin-top: 12px; display: flex; gap: 10px;">
+      <button (click)="copiarNarrativaCompleta()" style="background: #2563eb; color: white; border: none; padding: 8px 16px; border-radius: 5px; cursor: pointer; font-weight: bold;">
+        📋 Copiar Crónica Completa
+      </button>
+      <button (click)="narrativaResultado = ''" style="background: #ef4444; color: white; border: none; padding: 8px 16px; border-radius: 5px; cursor: pointer; font-weight: bold;">
+        Cerrar
+      </button>
+    </div>
+  </div>
+</div>
+
 <!-- Primer input: cualquier partido donde esté un equipo -->
 <input type="text" [(ngModel)]="equipoUno" placeholder="Buscar equipo 1 (ej. Juventus)" />
 
@@ -38,6 +61,10 @@
   <button (click)="generarJsonEquipos(partido)" class="btn json">
   JSON
 </button>
+
+<button (click)="generarNarrativaConIA(partido)" [disabled]="iaCargandoNarrativa" class="btn agregar" style="background: #8b5cf6; margin-left: 5px;">
+          ✨ Narrativa
+        </button>
 </td>
     </tr>
   </tbody>

@@ -4,6 +4,11 @@ import { ActivatedRoute, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms'; // Necesario para [(ngModel)]
 import { TournamentsApiService } from '../../../../service/peticiones/torneos/torneos.service';
 import { PartidotorneoService } from '../../../../service/peticiones/partidos/partidotorneo.service';
+import { TablaGeneralService } from '../../../../service/peticiones/tablageneral/tabla-general.service';
+import { GeminiService } from '../../../../service/gemini/gemini.service';
+import { PlayersStadisticsService } from '../../../../service/peticiones/playersStadistics/players-stadistics.service';
+// 1. IMPORTACIONES NUEVAS
+
 
 @Component({
   selector: 'app-partidotorneo',
@@ -20,10 +25,20 @@ export class PartidotorneoComponent implements OnInit {
   searchTerm: string = ''; // Campo de búsqueda
 equipoUno: string = '';
 equipoDos: string = '';
-  constructor(
+
+// Variables para la narrativa de IA
+  narrativaResultado: string = '';
+  iaCargandoNarrativa: boolean = false;
+
+
+constructor(
     private route: ActivatedRoute,
     private tournamentService: TournamentsApiService,
-    private partidoService: PartidotorneoService
+    private partidoService: PartidotorneoService,
+private playerStatsService: PlayersStadisticsService,
+
+    private tablaGeneralService: TablaGeneralService,
+    private geminiService: GeminiService
   ) {}
 
   ngOnInit(): void {
@@ -82,62 +97,124 @@ partidosFiltrados(): any[] {
     .sort((a, b) => b.matchday - a.matchday); // ordenar por jornada
 }
 
-generarJsonEquipos(partido: any): void {
-  const homeId = partido.teamHome.id;
-  const awayId = partido.teamAway.id;
+// Lógica reutilizable para extraer el historial de enfrentamientos
+  obtenerHistorialEquipos(partido: any) {
+    const homeId = partido.teamHome.id;
+    const awayId = partido.teamAway.id;
 
-  // función para simplificar partidos
-  const resumirPartido = (p: any) => ({
-    jornada: p.matchday,
-    fecha: p.date,
-    local: p.teamHome.name,
-    visitante: p.teamAway.name,
-    golesLocal: p.localgoals,
-    golesVisitante: p.visitangoals,
-    resultado: `${p.localgoals}-${p.visitangoals}`
-  });
+    const resumirPartido = (p: any) => ({
+      jornada: p.matchday,
+      fecha: p.date,
+      local: p.teamHome.name,
+      visitante: p.teamAway.name,
+      golesLocal: p.localgoals,
+      golesVisitante: p.visitangoals,
+      resultado: `${p.localgoals}-${p.visitangoals}`
+    });
 
-  const partidosHome = this.partidos
-    .filter(p =>
-      p.teamHome.id === homeId || p.teamAway.id === homeId
-    )
-    .map(resumirPartido);
+    return {
+      historialEquipoLocal: this.partidos.filter(p => p.teamHome.id === homeId || p.teamAway.id === homeId).map(resumirPartido),
+      historialEquipoVisitante: this.partidos.filter(p => p.teamHome.id === awayId || p.teamAway.id === awayId).map(resumirPartido)
+    };
+  }
 
-  const partidosAway = this.partidos
-    .filter(p =>
-      p.teamHome.id === awayId || p.teamAway.id === awayId
-    )
-    .map(resumirPartido);
+  generarJsonEquipos(partido: any): void {
+    const historial = this.obtenerHistorialEquipos(partido);
+    const resultado = {
+      partidoActual: {
+        jornada: partido.matchday,
+        fecha: partido.date,
+        local: partido.teamHome.name,
+        visitante: partido.teamAway.name,
+        resultado: `${partido.localgoals}-${partido.visitangoals}`
+      },
+      ...historial
+    };
 
-  const resultado = {
-    partidoActual: {
-      jornada: partido.matchday,
-      fecha: partido.date,
-      local: partido.teamHome.name,
-      visitante: partido.teamAway.name,
-      resultado: `${partido.localgoals}-${partido.visitangoals}`
-    },
+    const blob = new Blob([JSON.stringify(resultado, null, 2)], { type: 'application/json' });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `${partido.teamHome.name}-vs-${partido.teamAway.name}.json`;
+    a.click();
+    window.URL.revokeObjectURL(url);
+  }
 
-    historialEquipoLocal: partidosHome,
-    historialEquipoVisitante: partidosAway
-  };
 
-  console.log(resultado);
 
-  const blob = new Blob(
-    [JSON.stringify(resultado, null, 2)],
-    { type: 'application/json' }
-  );
+// 3. NUEVA FUNCIÓN PARA GENERAR NARRATIVA CON IA
+generarNarrativaConIA(partido: any): void {
+    if (!this.idTorneo) {
+      alert('No hay un ID de torneo válido disponible.');
+      return;
+    }
 
-  const url = window.URL.createObjectURL(blob);
+    this.iaCargandoNarrativa = true;
+    this.narrativaResultado = '';
 
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = `${partido.teamHome.name}-vs-${partido.teamAway.name}.json`;
-  a.click();
+    // 1. Pedimos la tabla general
+    this.tablaGeneralService.getTablaGeneralById(this.idTorneo).subscribe({
+      next: (tablaGeneral: any) => {
+        
+        // 2. Pedimos las estadísticas de los jugadores de este partido (asistencias y goles reales)
+        this.playerStatsService.getPlayerStatsByMatchId(partido.id).subscribe({
+          next: async (estadisticasJugadores: any) => {
+            try {
+              const nombreLiga = this.liga || 'Liga de Fútbol';
+              
+              // Estructuramos el partido actual incluyendo las estadísticas individuales
+              const partidoActual = {
+                jornada: partido.matchday,
+                fecha: partido.date,
+                local: partido.teamHome.name,
+                visitante: partido.teamAway.name,
+                golesTotalLocal: partido.localgoals,
+                golesTotalVisitante: partido.visitangoals,
+                // Aquí viajan los jugadores que asistieron y anotaron goles
+                detallesJugadoresYAnotadores: estadisticasJugadores 
+              };
 
-  window.URL.revokeObjectURL(url);
-}
+              const historial = this.obtenerHistorialEquipos(partido);
+
+              // 3. Llamamos a Gemini pasándole TODO, incluyendo los anotadores reales
+              const cronica = await this.geminiService.generarNarrativaPartido(
+                nombreLiga,
+                partidoActual,
+                historial,
+                tablaGeneral
+              );
+
+              this.narrativaResultado = cronica;
+            } catch (error) {
+              console.error('Error procesando la narrativa con Gemini:', error);
+              alert('Ocurrió un error al generar la narrativa.');
+            } finally {
+              this.iaCargandoNarrativa = false;
+            }
+          },
+          error: (err: any) => {
+            console.error('Error al obtener estadísticas de jugadores:', err);
+            alert('No se pudieron obtener los anotadores del partido.');
+            this.iaCargandoNarrativa = false;
+          }
+        });
+
+      },
+      error: (err: any) => {
+        console.error('Error al obtener la tabla general:', err);
+        alert('No se pudo obtener la tabla general.');
+        this.iaCargandoNarrativa = false;
+      }
+    });
+  }
+
+  // Función útil para que copies toda la crónica generada al portapapeles con un clic
+  copiarNarrativaCompleta(): void {
+    if (!this.narrativaResultado) return;
+    navigator.clipboard.writeText(this.narrativaResultado).then(() => {
+      alert('¡Crónica copiada al portapapeles!');
+    });
+  }
 }
 
 
