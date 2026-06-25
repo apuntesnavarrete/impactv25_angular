@@ -1,4 +1,14 @@
 <div class="main-container">
+<div class="controles-contenedor">
+  <div class="control-item">
+    <label for="calendario">Fecha del Póster:</label>
+    <input 
+      type="date" 
+      id="calendario" 
+      [(ngModel)]="fechaSeleccionada"
+    >
+  </div>
+</div>
 
   <div class="control-panel">
     <h3>Generar Imagen Aguigol</h3>
@@ -69,7 +79,13 @@
 
     <div class="matches-list">
       @for (juego of listaPartidos; track $index) {
-        <app-filaroll [partido]="juego"></app-filaroll>
+        <app-filaroll 
+        [partido]="juego"
+      [fechaRol]="transformarFecha(fechaSeleccionada)">
+        
+
+
+        </app-filaroll>
       } @empty {
         <div class="no-matches">No hay partidos agendados</div>
       }

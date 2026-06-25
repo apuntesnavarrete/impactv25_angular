@@ -19,6 +19,7 @@ export class RollvisualComponent implements OnInit {
 
   numeroCampo: string = '1'; 
   diaSemana: string = 'LUNES';
+  fechaSeleccionada: string = '';
 
   // Aquí guardaremos la lista oficial de equipos procesados para enviársela a Gemini
   listaOficialEquipos: any[] = [];
@@ -55,6 +56,9 @@ export class RollvisualComponent implements OnInit {
   ) {}
 
 ngOnInit(): void {
+
+ this.establecerFechaDeHoy();
+
     this.obtenerEImprimirEquipos();
     // Cargar el rol guardado en localStorage si existe
     this.cargarRolDesdeStorage();
@@ -197,4 +201,28 @@ actualizarPartidos() {
       }
     });
   }
+
+  // NUEVA FUNCIÓN: Envuelves la lógica aquí
+establecerFechaDeHoy(): void {
+  const hoy = new Date();
+  const año = hoy.getFullYear();
+  const mes = String(hoy.getMonth() + 1).padStart(2, '0');
+  const dia = String(hoy.getDate()).padStart(2, '0');
+  
+  this.fechaSeleccionada = `${año}-${mes}-${dia}`;
+}
+
+transformarFecha(fecha: string): string {
+  if (!fecha) return '';
+  
+  // Evitamos problemas de zona horaria dividiendo el string
+  const [año, mes, dia] = fecha.split('-');
+  const fechaObj = new Date(Number(año), Number(mes) - 1, Number(dia));
+  
+  // Obtenemos el nombre del mes en español
+  const mesEspanal = fechaObj.toLocaleDateString('es-MX', { month: 'long' });
+  
+  // Armamos el formato exacto: "26 DE JUNIO DEL 2026"
+  return `${dia} DE ${mesEspanal} DEL ${año}`.toUpperCase();
+}
 }

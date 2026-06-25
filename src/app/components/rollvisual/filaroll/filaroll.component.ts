@@ -11,4 +11,6 @@ import { CommonModule } from '@angular/common';
 export class FilarollComponent {
   // Aquí recibimos el objeto del partido desde el padre
   @Input() partido: any; 
+
+  @Input() fechaRol: string = '';
 }
