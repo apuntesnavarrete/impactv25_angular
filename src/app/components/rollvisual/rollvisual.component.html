@@ -3,6 +3,22 @@
   <div class="control-panel">
     <h3>Generar Imagen Aguigol</h3>
     
+    <div class="input-group uploader-section">
+      <label class="control-label">📷 Escanear Rol desde Imagen:</label>
+      <input 
+        type="file" 
+        accept="image/*" 
+        (change)="capturarYProcesarImagen($event)"
+        [disabled]="cargandoGemini"
+        class="file-input"
+      />
+      @if (cargandoGemini) {
+        <p class="loading-text">⏳ Procesando con IA de Gemini... por favor espera.</p>
+      }
+    </div>
+
+    <hr class="separator" />
+
     <div class="buttons-group">
       <button (click)="cambiarCampo('1')" [class.active]="numeroCampo === '1'">Campo 1</button>
       <button (click)="cambiarCampo('2')" [class.active]="numeroCampo === '2'">Campo 2</button>
@@ -10,7 +26,7 @@
 
     <div class="input-group">
       <label class="control-label">Día de la Semana:</label>
-      <select [(ngModel)]="diaSemana" class="day-select">
+      <select [(ngModel)]="diaSemana" (ngModelChange)="onDiaSemanaChange()" class="day-select">
         <option value="LUNES">Lunes</option>
         <option value="MARTES">Martes</option>
         <option value="MIÉRCOLES">Miércoles</option>
@@ -22,15 +38,15 @@
     </div>
 
     <div class="json-panel">
-      <label class="control-label">Pegar Lista de Partidos (JSON):</label>
+      <label class="control-label">Estructura del Rol (JSON):</label>
       <textarea 
         [(ngModel)]="jsonTexto" 
         rows="10" 
         class="json-textarea"
-        placeholder="Pega el JSON aquí...">
+        placeholder="Pega el JSON aquí o sube una imagen arriba...">
       </textarea>
       <button (click)="actualizarPartidos()" class="btn-update">
-        🔄 Actualizar Póster
+        🔄 Actualizar Datos / Póster
       </button>
     </div>
   </div>
@@ -52,8 +68,10 @@
     </div>
 
     <div class="matches-list">
-      @for (juego of listaPartidos; track juego) {
+      @for (juego of listaPartidos; track $index) {
         <app-filaroll [partido]="juego"></app-filaroll>
+      } @empty {
+        <div class="no-matches">No hay partidos agendados</div>
       }
     </div>
 

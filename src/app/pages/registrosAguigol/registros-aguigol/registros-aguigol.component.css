@@ -1,0 +1,318 @@
+/* ==========================================
+   1. HOJA PRINCIPAL
+   ========================================== */
+.cedula-carta {
+  width: 1056px;
+  height: 816px;
+  background-color: #ffffff;
+  border: 1px solid #cbd5e1;
+  padding: 10px 15px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  font-family: system-ui, -apple-system, sans-serif;
+  margin: 0 auto 0px auto;
+  box-sizing: border-box;
+}
+
+/* ==========================================
+   2. ENCABEZADO
+   ========================================== */
+.top-cedula {
+ 
+  margin-bottom: 8px;
+  border-radius: 4px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #f8fafc;
+  padding: 4px 10px;
+  flex-shrink: 0;
+}
+
+.top-cedula h2 {
+  font-size: 15px;
+  color: #1e3a8a;
+  margin: 0;
+}
+
+.top-cedula p {
+  font-size: 11px;
+  color: #475569;
+  margin: 0;
+}
+
+/* ==========================================
+   3. ÁREA CENTRAL FIJA 600PX
+   ========================================== */
+.center-cedula {
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+
+  width: 100%;
+  height: 600px;
+  flex: 0 0 600px;
+
+  margin-bottom: 8px;
+
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.columna-equipo {
+  flex: 1 1 0;
+  width: 50%;
+
+  border: 1px dashed #cbd5e1;
+  padding: 4px;
+  border-radius: 6px;
+
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.bloque-registro {
+  border: 2px solid #0f172a;
+
+  width: 100%;
+  height: 100%;
+
+  background-color: #fafafa;
+  padding: 6px;
+
+  display: flex;
+  flex-direction: column;
+
+  border-radius: 6px;
+
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.bloque-registro h3 {
+  font-size: 12px;
+  color: #0f172a;
+  border-bottom: 1px solid #cbd5e1;
+  padding-bottom: 2px;
+  margin: 0 0 6px 0;
+  flex-shrink: 0;
+}
+
+/* ==========================================
+   4. GRID DE JUGADORES
+   ========================================== */
+.contenedor-cards {
+  display: grid;
+
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+
+  gap: 4px;
+
+  width: 100%;
+  flex: 1;
+
+  overflow: hidden;
+}
+
+.card-jugador {
+  border: 1px solid #cbd5e1;
+  background-color: #ffffff;
+  border-radius: 4px;
+
+  padding: 2px 4px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  min-height: 0;
+
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.card-top-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.card-id {
+  font-size: 16.5px;
+  color: #000;
+  font-weight: 600;
+}
+
+.card-datos {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  width: 100%;
+}
+
+.card-dorsal {
+  font-size: 17px;
+  padding: 0 3px;
+  min-width: 16px;
+}
+
+.card-nombre {
+  font-size: 9.5px;
+  padding-bottom: 0;
+}
+
+/* ==========================================
+   5. ASISTENCIA
+   ========================================== */
+.recuadro-asistencia {
+  width: 30px;
+  height: 30px;
+  border: 1.5px solid #0f172a;
+  background-color: #ffffff;
+  border-radius: 3px;
+  flex-shrink: 0;
+}
+
+/* ==========================================
+   6. PIE DE PÁGINA
+   ========================================== */
+.bottom-cedula {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+
+  height: 120px;
+
+  flex-shrink: 0;
+
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.sub-bloque {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  height: 100%;
+}
+
+.fila-datos-original {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.celda-datos {
+
+  padding: 2px;
+  font-size: 11px;
+}
+
+.firma {
+  padding-bottom: 2px;
+  font-size: 10px;
+}
+
+.contenedor-cuadrculas-abajo {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+  flex: 1;
+}
+
+.bloque-conteo {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.titulo-conteo {
+  font-size: 8.5px;
+  font-weight: 700;
+  color: #475569;
+  margin-bottom: 2px;
+  text-align: center;
+}
+
+.cuadricula-5x4 {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+
+  gap: 2px;
+
+  width: 100%;
+  flex: 1;
+}
+
+.mini-cuadro {
+  border: 1px solid #475569;
+  background-color: #ffffff;
+  border-radius: 2px;
+}
+
+/* ==========================================
+   7. IMPRESIÓN / PDF
+   ========================================== */
+.salto-de-pagina {
+.salto-de-pagina {
+  height: 0;
+  margin: 0;
+  padding: 0;
+  page-break-after: always;
+}
+}
+
+@media print {
+  .cedula-carta {
+    margin: 0;
+  }
+
+  .salto-de-pagina {
+    page-break-after: always;
+    break-after: page;
+  }
+}
+
+.herramientas-aguigol {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #f5f5f5;
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.selectores-filtro label {
+  font-weight: bold;
+  margin-right: 5px;
+  margin-left: 15px;
+}
+
+.selectores-filtro select {
+  padding: 6px 12px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  background-color: #fff;
+}
+
+.sin-partidos {
+  text-align: center;
+  padding: 40px;
+  background-color: #fafafa;
+  border: 2px dashed #ccc;
+  border-radius: 8px;
+  font-size: 1.2rem;
+  color: #666;
+}
+
+/* Ocultar las herramientas de selección al generar el PDF */
+@media print {
+  .herramientas-aguigol {
+    display: none !important;
+  }
+}

@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-// 1. CAMBIO: Cambiamos 'GoogleGenAI' por 'GoogleGenerativeAI'
 import { GoogleGenerativeAI } from '@google/generative-ai'; 
 import { environment } from '../../../environments/environment';
 
@@ -7,7 +6,6 @@ import { environment } from '../../../environments/environment';
   providedIn: 'root'
 })
 export class GeminiService {
-  // 2. CAMBIO: Usamos la clase correcta para inicializar el objeto
   private ai = new GoogleGenerativeAI(environment.geminiApiKey);
 
   private fileToGenerativePart(file: File): Promise<any> {
@@ -24,23 +22,33 @@ export class GeminiService {
     });
   }
 
-async procesarCedulaConImagen(imagenFile: File, baseDatosOficial: any): Promise<any> {
+  async procesarCedulaConImagen(imagenFile: File, baseDatosOficial: any): Promise<any> {
     const model = this.ai.getGenerativeModel({ model: "gemini-2.5-flash" });
     const imagenData = await this.fileToGenerativePart(imagenFile);
 
     const prompt = `
       Eres un sistema automatizado experto para el control de ligas de fútbol. 
-      Compara la imagen de la cédula manuscrita (hoja de anotación del partido) con este JSON de la Base de Datos Oficial:
+      Analiza la imagen de la cédula del partido y compárala con este JSON de la Base de Datos Oficial para identificar a los jugadores:
       ${JSON.stringify(baseDatosOficial)}
 
-      INSTRUCCIONES DE PROCESAMIENTO:
-      1. Analiza los nombres y dorsales escritos a mano en la cédula para cada equipo (${baseDatosOficial.nombreLocal} y ${baseDatosOficial.nombreVisitante}).
-      2. Compáralos con los jugadores de la lista oficial (rosterLocal y rosterVisitante).
-      3. Si un jugador aparece en la cédula, márcalo en el JSON de respuesta con "asistio": true. Si no aparece o está tachado, "asistio": false.
-      4. Cuenta los goles anotados por cada jugador según las marcas o números en la cédula.
-      5. Identifica errores humanos comunes del árbitro: por ejemplo, si en la tabla de goles anotó el número de ID del sistema (como el 61) en lugar de un número de dorsal válido, o si anotó un dorsal que no existe. Agrega estos detalles en el arreglo de "discrepancias".
+      REGLA CRÍTICA DE DISEÑO DE CÉDULA:
+      Identifica visualmente cuál de los dos formatos de cédula se está usando en la imagen y aplica sus reglas:
+      
+      - FORMATO A (Nombres Impresos): Los nombres e IDs ya vienen impresos en celdas fijas. La asistencia se marca manualmente en el cuadro al lado del ID. 
+        * Una palomita ("✓") significa "asistio": true.
+        * Un cuadro vacío o con una "X" significa "asistio": false.
+        * Si hay filas vacías al final con nombres e información escrita totalmente a mano, son altas manuales. Búscalos en la lista oficial por su nombre o dorsal.
+        
+      - FORMATO B (Totalmente Manuscrito): Los nombres y dorsales están escritos a mano desde cero en filas vacías.
+        * Si el nombre del jugador aparece escrito, significa "asistio": true. Si no aparece, "asistio": false.
 
-     Devuelve ESTRICTAMENTE un objeto JSON con el siguiente formato, sin texto extra, código markdown o saludos fuera del JSON:
+      INSTRUCCIONES DE PROCESAMIENTO GENERAL:
+      1. Determina la asistencia para cada equipo (${baseDatosOficial.nombreLocal} y ${baseDatosOficial.nombreVisitante}) usando las reglas del formato detectado.
+      2. Asigna la asistencia ("asistio": true/false) mapeando los jugadores encontrados con sus respectivos IDs de la lista oficial (rosterLocal y rosterVisitante).
+      3. Cuenta los goles anotados por cada jugador según la cuadrícula o sección de goles en la cédula. Relaciona los dorsales anotados en la cuadrícula de goles con los IDs de los jugadores.
+      4. Identifica errores humanos comunes del árbitro: por ejemplo, si en la tabla de goles anotó un número de ID del sistema en lugar de un número de dorsal válido, si anotó un dorsal que no existe en el roster, o marcas confusas. Agrega estos detalles en el arreglo de "discrepancias".
+
+      Devuelve ESTRICTAMENTE un objeto JSON con el siguiente formato, sin texto extra, código markdown o saludos fuera del JSON:
       {
         "discrepanciasLocal": ["Errores específicos del equipo local"],
         "discrepanciasVisitante": ["Errores específicos del equipo visitante"],
@@ -55,11 +63,9 @@ async procesarCedulaConImagen(imagenFile: File, baseDatosOficial: any): Promise<
     `;
 
     const result = await model.generateContent([prompt, imagenData]);
-    // Limpiamos cualquier formato markdown que Gemini suela poner
     const jsonLimpio = result.response.text().replace(/```json|```/g, '').trim();
     return JSON.parse(jsonLimpio);
   }
-
 
   // ==========================================
   // NUEVO MÉTODO: GENERAR NARRATIVA DINÁMICA
@@ -70,7 +76,6 @@ async procesarCedulaConImagen(imagenFile: File, baseDatosOficial: any): Promise<
     historialEquipos: any, 
     tablaGeneral: any
   ): Promise<string> {
-    
     const model = this.ai.getGenerativeModel({ model: "gemini-2.5-flash" });
 
     const prompt = `
@@ -88,7 +93,7 @@ async procesarCedulaConImagen(imagenFile: File, baseDatosOficial: any): Promise<
       3. JSON DE LA TABLA GENERAL ACTUAL:
       ${JSON.stringify(tablaGeneral, null, 2)}
 
-      REGLAS DE ESTRUCTURA Y CONTENIDO (SÍGUELAS ESTRICTAMENTE):
+      REGLAS DE ESTRUCTURA AND CONTENIDO (SÍGUELAS ESTRICTAMENTE):
 
       1. ENCABEZADO PERSONALIZADO Y ANOTADORES:
          - TÍTULO UNICO: No uses un título genérico. Analiza las rachas de los equipos con este resultado y crea un encabezado llamativo con emojis basado en lo que pasó (Ejemplos: "⚡ ¡EL LÍDER SIGUE IMPARABLE EN LA CANCHA!", "🔥 ¡CORTAN LA RACHA NEGATIVA CON UN TRIUNFO VALIOSO!", "🤝 DUELO MUY PAREJO QUE TERMINA EN EMPATE").
@@ -121,5 +126,56 @@ async procesarCedulaConImagen(imagenFile: File, baseDatosOficial: any): Promise<
 
     const result = await model.generateContent(prompt);
     return result.response.text();
+  }
+
+  // ==========================================
+  // NUEVO MÉTODO: PROCESAR ROL DE JUEGOS DESDE IMAGEN
+  // ==========================================
+  async procesarRolJuegos(imagenFile: File, listaEquiposLogos: any[]): Promise<any> {
+    const model = this.ai.getGenerativeModel({ model: "gemini-2.5-flash" });
+    const imagenData = await this.fileToGenerativePart(imagenFile);
+
+  const prompt = `
+      Eres un asistente experto en digitalización de datos para ligas de fútbol. 
+      Tu tarea es leer una imagen manuscrita con el rol de juegos de la semana (dividido por días, canchas y horarios) y generar un JSON limpio y estructurado.
+
+      Para garantizar la precisión de los datos, DEBES mapear y validar cada equipo que encuentres en la imagen usando la siguiente lista de referencia oficial (la cual contiene nombre, logo e id_equipo):
+      ${JSON.stringify(listaEquiposLogos)}
+
+      REGLAS DE PROCESAMIENTO Y MAPEADO:
+      1. ANALIZAR ESTRUCTURA VIRTUAL: Identifica los días (Lunes, Martes, Miércoles, Jueves, Viernes, etc.), las canchas (Cancha 1, Cancha 2) y los horarios de cada partido.
+      2. MAPEO DE EQUIPOS: Busca los nombres manuscritos en la lista oficial. Reemplázalos por el "nombreEquipo" exacto, añade su "logo" y OBLIGATORIAMENTE incluye su "id_equipo".
+      3. TRADUCCIÓN DE CATEGORÍAS: Convierte la categoría leída de la imagen al formato simplificado del cliente:
+         - "sub 16", "sub 19", "libre" o "mixto".
+
+      ESTRUCTURA DEL JSON REQUERIDA (INCLUYENDO IDs):
+      Devuelve ESTRICTAMENTE un objeto JSON con la subdivisión por Día -> Cancha. No incluyas texto explicativo ni formato markdown (\`\`\`json):
+
+      {
+        "Lunes": {
+          "Cancha 1": [
+            {
+              "categoria": "sub 16",
+              "categoria_id: "id de la categoria"
+              "local": "NombreExacto",
+              "localId": "id_del_equipo_aqui",
+              "localLogo": "archivo_logo.png",
+              "visitante": "NombreExacto",
+              "visitanteId": "id_del_equipo_aqui",
+              "visitanteLogo": "archivo_logo.png",
+              "horario": "7:20pm"
+            }
+          ],
+          "Cancha 2": []
+        }
+      }
+
+      Asegúrate de procesar todos los datos visibles en la imagen de manera rigurosa.
+    `;
+
+    const result = await model.generateContent([prompt, imagenData]);
+    const jsonLimpio = result.response.text().replace(/```json|```/g, '').trim();
+
+    return JSON.parse(jsonLimpio);
   }
 }

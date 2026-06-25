@@ -66,8 +66,9 @@
 <div id="Registros_cards" class="Registros_card">
   <div class="top">
     <div class="content_rigth">
-      <p>Jornada _________________</p>
-      <p>Fecha _________________</p>
+   <p class="leyenda-asistencia">
+  □ = Asistencia del jugador
+</p>
     </div>
     <div class="content_left">
       <h3>Hoja de Registros</h3>
@@ -81,7 +82,10 @@
 
       <div class="card_data">
         <a [href]="'Delete/' + player.id">
-          <h5 class="card_plante-id">Id.-{{ player.id }}</h5>
+          <h5 class="card_plante-id">Id.-{{ player.id }}
+
+              <span class="cuadro_asistencia"></span>
+          </h5>
         </a>
 
         <h4 class="card_nombre">{{ player.nombre }}</h4>

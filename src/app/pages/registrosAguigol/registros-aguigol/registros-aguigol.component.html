@@ -1,0 +1,125 @@
+<div class="herramientas-aguigol">
+  <div class="selectores-filtro">
+    <label for="selectDia">Día: </label>
+    <select id="selectDia" [(ngModel)]="diaSeleccionado" (change)="actualizarCanchasPorDia()">
+      <option *ngFor="let dia of diasDisponibles" [value]="dia">{{ dia }}</option>
+    </select>
+
+    <label for="selectCancha">Cancha: </label>
+    <select id="selectCancha" [(ngModel)]="canchaSeleccionada" (change)="consultarEnfrentamientosYRosters()">
+      <option *ngFor="let cancha of canchasDisponibles" [value]="cancha">{{ cancha }}</option>
+    </select>
+  </div>
+
+  <button (click)="descargarJornadaCompleta()" class="btn-descargar-aguigol" [disabled]="listaPartidos.length === 0">
+    ⚽ Descargar Jornada Aguigol (PDF Único)
+  </button>
+</div>
+
+<div *ngIf="listaPartidos.length === 0" class="sin-partidos">
+  <p>No hay partidos agendados o cargando información para este día y cancha...</p>
+</div>
+
+<div #jornadaAguigol class="compilado-jornada" *ngIf="listaPartidos.length > 0">
+  
+  <div *ngFor="let partido of listaPartidos; let ultimo = last" class="cedula-carta">
+    
+    <header class="top-cedula">
+      <div class="info-principal">
+        <h2>AGUIGOL --- {{ partido.campo }} --- {{ partido.categoria | uppercase }} --- {{ partido.hora }} --- {{ diaSeleccionado }}</h2>
+      </div>
+      <div class="rivales-titulo">
+        <strong>Arbitro _______________________ Crono________________</strong>
+      </div>
+    </header>
+
+    <main class="center-cedula">
+      
+      <section class="columna-equipo">
+        <div class="bloque-registro">
+          <h3>{{ partido.local }} (Local)</h3>
+          
+          <div class="contenedor-cards">
+            <div *ngFor="let jugador of obtener16Jugadores(partido.jugadoresLocal)" class="card-jugador">
+              <div class="card-top-row">
+                <div class="recuadro-asistencia"></div>
+                <span class="card-id">ID: {{ jugador.id || '___' }}</span>
+              </div>
+              <div class="card-datos">
+                <span class="card-dorsal"># {{ jugador.dorsal || '__' }}</span>
+                <span class="card-nombre">{{ jugador.nombre || 'Escriba nombre completo y dorsal' }}</span>
+              </div>
+            </div>
+          </div>
+        </div> 
+      </section>
+
+      <section class="columna-equipo">
+        <div class="bloque-registro">
+          <h3>{{ partido.visitante }} (Visitante)</h3>
+          
+          <div class="contenedor-cards">
+            <div *ngFor="let jugador of obtener16Jugadores(partido.jugadoresVisitante)" class="card-jugador">
+              <div class="card-top-row">
+                <div class="recuadro-asistencia"></div>
+                <span class="card-id">ID: {{ jugador.id || '___' }}</span>
+              </div>
+              <div class="card-datos">
+                <span class="card-dorsal"># {{ jugador.dorsal || '__' }}</span>
+                <span class="card-nombre">{{ jugador.nombre || 'Escriba nombre completo y dorsal' }}</span>
+              </div>
+            </div> 
+          </div> 
+        </div> 
+      </section>
+
+    </main>
+
+    <footer class="bottom-cedula">
+      <div class="sub-bloque">
+        <div class="fila-datos-original">
+          <div class="celda-datos">Goles Totales: ______</div>
+          <div class="celda-datos firma">Firma Capitán {{ partido.local }}</div>
+        </div>
+        <div class="contenedor-cuadrculas-abajo">
+          <div class="bloque-conteo">
+            <span class="titulo-conteo">Goles</span>
+            <div class="cuadricula-5x4">
+              <div *ngFor="let c of [].constructor(20)" class="mini-cuadro"></div>
+            </div>
+          </div>
+          <div class="bloque-conteo">
+            <span class="titulo-conteo">Faltas</span>
+            <div class="cuadricula-5x4">
+              <div *ngFor="let c of [].constructor(20)" class="mini-cuadro"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="sub-bloque">
+        <div class="fila-datos-original">
+          <div class="celda-datos">Goles Totales: ______</div>
+          <div class="celda-datos firma">Firma Capitán {{ partido.visitante }}</div>
+        </div>
+        <div class="contenedor-cuadrculas-abajo">
+          <div class="bloque-conteo">
+            <span class="titulo-conteo">Goles</span>
+            <div class="cuadricula-5x4">
+              <div *ngFor="let c of [].constructor(20)" class="mini-cuadro"></div>
+            </div>
+          </div>
+          <div class="bloque-conteo">
+            <span class="titulo-conteo">Faltas</span>
+            <div class="cuadricula-5x4">
+              <div *ngFor="let c of [].constructor(20)" class="mini-cuadro"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <div *ngIf="!ultimo" class="salto-de-pagina"></div>
+  </div>
+
+</div>
