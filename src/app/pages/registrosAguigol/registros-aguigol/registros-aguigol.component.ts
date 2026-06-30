@@ -140,36 +140,33 @@ consultarEnfrentamientosYRosters() {
     console.log('=== RESPUESTA DE LA API RECIBIDA ===');
     console.log('Arreglo crudo de resultados del servidor:', resultados);
 
-    this.listaPartidos = partidosFiltro.map((partido: any, index: number) => {
-      const datosLocalServidor = resultados[index].localJugadores;
-      const datosVisitanteServidor = resultados[index].visitanteJugadores;
+ this.listaPartidos = partidosFiltro.map((partido: any, index: number) => {
+  const datosLocalServidor = resultados[index].localJugadores;
+  const datosVisitanteServidor = resultados[index].visitanteJugadores;
 
-      console.log(`[Mapeo Partido ${index + 1}] ${partido.local} vs ${partido.visitante}`);
-      console.log('-> Jugadores Locales desde el servidor:', datosLocalServidor);
-      console.log('-> Jugadores Visitantes desde el servidor:', datosVisitanteServidor);
-
-      return {
-        numeroJornada: 1, 
-        categoria: partido.categoria,
-        local: partido.local,
-        visitante: partido.visitante,
-        campo: this.canchaSeleccionada,
-        hora: partido.horario,
-        
-        // Mapeo exacto de tu JSON anidado
-        jugadoresLocal: datosLocalServidor.map((j: any) => {
-          const id = j.participants?.id || j.id || '';
-          const nombre = j.participants?.name || 'Sin nombre';
-          return { id, dorsal: j.dorsal || '', nombre };
-        }),
-        
-        jugadoresVisitante: datosVisitanteServidor.map((j: any) => {
-          const id = j.participants?.id || j.id || '';
-          const nombre = j.participants?.name || 'Sin nombre';
-          return { id, dorsal: j.dorsal || '', nombre };
-        })
-      };
-    });
+  return {
+    numeroJornada: 1, 
+    categoria: partido.categoria,
+    local: partido.local,
+    visitante: partido.visitante,
+    campo: this.canchaSeleccionada,
+    hora: partido.horario,
+    
+    // Mapeo y ordenamiento para Local
+    jugadoresLocal: datosLocalServidor.map((j: any) => {
+      const id = j.participants?.id || j.id || '';
+      const nombre = j.participants?.name || 'Sin nombre';
+      return { id, dorsal: j.dorsal || '', nombre };
+    }).sort((a: Jugador, b: Jugador) => Number(a.id) - Number(b.id)), // <-- Ordena de menor a mayor
+    
+    // Mapeo y ordenamiento para Visitante
+    jugadoresVisitante: datosVisitanteServidor.map((j: any) => {
+      const id = j.participants?.id || j.id || '';
+      const nombre = j.participants?.name || 'Sin nombre';
+      return { id, dorsal: j.dorsal || '', nombre };
+    }).sort((a: Jugador, b: Jugador) => Number(a.id) - Number(b.id)) // <-- Ordena de menor a mayor
+  };
+});
 
     console.log('=== PROCESO TERMINADO ===');
     console.log('Lista final asignada a "listaPartidos" (Lista que lee el HTML):', this.listaPartidos);
